@@ -1,13 +1,11 @@
-import type { Metadata } from "next"
-import { generateMetadata as generateSEOMetadata } from "@/lib/seo"
+"use client"
+
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, Filter } from "lucide-react"
 import { Project } from "@/types"
 import { projects, projectsByCategory } from "@/data/projects"
-
-export const metadata: Metadata = generateSEOMetadata("portfolio")
 
 function PortfolioClient() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
