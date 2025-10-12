@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { Project } from "@/types"
 import { featuredProjects } from "@/data/projects"
 
 export function PortfolioPreview() {

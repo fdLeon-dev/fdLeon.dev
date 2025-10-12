@@ -4,7 +4,6 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, Filter } from "lucide-react"
-import { Project } from "@/types"
 import { projects, projectsByCategory } from "@/data/projects"
 
 function PortfolioClient() {

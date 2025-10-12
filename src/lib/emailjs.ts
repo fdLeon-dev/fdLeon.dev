@@ -15,7 +15,7 @@ export const initEmailJS = () => {
 }
 
 // Enviar email
-export const sendEmail = async (templateParams: any) => {
+export const sendEmail = async (templateParams: Record<string, string>) => {
   try {
     if (!EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId || !EMAILJS_CONFIG.publicKey) {
       throw new Error('EmailJS no está configurado correctamente')

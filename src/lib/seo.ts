@@ -29,7 +29,7 @@ export const SEO_CONFIG = {
 }
 
 // Generar meta tags para diferentes páginas
-export const generateMetadata = (page: string, customData?: any): Metadata => {
+export const generateMetadata = (page: string): Metadata => {
   const baseUrl = SEO_CONFIG.siteUrl
 
   switch (page) {

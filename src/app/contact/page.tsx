@@ -62,7 +62,7 @@ function ContactClient() {
       } else {
         setSubmitError("Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctame directamente por email.")
       }
-    } catch (error) {
+    } catch {
       setSubmitError("Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctame directamente por email.")
     } finally {
       setIsSubmitting(false)
