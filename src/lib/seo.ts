@@ -1,3 +1,5 @@
+import type { Metadata } from "next"
+
 // Configuración SEO centralizada
 export const SEO_CONFIG = {
   defaultTitle: "fdLeon-dev | Desarrollador Web y Diseñador",
@@ -27,7 +29,7 @@ export const SEO_CONFIG = {
 }
 
 // Generar meta tags para diferentes páginas
-export const generateMetadata = (page: string, customData?: any) => {
+export const generateMetadata = (page: string, customData?: any): Metadata => {
   const baseUrl = SEO_CONFIG.siteUrl
 
   switch (page) {
