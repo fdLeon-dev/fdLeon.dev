@@ -24,12 +24,15 @@ export const projects: Project[] = [
     id: "sistema-gestion-barberia",
     title: "Sistema de Gestión de Barbería",
     description: "Sistema completo de gestión para barbería con reservas online, control de citas, gestión de clientes, inventario y reportes de ventas. Incluye panel de administración y app móvil para clientes.",
-    image: "/multimedia/proyecto2/main.jpg",
+    image: "/multimedia/proyecto2/pagina-principal.png",
     images: [
-      "/multimedia/proyecto2/main.jpg",
-      "/multimedia/proyecto2/booking.jpg",
-      "/multimedia/proyecto2/admin.jpg",
-      "/multimedia/proyecto2/reports.jpg"
+      "/multimedia/proyecto2/pagina-principal.png",
+      "/multimedia/proyecto2/reservar-cita.png",
+      "/multimedia/proyecto2/panel-admin.png",
+      "/multimedia/proyecto2/calendario.png",
+      "/multimedia/proyecto2/admin-login.png",
+      "/multimedia/proyecto2/servicios.png",
+      "/multimedia/proyecto2/Disponibilidad.png"
     ],
     technologies: ["React", "Node.js", "Express", "MongoDB", "JWT", "Socket.io", "Bootstrap"],
     category: "software",
@@ -62,12 +65,12 @@ export const projects: Project[] = [
     id: "ecommerce-plan-ceibal",
     title: "E-commerce Plan Ceibal",
     description: "Proyecto colaborativo desarrollado durante Jóvenes a Programar. E-commerce completo para productos educativos con carrito de compras, sistema de pagos, gestión de usuarios y panel administrativo.",
-    image: "/multimedia/proyecto4/main.jpg",
+    image: "/multimedia/proyecto3/inicio-ecommerce.png",
     images: [
-      "/multimedia/proyecto4/main.jpg",
-      "/multimedia/proyecto4/products.jpg",
-      "/multimedia/proyecto4/checkout.jpg",
-      "/multimedia/proyecto4/admin.jpg"
+      "/multimedia/proyecto3/inicio-ecommerce.png",
+      "/multimedia/proyecto3/categorias.png",
+      "/multimedia/proyecto3/login.png",
+      "/multimedia/proyecto3/vender.png"
     ],
     technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe", "JWT", "Material-UI"],
     category: "web",
@@ -80,12 +83,14 @@ export const projects: Project[] = [
     id: "portafolio-v2",
     title: "Portafolio fdLeon-dev v2.0",
     description: "Segunda versión del portafolio personal desarrollada con React y estilos personalizados. Incluía galería de proyectos, blog integrado y formulario de contacto funcional.",
-    image: "/multimedia/proyecto5/main.jpg",
+    image: "/multimedia/proyecto1/principal.png",
     images: [
-      "/multimedia/proyecto5/main.jpg",
-      "/multimedia/proyecto5/projects.jpg",
-      "/multimedia/proyecto5/blog.jpg",
-      "/multimedia/proyecto5/contact.jpg"
+      "/multimedia/proyecto1/principal.png",
+      "/multimedia/proyecto1/proyectos.png",
+      "/multimedia/proyecto1/blog.png",
+      "/multimedia/proyecto1/contacto.png",
+      "/multimedia/proyecto1/habilidades.png",
+      "/multimedia/proyecto1/sobre-mi.png"
     ],
     technologies: ["React", "JavaScript", "CSS3", "Node.js", "Express", "MongoDB", "Netlify"],
     category: "web",
