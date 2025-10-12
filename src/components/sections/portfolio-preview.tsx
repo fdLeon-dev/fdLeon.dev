@@ -5,39 +5,9 @@ import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Project } from "@/types"
+import { featuredProjects } from "@/data/projects"
 
 export function PortfolioPreview() {
-  const projects: Project[] = [
-    {
-      id: "ecommerce-platform",
-      title: "Plataforma E-commerce",
-      description: "Plataforma de comercio electrónico completa con carrito de compras, pagos integrados y panel de administración.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      id: "dashboard-analytics",
-      title: "Dashboard de Analytics",
-      description: "Dashboard interactivo para análisis de datos con gráficos en tiempo real y exportación de reportes.",
-      image: "/api/placeholder/600/400",
-      technologies: ["React", "D3.js", "Node.js", "MongoDB", "Chart.js"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      id: "mobile-app-ui",
-      title: "App Móvil - UI/UX",
-      description: "Diseño completo de interfaz para aplicación móvil de delivery con prototipado interactivo.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Figma", "Adobe XD", "Principle", "Sketch"],
-      category: "design",
-      liveUrl: "#"
-    }
-  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -88,16 +58,27 @@ export function PortfolioPreview() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {projects.map((project) => (
+          {featuredProjects.map((project) => (
             <motion.div
               key={project.id}
               variants={cardVariants}
               className="group relative overflow-hidden rounded-2xl border bg-card shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full neon-hover neon-bg"
             >
-              <div className="aspect-video overflow-hidden bg-muted">
-                <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl font-bold text-primary/60 mb-2">
+              <div className="aspect-video overflow-hidden bg-muted relative">
+                <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
+                  {/* Imagen del proyecto */}
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                    onError={(e) => {
+                      // Fallback si la imagen no existe
+                      e.currentTarget.style.display = 'none'
+                    }}
+                  />
+                  {/* Overlay con información del proyecto */}
+                  <div className="relative z-10 text-center">
+                    <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
                       {project.title.charAt(0)}
                     </div>
                     <div className="text-xs sm:text-sm text-muted-foreground">

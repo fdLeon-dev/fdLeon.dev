@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
+import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,31 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "fdLeon-dev | Desarrollador Web y Diseñador",
-  description: "Desarrollador web, diseñador y creador de software especializado en soluciones modernas y escalables. Transformo ideas en experiencias digitales excepcionales.",
-  keywords: ["desarrollo web", "diseño web", "software", "programador", "freelancer"],
-  authors: [{ name: "fdLeon-dev" }],
-  creator: "fdLeon-dev",
-  openGraph: {
-    type: "website",
-    locale: "es_ES",
-    url: "https://fdleon.dev",
-    title: "fdLeon-dev | Desarrollador Web y Diseñador",
-    description: "Desarrollador web, diseñador y creador de software especializado en soluciones modernas y escalables.",
-    siteName: "fdLeon-dev",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "fdLeon-dev | Desarrollador Web y Diseñador",
-    description: "Desarrollador web, diseñador y creador de software especializado en soluciones modernas y escalables.",
-    creator: "@fdleon_dev",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata: Metadata = generateSEOMetadata("home");
 
 export default function RootLayout({
   children,
@@ -48,6 +25,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        {/* Google Analytics */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                    page_location: window.location.href,
+                    page_title: document.title,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

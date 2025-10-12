@@ -2,11 +2,15 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image: string; // Imagen principal
+  images?: string[]; // Imágenes adicionales
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
   category: 'web' | 'design' | 'software';
+  featured?: boolean; // Si es un proyecto destacado
+  completed?: string; // Fecha de finalización
+  client?: string; // Cliente (opcional)
 }
 
 export interface Service {

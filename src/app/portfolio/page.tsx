@@ -1,74 +1,16 @@
-"use client"
-
+import type { Metadata } from "next"
+import { generateMetadata as generateSEOMetadata } from "@/lib/seo"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, Filter } from "lucide-react"
 import { Project } from "@/types"
+import { projects, projectsByCategory } from "@/data/projects"
 
-export default function PortfolioPage() {
+export const metadata: Metadata = generateSEOMetadata("portfolio")
+
+function PortfolioClient() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
-
-  const projects: Project[] = [
-    {
-      id: "ecommerce-platform",
-      title: "Plataforma E-commerce",
-      description: "Plataforma completa de comercio electrónico con carrito de compras, integración de pagos con Stripe, panel de administración y sistema de gestión de inventario.",
-      image: "/api/placeholder/800/600",
-      technologies: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL", "TailwindCSS"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      id: "dashboard-analytics",
-      title: "Dashboard de Analytics",
-      description: "Dashboard interactivo para análisis de datos empresariales con gráficos en tiempo real, exportación de reportes y alertas personalizables.",
-      image: "/api/placeholder/800/600",
-      technologies: ["React", "D3.js", "Node.js", "MongoDB", "Chart.js", "Express"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      id: "mobile-app-ui",
-      title: "App Móvil - UI/UX",
-      description: "Diseño completo de interfaz para aplicación móvil de delivery con prototipado interactivo, sistema de diseño y guías de estilo.",
-      image: "/api/placeholder/800/600",
-      technologies: ["Figma", "Adobe XD", "Principle", "Sketch", "After Effects"],
-      category: "design",
-      liveUrl: "#"
-    },
-    {
-      id: "task-management",
-      title: "Sistema de Gestión de Tareas",
-      description: "Aplicación web para gestión de proyectos y tareas con colaboración en tiempo real, notificaciones y seguimiento de progreso.",
-      image: "/api/placeholder/800/600",
-      technologies: ["Vue.js", "Socket.io", "Node.js", "MySQL", "Redis"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      id: "brand-identity",
-      title: "Identidad Corporativa",
-      description: "Diseño completo de identidad visual para startup tecnológica incluyendo logo, paleta de colores, tipografías y aplicaciones.",
-      image: "/api/placeholder/800/600",
-      technologies: ["Adobe Illustrator", "Photoshop", "InDesign", "Figma"],
-      category: "design",
-      liveUrl: "#"
-    },
-    {
-      id: "desktop-app",
-      title: "Aplicación Desktop",
-      description: "Aplicación de escritorio para gestión de inventario con base de datos local, reportes automáticos y sincronización en la nube.",
-      image: "/api/placeholder/800/600",
-      technologies: ["Electron", "React", "SQLite", "Node.js", "TypeScript"],
-      category: "software",
-      liveUrl: "#",
-      githubUrl: "#"
-    }
-  ]
 
   const categories = [
     { id: "all", label: "Todos" },
@@ -79,7 +21,7 @@ export default function PortfolioPage() {
 
   const filteredProjects = selectedCategory === "all"
     ? projects
-    : projects.filter(project => project.category === selectedCategory)
+    : projectsByCategory[selectedCategory as keyof typeof projectsByCategory] || []
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -154,10 +96,21 @@ export default function PortfolioPage() {
                 variants={itemVariants}
                 className="group relative overflow-hidden rounded-2xl border bg-card shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full"
               >
-                <div className="aspect-video overflow-hidden bg-muted">
-                  <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-3xl sm:text-4xl font-bold text-primary/60 mb-2">
+                <div className="aspect-video overflow-hidden bg-muted relative">
+                  <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
+                    {/* Imagen del proyecto */}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                      onError={(e) => {
+                        // Fallback si la imagen no existe
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                    {/* Overlay con información del proyecto */}
+                    <div className="relative z-10 text-center">
+                      <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
                         {project.title.charAt(0)}
                       </div>
                       <div className="text-xs sm:text-sm text-muted-foreground">
@@ -227,4 +180,8 @@ export default function PortfolioPage() {
       </div>
     </div>
   )
+}
+
+export default function PortfolioPage() {
+  return <PortfolioClient />
 }

@@ -31,24 +31,45 @@ export function Hero() {
         >
           <motion.div
             variants={fadeInUp}
-            className="mb-6 sm:mb-8"
+            className="mb-8 sm:mb-12"
           >
-            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
-              Transformo ideas en{" "}
+            <div className="mb-4">
+              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
+                Transformando negocios digitalmente
+              </span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight mb-6">
+              Tu negocio merece{" "}
               <span className="cyber-gradient neon-pulse">
-                experiencias digitales
-              </span>{" "}
-              excepcionales
+                destacar
+              </span>
             </h1>
+            <div className="w-24 h-1 bg-primary mx-auto rounded-full neon-glow"></div>
           </motion.div>
 
-          <motion.p
+          <motion.div
             variants={fadeInUp}
-            className="mx-auto max-w-3xl text-base sm:text-lg lg:text-xl leading-relaxed text-muted-foreground mb-8 sm:mb-12 px-4"
+            className="mx-auto max-w-4xl mb-12"
           >
-            Soy fdLeon-dev, desarrollador web, diseñador y creador de software especializado en
-            soluciones modernas y escalables que impulsan el crecimiento de tu negocio.
-          </motion.p>
+            <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed text-muted-foreground mb-6 font-light">
+              Creo experiencias digitales que <span className="font-semibold text-foreground">impulsan tu marca</span> y
+              <span className="font-semibold text-foreground"> multiplican tus resultados</span>
+            </p>
+            <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-primary rounded-full"></div>
+                <span className="font-medium">+300% Visibilidad</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-primary rounded-full"></div>
+                <span className="font-medium">+150% Conversiones</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-primary rounded-full"></div>
+                <span className="font-medium">100% Responsive</span>
+              </div>
+            </div>
+          </motion.div>
 
           <motion.div
             variants={fadeInUp}
@@ -56,13 +77,13 @@ export function Hero() {
           >
             <Button asChild size="lg" className="group w-full sm:w-auto cyber-button">
               <Link href="#servicios">
-                Ver mis servicios
+                Empezar mi transformación
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto neon-hover neon-border">
               <Link href="/portfolio">
-                Ver portafolio
+                Ver casos de éxito
               </Link>
             </Button>
           </motion.div>
@@ -77,7 +98,7 @@ export function Hero() {
               </div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Desarrollo Web</h3>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Aplicaciones web modernas con React, Next.js y Node.js
+                Sitios web que convierten visitantes en clientes
               </p>
             </div>
 
@@ -87,7 +108,7 @@ export function Hero() {
               </div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Diseño Web</h3>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Interfaces atractivas y funcionales con UX/UI optimizado
+                Diseños que captan atención y generan confianza
               </p>
             </div>
 
@@ -97,7 +118,7 @@ export function Hero() {
               </div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Software</h3>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Soluciones de software personalizadas y escalables
+                Sistemas que automatizan y optimizan tu negocio
               </p>
             </div>
           </motion.div>

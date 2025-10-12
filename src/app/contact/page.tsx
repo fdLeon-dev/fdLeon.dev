@@ -1,12 +1,15 @@
-"use client"
-
-import { useState } from "react"
+import type { Metadata } from "next"
+import { generateMetadata as generateSEOMetadata } from "@/lib/seo"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react"
 import { ContactForm } from "@/types"
+import { initEmailJS, sendEmail } from "@/lib/emailjs"
 
-export default function ContactPage() {
+export const metadata: Metadata = generateSEOMetadata("contact")
+
+function ContactClient() {
   const [formData, setFormData] = useState<ContactForm>({
     name: "",
     email: "",
@@ -15,6 +18,7 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -24,26 +28,47 @@ export default function ContactPage() {
     }))
   }
 
+  // Inicializar EmailJS al cargar el componente
+  useEffect(() => {
+    initEmailJS()
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitError(null)
 
-    // Simular envío de formulario
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: "fdLeon-dev",
+      }
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      const result = await sendEmail(templateParams)
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      })
-    }, 3000)
+      if (result.success) {
+        setIsSubmitted(true)
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false)
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: ""
+          })
+        }, 5000)
+      } else {
+        setSubmitError("Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctame directamente por email.")
+      }
+    } catch (error) {
+      setSubmitError("Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctame directamente por email.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -185,6 +210,28 @@ export default function ContactPage() {
                     Gracias por contactarme. Te responderé pronto.
                   </p>
                 </motion.div>
+              ) : submitError ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-8 sm:py-12"
+                >
+                  <AlertCircle className="h-12 w-12 sm:h-16 sm:w-16 text-red-500 mx-auto mb-4" />
+                  <h3 className="text-lg sm:text-xl font-semibold text-card-foreground mb-2">
+                    Error al enviar
+                  </h3>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                    {submitError}
+                  </p>
+                  <Button
+                    onClick={() => setSubmitError(null)}
+                    variant="outline"
+                    size="sm"
+                    className="neon-hover neon-border"
+                  >
+                    Intentar de nuevo
+                  </Button>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
@@ -278,4 +325,8 @@ export default function ContactPage() {
       </div>
     </div>
   )
+}
+
+export default function ContactPage() {
+  return <ContactClient />
 }
