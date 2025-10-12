@@ -1,13 +1,11 @@
-import type { Metadata } from "next"
-import { generateMetadata as generateSEOMetadata } from "@/lib/seo"
+"use client"
+
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react"
 import { ContactForm } from "@/types"
 import { initEmailJS, sendEmail } from "@/lib/emailjs"
-
-export const metadata: Metadata = generateSEOMetadata("contact")
 
 function ContactClient() {
   const [formData, setFormData] = useState<ContactForm>({
