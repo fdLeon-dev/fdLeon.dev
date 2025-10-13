@@ -12,18 +12,18 @@ export const projects: Project[] = [
       "/multimedia/proyecto1/mobile.jpg",
       "/multimedia/proyecto1/animations.jpg"
     ],
-    technologies: ["Next.js 15", "TypeScript", "TailwindCSS v4", "Framer Motion", "React 19", "next-themes"],
+    technologies: ["Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "React 19", "next-themes", "Vercel"],
     category: "web",
     liveUrl: "https://fdleon.dev",
     githubUrl: "https://github.com/fdleon/fdleon-dev",
-    featured: true,
+    featured: false,
     completed: "2024-12-15",
     client: "Personal"
   },
   {
     id: "sistema-gestion-barberia",
-    title: "Sistema de Gestión de Barbería",
-    description: "Sistema completo de gestión para barbería con reservas online, control de citas, gestión de clientes, inventario y reportes de ventas. Incluye panel de administración y app móvil para clientes.",
+    title: "BLESSED Studio - Sistema de Gestión de Barbería",
+    description: "Sistema completo de gestión para BLESSED Studio con reservas online, control de citas, gestión de clientes, inventario y reportes de ventas. Incluye panel de administración y app móvil para clientes. Barbería premium con servicios especializados.",
     image: "/multimedia/proyecto2/pagina-principal.png",
     images: [
       "/multimedia/proyecto2/pagina-principal.png",
@@ -34,13 +34,13 @@ export const projects: Project[] = [
       "/multimedia/proyecto2/servicios.png",
       "/multimedia/proyecto2/Disponibilidad.png"
     ],
-    technologies: ["React", "Node.js", "Express", "MongoDB", "JWT", "Socket.io", "Bootstrap"],
+    technologies: ["Next.js 13.5.6", "TypeScript", "Supabase", "Tailwind CSS", "Framer Motion", "Resend API"],
     category: "software",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://blessed-studio.vercel.app/",
+    githubUrl: "https://github.com/fdLeon-dev/Barberia-Sistema",
     featured: true,
     completed: "2024-08-15",
-    client: "Barbería Local"
+    client: "BLESSED Studio"
   },
   {
     id: "onix-barberia",
@@ -57,10 +57,10 @@ export const projects: Project[] = [
       "/multimedia/proyecto4/login.png",
       "/multimedia/proyecto4/panel-admin.png"
     ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "jQuery", "PHP", "MySQL"],
+    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Vercel"],
     category: "web",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://onix-web.vercel.app/",
+    githubUrl: "https://github.com/fdLeon-dev/onix-web",
     featured: true,
     completed: "2024-07-10",
     client: "Onix Barbería"
@@ -76,11 +76,11 @@ export const projects: Project[] = [
       "/multimedia/proyecto3/compare.jpg",
       "/multimedia/proyecto3/mobile.jpg"
     ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "jQuery", "PHP", "MySQL"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
     category: "design",
     liveUrl: "#",
     githubUrl: "#",
-    featured: true,
+    featured: false,
     completed: "2024-06-20",
     client: "TechDevices S.A."
   },
@@ -103,9 +103,28 @@ export const projects: Project[] = [
     client: "Plan Ceibal - Jóvenes a Programar"
   },
   {
+    id: "proyecto5-landing",
+    title: "fdLeon.dev - Landing Page Profesional",
+    description: "Landing page moderna y profesional con diseño responsive, sección de servicios destacados, portafolio interactivo y formulario de contacto optimizado. Diseño enfocado en conversión y experiencia de usuario. Sitio web personal optimizado para SEO y performance.",
+    image: "/multimedia/proyecto5/pagina-inicial.png",
+    images: [
+      "/multimedia/proyecto5/pagina-inicial.png",
+      "/multimedia/proyecto5/servicios.png",
+      "/multimedia/proyecto5/portafolio.png",
+      "/multimedia/proyecto5/contacto.png"
+    ],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    category: "web",
+    liveUrl: "#",
+    githubUrl: "https://github.com/fdLeon-dev/fdLeon.dev",
+    featured: true,
+    completed: "2024-05-10",
+    client: "Personal"
+  },
+  {
     id: "portafolio-v2",
     title: "Portafolio fdLeon-dev v2.0",
-    description: "Segunda versión del portafolio personal desarrollada con React y estilos personalizados. Incluía galería de proyectos, blog integrado y formulario de contacto funcional.",
+    description: "Segunda versión del portafolio personal desarrollada con React y estilos personalizados. Incluye galería de proyectos, blog integrado con documentación técnica, sección de habilidades interactiva y formulario de contacto funcional. Diseño responsive con experiencia de usuario optimizada.",
     image: "/multimedia/proyecto1/principal.png",
     images: [
       "/multimedia/proyecto1/principal.png",
@@ -115,10 +134,10 @@ export const projects: Project[] = [
       "/multimedia/proyecto1/habilidades.png",
       "/multimedia/proyecto1/sobre-mi.png"
     ],
-    technologies: ["React", "JavaScript", "CSS3", "Node.js", "Express", "MongoDB", "Netlify"],
+    technologies: ["HTML5", "CSS3", "JavaScript", "GitHub Pages"],
     category: "web",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://fdleon-dev.github.io/Portafolio-2.0/",
+    githubUrl: "https://github.com/fdLeon-dev/Portafolio-2.0",
     completed: "2024-02-15",
     client: "Personal"
   }
