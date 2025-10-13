@@ -43,6 +43,29 @@ export const projects: Project[] = [
     client: "Barbería Local"
   },
   {
+    id: "onix-barberia",
+    title: "Onix Barbería - Landing Page",
+    description: "Landing page profesional para Onix Barbería con diseño moderno y funcionalidades completas. Incluye galería de servicios, reservas online, información de barberos y sistema de contacto integrado.",
+    image: "/multimedia/proyecto4/pincipal.png",
+    images: [
+      "/multimedia/proyecto4/pincipal.png",
+      "/multimedia/proyecto4/servicios.png",
+      "/multimedia/proyecto4/barberos.png",
+      "/multimedia/proyecto4/galeria.png",
+      "/multimedia/proyecto4/reserva.png",
+      "/multimedia/proyecto4/contacto.png",
+      "/multimedia/proyecto4/login.png",
+      "/multimedia/proyecto4/panel-admin.png"
+    ],
+    technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "jQuery", "PHP", "MySQL"],
+    category: "web",
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: true,
+    completed: "2024-07-10",
+    client: "Onix Barbería"
+  },
+  {
     id: "landing-page-devices",
     title: "Landing Page para Devices",
     description: "Landing page moderna y responsive para empresa de dispositivos tecnológicos. Incluye catálogo interactivo, comparador de productos, integración con sistemas de inventario y diseño optimizado para conversión.",

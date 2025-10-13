@@ -11,7 +11,7 @@ multimedia/
 ├── proyecto1/     # Portafolio fdLeon-dev v2.0
 ├── proyecto2/     # Sistema de Gestión de Barbería
 ├── proyecto3/     # E-commerce Plan Ceibal
-├── proyecto4/     # Landing Page para Devices
+├── proyecto4/     # Onix Barbería - Landing Page
 └── proyecto5/     # Portafolio fdLeon-dev v3.0 (actual)
 ```
 
@@ -42,11 +42,15 @@ Para cada proyecto, agrega las siguientes imágenes:
 - `login.png` - Sistema de login/registro
 - `vender.png` - Panel para vendedores
 
-### proyecto4/ (Landing Page para Devices) ⏳ **PENDIENTE**
-- `main.jpg` - Imagen principal de la landing page
-- `catalog.jpg` - Catálogo interactivo de productos
-- `compare.jpg` - Comparador de dispositivos
-- `mobile.jpg` - Versión móvil de la página
+### proyecto4/ (Onix Barbería - Landing Page) ✅ **IMÁGENES DISPONIBLES**
+- `pincipal.png` - Página principal de Onix Barbería
+- `servicios.png` - Sección de servicios
+- `barberos.png` - Información de barberos
+- `galeria.png` - Galería de trabajos
+- `reserva.png` - Sistema de reservas
+- `contacto.png` - Formulario de contacto
+- `login.png` - Sistema de login
+- `panel-admin.png` - Panel de administración
 
 ### proyecto5/ (Portafolio fdLeon-dev v2.0)
 - `main.jpg` - Imagen principal del portafolio v2
