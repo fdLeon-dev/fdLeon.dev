@@ -5,8 +5,8 @@ import { cn } from '@/lib/utils'
 interface OptimizedImageProps {
   src: string
   alt: string
-  width: number
-  height: number
+  width?: number
+  height?: number
   className?: string
   priority?: boolean
   quality?: number
@@ -24,8 +24,8 @@ interface OptimizedImageProps {
 export function OptimizedImage({
   src,
   alt,
-  width,
-  height,
+  width = 800,
+  height = 600,
   className,
   priority = false,
   quality = 85,
