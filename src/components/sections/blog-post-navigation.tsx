@@ -9,7 +9,7 @@ interface BlogPostNavigationProps {
   currentSlug: string
 }
 
-export function BlogPostNavigation({ currentSlug: _currentSlug }: BlogPostNavigationProps) {
+export function BlogPostNavigation({ currentSlug: _ }: BlogPostNavigationProps) {
   const handleNavigationClick = (destination: string) => {
     analytics.trackEvent('blog_navigation', 'engagement', destination)
   }

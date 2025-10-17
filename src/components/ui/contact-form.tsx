@@ -186,7 +186,7 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
         setSubmitError(errorMessage)
         onError?.(errorMessage)
       }
-    } catch (_error) {
+    } catch {
       const errorMessage = "Error de conexión. Por favor, verifica tu conexión a internet e inténtalo de nuevo."
       setSubmitError(errorMessage)
       onError?.(errorMessage)
