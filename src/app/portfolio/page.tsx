@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { OptimizedImage } from "@/components/ui/optimized-image"
+import { ProjectImage } from "@/components/ui/project-image"
 import { ExternalLink, Github, Filter } from "lucide-react"
 import { projects, projectsByCategory } from "@/data/projects"
 
@@ -97,13 +97,11 @@ function PortfolioClient() {
                 <div className="aspect-video overflow-hidden bg-muted relative">
                   <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
                     {/* Imagen del proyecto */}
-                    <OptimizedImage
+                    <ProjectImage
                       src={project.image}
                       alt={project.title}
-                      fill
-                      className="object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-300"
-                      quality={75}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="absolute inset-0 w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                      fallbackText={project.title}
                     />
                     {/* Overlay con información del proyecto */}
                     <div className="relative z-10 text-center">

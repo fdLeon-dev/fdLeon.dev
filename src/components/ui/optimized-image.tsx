@@ -62,12 +62,17 @@ export function OptimizedImage({
     return (
       <div
         className={cn(
-          "flex items-center justify-center bg-muted text-muted-foreground",
+          "flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5 text-primary/60",
           className
         )}
         style={fill ? undefined : { width, height }}
       >
-        <span className="text-sm">Error al cargar imagen</span>
+        <div className="text-center">
+          <div className="text-2xl font-bold mb-1">
+            {alt.charAt(0).toUpperCase()}
+          </div>
+          <span className="text-xs">Imagen no disponible</span>
+        </div>
       </div>
     )
   }
@@ -98,9 +103,16 @@ export function OptimizedImage({
       {/* Loading skeleton */}
       {isLoading && (
         <div
-          className="absolute inset-0 bg-gradient-to-r from-muted via-muted/50 to-muted animate-pulse"
+          className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center"
           style={fill ? undefined : { width, height }}
-        />
+        >
+          <div className="text-center text-primary/60">
+            <div className="text-lg font-bold mb-1">
+              {alt.charAt(0).toUpperCase()}
+            </div>
+            <div className="text-xs animate-pulse">Cargando...</div>
+          </div>
+        </div>
       )}
     </div>
   )

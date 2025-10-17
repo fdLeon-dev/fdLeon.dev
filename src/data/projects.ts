@@ -5,12 +5,14 @@ export const projects: Project[] = [
     id: "portafolio-fdleon-3",
     title: "Portafolio fdLeon-dev v3.0",
     description: "Portafolio personal moderno y profesional construido con Next.js 15, TypeScript y TailwindCSS. Incluye diseño responsive, modo oscuro, animaciones con Framer Motion y optimización SEO completa.",
-    image: "/multimedia/proyecto1/main.jpg",
+    image: "/multimedia/proyecto1/principal.png",
     images: [
-      "/multimedia/proyecto1/main.jpg",
-      "/multimedia/proyecto1/dark-mode.jpg",
-      "/multimedia/proyecto1/mobile.jpg",
-      "/multimedia/proyecto1/animations.jpg"
+      "/multimedia/proyecto1/principal.png",
+      "/multimedia/proyecto1/habilidades.png",
+      "/multimedia/proyecto1/proyectos.png",
+      "/multimedia/proyecto1/blog.png",
+      "/multimedia/proyecto1/contacto.png",
+      "/multimedia/proyecto1/sobre-mi.png"
     ],
     technologies: ["Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "React 19", "next-themes", "Vercel"],
     category: "web",
@@ -69,12 +71,12 @@ export const projects: Project[] = [
     id: "landing-page-devices",
     title: "Landing Page para Devices",
     description: "Landing page moderna y responsive para empresa de dispositivos tecnológicos. Incluye catálogo interactivo, comparador de productos, integración con sistemas de inventario y diseño optimizado para conversión.",
-    image: "/multimedia/proyecto3/main.jpg",
+    image: "/multimedia/proyecto3/inicio-ecommerce.png",
     images: [
-      "/multimedia/proyecto3/main.jpg",
-      "/multimedia/proyecto3/catalog.jpg",
-      "/multimedia/proyecto3/compare.jpg",
-      "/multimedia/proyecto3/mobile.jpg"
+      "/multimedia/proyecto3/inicio-ecommerce.png",
+      "/multimedia/proyecto3/categorias.png",
+      "/multimedia/proyecto3/login.png",
+      "/multimedia/proyecto3/vender.png"
     ],
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
     category: "design",
