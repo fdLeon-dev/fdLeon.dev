@@ -17,8 +17,8 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
 
       // Inicializar gtag básico para evitar errores
       window.dataLayer = window.dataLayer || []
-      window.gtag = window.gtag || function () {
-        window.dataLayer.push(arguments)
+      window.gtag = window.gtag || function (...args: unknown[]) {
+        window.dataLayer.push(args)
       }
     }
   }, [])

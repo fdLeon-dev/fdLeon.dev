@@ -1,8 +1,8 @@
 // Google Analytics 4 utilities
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void
-    dataLayer: any[]
+    gtag: (...args: unknown[]) => void
+    dataLayer: unknown[]
   }
 }
 
@@ -29,7 +29,7 @@ export const initGA = () => {
 
     // Inicializar gtag
     window.dataLayer = window.dataLayer || []
-    window.gtag = function gtag(...args: any[]) {
+    window.gtag = function gtag(...args: unknown[]) {
       window.dataLayer.push(args)
     }
 
@@ -216,8 +216,9 @@ export const trackPerformance = () => {
     // Cumulative Layout Shift
     new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        if (!(entry as any).hadRecentInput) {
-          analytics.trackTimeOnPage(Math.round((entry as any).value * 1000), 'cls')
+        const layoutShiftEntry = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number }
+        if (!layoutShiftEntry.hadRecentInput) {
+          analytics.trackTimeOnPage(Math.round((layoutShiftEntry.value || 0) * 1000), 'cls')
         }
       }
     }).observe({ entryTypes: ['layout-shift'] })

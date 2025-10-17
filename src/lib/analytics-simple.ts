@@ -1,8 +1,8 @@
 // Google Analytics 4 utilities simplificado
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void
-    dataLayer: any[]
+    gtag: (...args: unknown[]) => void
+    dataLayer: unknown[]
   }
 }
 
@@ -29,7 +29,7 @@ export const initGA = () => {
 
     // Inicializar gtag
     window.dataLayer = window.dataLayer || []
-    window.gtag = function gtag(...args: any[]) {
+    window.gtag = function gtag(...args: unknown[]) {
       window.dataLayer.push(args)
     }
 

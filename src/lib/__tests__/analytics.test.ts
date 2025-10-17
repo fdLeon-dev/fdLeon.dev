@@ -3,7 +3,7 @@ import { analytics, trackEvent, trackPageView } from '../analytics'
 
 // Mock window.gtag
 const mockGtag = vi.fn()
-const mockDataLayer: any[] = []
+const mockDataLayer: unknown[] = []
 
 describe('Analytics', () => {
   beforeEach(() => {
@@ -46,7 +46,7 @@ describe('Analytics', () => {
     it('should not call gtag when window is undefined', () => {
       // Mock window as undefined
       const originalWindow = global.window
-      // @ts-ignore
+      // @ts-expect-error - Deleting window property for testing
       delete global.window
 
       trackEvent('test_action', 'test_category')

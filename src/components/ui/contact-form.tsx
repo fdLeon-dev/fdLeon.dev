@@ -186,7 +186,7 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
         setSubmitError(errorMessage)
         onError?.(errorMessage)
       }
-    } catch (error) {
+    } catch (_error) {
       const errorMessage = "Error de conexión. Por favor, verifica tu conexión a internet e inténtalo de nuevo."
       setSubmitError(errorMessage)
       onError?.(errorMessage)
@@ -282,8 +282,8 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
             aria-describedby={errors.name ? "name-error" : undefined}
             aria-invalid={errors.name ? "true" : "false"}
             className={`w-full rounded-lg border px-3 sm:px-4 py-2 sm:py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.name
-                ? "border-red-500 bg-red-50 dark:bg-red-950"
-                : "border-input bg-background"
+              ? "border-red-500 bg-red-50 dark:bg-red-950"
+              : "border-input bg-background"
               }`}
             placeholder="Tu nombre completo"
           />
@@ -312,8 +312,8 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
             aria-describedby={errors.email ? "email-error" : undefined}
             aria-invalid={errors.email ? "true" : "false"}
             className={`w-full rounded-lg border px-3 sm:px-4 py-2 sm:py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.email
-                ? "border-red-500 bg-red-50 dark:bg-red-950"
-                : "border-input bg-background"
+              ? "border-red-500 bg-red-50 dark:bg-red-950"
+              : "border-input bg-background"
               }`}
             placeholder="tu@email.com"
           />
@@ -344,8 +344,8 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
           aria-describedby={errors.subject ? "subject-error" : undefined}
           aria-invalid={errors.subject ? "true" : "false"}
           className={`w-full rounded-lg border px-3 sm:px-4 py-2 sm:py-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${errors.subject
-              ? "border-red-500 bg-red-50 dark:bg-red-950"
-              : "border-input bg-background"
+            ? "border-red-500 bg-red-50 dark:bg-red-950"
+            : "border-input bg-background"
             }`}
           placeholder="¿En qué puedo ayudarte?"
         />
@@ -375,8 +375,8 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
           aria-describedby={errors.message ? "message-error" : "message-help"}
           aria-invalid={errors.message ? "true" : "false"}
           className={`w-full rounded-lg border px-3 sm:px-4 py-2 sm:py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none ${errors.message
-              ? "border-red-500 bg-red-50 dark:bg-red-950"
-              : "border-input bg-background"
+            ? "border-red-500 bg-red-50 dark:bg-red-950"
+            : "border-input bg-background"
             }`}
           placeholder="Cuéntame sobre tu proyecto, ideas o cualquier consulta que tengas..."
         />

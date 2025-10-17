@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getPostBySlug, getAllTags } from '@/data/blog-posts'
+import { getPostBySlug } from '@/data/blog-posts'
+import Link from 'next/link'
 import { BlogPostContent } from '@/components/sections/blog-post-content'
 import { BlogPostNavigation } from '@/components/sections/blog-post-navigation'
 
@@ -69,15 +70,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
               <li>
-                <a href="/" className="hover:text-foreground transition-colors">
+                <Link href="/" className="hover:text-foreground transition-colors">
                   Inicio
-                </a>
+                </Link>
               </li>
               <li>/</li>
               <li>
-                <a href="/blog" className="hover:text-foreground transition-colors">
+                <Link href="/blog" className="hover:text-foreground transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>/</li>
               <li className="text-foreground font-medium" aria-current="page">

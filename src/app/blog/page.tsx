@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { BlogPreview } from '@/components/sections/blog-preview'
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo'
 
