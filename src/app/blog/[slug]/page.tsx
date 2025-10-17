@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     title: post.seo.metaTitle,
     description: post.seo.metaDescription,
     keywords: post.seo.keywords,
-    authors: [{ name: post.author.name, email: post.author.email }],
+    authors: [{ name: post.author.name }],
     openGraph: {
       title: post.seo.metaTitle,
       description: post.seo.metaDescription,
