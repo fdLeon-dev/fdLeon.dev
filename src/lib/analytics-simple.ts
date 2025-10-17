@@ -18,8 +18,8 @@ export const initGA = () => {
   if (!GA_TRACKING_ID || typeof window === 'undefined' || typeof document === 'undefined') return
 
   try {
-    // Verificar si ya está inicializado
-    if (window.gtag) return
+    // Verificar si ya está inicializado (comprobar si dataLayer tiene elementos)
+    if (window.dataLayer && window.dataLayer.length > 0) return
 
     // Cargar el script de Google Analytics
     const script = document.createElement('script')
