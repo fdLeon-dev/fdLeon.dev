@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Calendar, Clock, ArrowRight, Tag } from "lucide-react"
 import { getRecentPosts, getAllTags, getAllCategories } from "@/data/blog-posts"
+import { analytics } from "@/lib/analytics"
+
 export function BlogPreview() {
   const recentPosts = getRecentPosts(3)
   const allTags = getAllTags()
@@ -31,18 +33,15 @@ export function BlogPreview() {
   }
 
   const handlePostClick = (postTitle: string) => {
-    // TODO: Agregar tracking cuando analytics esté configurado
-    console.log('Blog post clicked:', postTitle)
+    analytics.trackEvent('blog_post_click', 'engagement', postTitle)
   }
 
   const handleTagClick = (tag: string) => {
-    // TODO: Agregar tracking cuando analytics esté configurado
-    console.log('Blog tag clicked:', tag)
+    analytics.trackEvent('blog_tag_click', 'engagement', tag)
   }
 
   const handleCategoryClick = (category: string) => {
-    // TODO: Agregar tracking cuando analytics esté configurado
-    console.log('Blog category clicked:', category)
+    analytics.trackEvent('blog_category_click', 'engagement', category)
   }
 
   return (

@@ -6,14 +6,16 @@ import { OptimizedImage } from "@/components/ui/optimized-image"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { featuredProjects } from "@/data/projects"
+import { analytics } from "@/lib/analytics"
+
 export function PortfolioPreview() {
-  // Handlers para tracking (temporalmente deshabilitado)
+  // Handlers para tracking
   const handleProjectClick = (projectName: string, linkType: 'live' | 'github') => {
-    console.log('Project clicked:', projectName, linkType)
+    analytics.trackProjectClick(projectName, linkType)
   }
 
   const handleViewAllProjects = () => {
-    console.log('View all projects clicked')
+    analytics.trackNavigation('portfolio')
   }
 
   const containerVariants = {

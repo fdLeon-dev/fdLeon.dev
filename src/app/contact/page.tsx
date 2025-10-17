@@ -5,12 +5,27 @@ import { ContactForm } from "@/components/ui/contact-form"
 import { Mail, Phone, MapPin } from "lucide-react"
 
 function ContactClient() {
-  // Handlers para el formulario (temporalmente simplificados)
+  // Handlers para el formulario
   const handleFormSuccess = () => {
-    console.log('Formulario enviado exitosamente')
+    // Analytics event para conversión exitosa
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'contact_form_success', {
+        event_category: 'engagement',
+        event_label: 'contact_form',
+        value: 1
+      })
+    }
   }
 
   const handleFormError = (error: string) => {
+    // Analytics event para error en formulario
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'contact_form_error', {
+        event_category: 'engagement',
+        event_label: 'contact_form_error',
+        value: 0
+      })
+    }
     console.error('Error en formulario de contacto:', error)
   }
 

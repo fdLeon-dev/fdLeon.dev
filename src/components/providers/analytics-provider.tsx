@@ -1,26 +1,22 @@
 "use client"
 
 import { useEffect } from "react"
+import { initGA, trackPerformance } from "@/lib/analytics"
 
 interface AnalyticsProviderProps {
   children: React.ReactNode
 }
 
 /**
- * Provider para analytics con valores temporales
+ * Provider para inicializar Google Analytics
  */
 export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
   useEffect(() => {
-    // Solo inicializar en el cliente
-    if (typeof window !== 'undefined') {
-      console.log('Analytics inicializado con valores temporales')
+    // Inicializar Google Analytics
+    initGA()
 
-      // Inicializar gtag básico para evitar errores
-      window.dataLayer = window.dataLayer || []
-      window.gtag = window.gtag || function (...args: unknown[]) {
-        window.dataLayer.push(args)
-      }
-    }
+    // Inicializar tracking de performance
+    trackPerformance()
   }, [])
 
   return <>{children}</>

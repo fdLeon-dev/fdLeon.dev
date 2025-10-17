@@ -3,15 +3,17 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { analytics } from "@/lib/analytics"
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
 
   const handleThemeToggle = () => {
     const newTheme = theme === "dark" ? "light" : "dark"
     setTheme(newTheme)
-    
-    // TODO: Agregar tracking de analytics cuando esté configurado
-    console.log('Theme changed to:', newTheme)
+
+    // Track theme change
+    analytics.trackThemeToggle(newTheme as 'light' | 'dark')
   }
 
   return (

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Home } from "lucide-react"
+import { analytics } from "@/lib/analytics"
+
 interface BlogPostNavigationProps {
   currentSlug: string
 }
@@ -11,8 +13,7 @@ export function BlogPostNavigation({ currentSlug }: BlogPostNavigationProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _ = currentSlug
   const handleNavigationClick = (destination: string) => {
-    // TODO: Agregar tracking cuando analytics esté configurado
-    console.log('Navigation clicked:', destination)
+    analytics.trackEvent('blog_navigation', 'engagement', destination)
   }
 
   return (
