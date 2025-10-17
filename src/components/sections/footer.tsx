@@ -90,7 +90,7 @@ export function Footer() {
 
         <div className="mt-8 sm:mt-12 border-t pt-6 sm:pt-8">
           <p className="text-center text-xs sm:text-sm text-muted-foreground">
-            © 2024 fdLeon-dev. Todos los derechos reservados.
+            © 2025 fdLeon-dev. Todos los derechos reservados.
           </p>
         </div>
       </div>

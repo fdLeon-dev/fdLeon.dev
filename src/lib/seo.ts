@@ -94,6 +94,29 @@ export const generateMetadata = (page: string): Metadata => {
         },
       }
 
+    case "blog":
+      return {
+        title: "Blog | fdLeon-dev - Artículos sobre Desarrollo Web",
+        description: "Artículos sobre desarrollo web, diseño, programación y las últimas tendencias tecnológicas. Tutoriales, mejores prácticas y consejos para desarrolladores.",
+        keywords: [...SEO_CONFIG.defaultKeywords, "blog", "artículos", "tutoriales", "programación", "desarrollo web", "mejores prácticas"],
+        openGraph: {
+          title: "Blog | fdLeon-dev - Artículos sobre Desarrollo Web",
+          description: "Artículos sobre desarrollo web, diseño y programación",
+          url: `${baseUrl}/blog`,
+          type: "website",
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: "Blog | fdLeon-dev",
+          description: "Artículos sobre desarrollo web, diseño y programación",
+        },
+        alternates: {
+          types: {
+            'application/rss+xml': `${baseUrl}/rss.xml`,
+          },
+        },
+      }
+
     default:
       return generateMetadata("home")
   }

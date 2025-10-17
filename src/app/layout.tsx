@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
+// import { AnalyticsProvider } from "@/components/providers/analytics-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -42,6 +43,10 @@ export default function RootLayout({
                   gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
                     page_location: window.location.href,
                     page_title: document.title,
+                    send_page_view: true,
+                    anonymize_ip: true,
+                    allow_google_signals: false,
+                    allow_ad_personalization_signals: false
                   });
                 `,
               }}

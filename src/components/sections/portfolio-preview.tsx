@@ -2,11 +2,19 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { OptimizedImage } from "@/components/ui/optimized-image"
 import { ExternalLink, Github, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { featuredProjects } from "@/data/projects"
-
 export function PortfolioPreview() {
+  // Handlers para tracking (temporalmente deshabilitado)
+  const handleProjectClick = (projectName: string, linkType: 'live' | 'github') => {
+    console.log('Project clicked:', projectName, linkType)
+  }
+
+  const handleViewAllProjects = () => {
+    console.log('View all projects clicked')
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -65,15 +73,16 @@ export function PortfolioPreview() {
             >
               <div className="aspect-video overflow-hidden bg-muted relative">
                 <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
-                  {/* Imagen del proyecto */}
-                  <img
+                  {/* Imagen optimizada del proyecto */}
+                  <OptimizedImage
                     src={project.image}
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-300"
-                    onError={(e) => {
-                      // Fallback si la imagen no existe
-                      e.currentTarget.style.display = 'none'
-                    }}
+                    alt={`Imagen del proyecto ${project.title}`}
+                    width={400}
+                    height={225}
+                    fill
+                    className="object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                    quality={75}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   {/* Overlay con información del proyecto */}
                   <div className="relative z-10 text-center">
@@ -112,7 +121,12 @@ export function PortfolioPreview() {
                   <div className="flex flex-wrap gap-2">
                     {project.liveUrl && (
                       <Button size="sm" variant="outline" asChild className="text-xs sm:text-sm neon-hover neon-border">
-                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => handleProjectClick(project.title, 'live')}
+                        >
                           <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                           Live
                         </a>
@@ -120,7 +134,12 @@ export function PortfolioPreview() {
                     )}
                     {project.githubUrl && (
                       <Button size="sm" variant="outline" asChild className="text-xs sm:text-sm neon-hover neon-border">
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => handleProjectClick(project.title, 'github')}
+                        >
                           <Github className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                           Code
                         </a>
@@ -141,7 +160,7 @@ export function PortfolioPreview() {
           viewport={{ once: true }}
         >
           <Button asChild size="lg" variant="outline" className="group w-full sm:w-auto neon-hover neon-border">
-            <Link href="/portfolio">
+            <Link href="/portfolio" onClick={handleViewAllProjects}>
               Ver todos los proyectos
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
