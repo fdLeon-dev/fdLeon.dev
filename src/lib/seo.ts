@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 // Configuración SEO centralizada
 export const SEO_CONFIG = {
   defaultTitle: "fdLeon-dev | Desarrollador Web y Diseñador",
-  defaultDescription: "Desarrollador web, diseñador y creador de software especializado en transformar negocios a través de soluciones digitales modernas que aumentan tu visibilidad y potencian tus ventas.",
+  defaultDescription: "Desarrollador web, diseñador y creador de software especializado en transformar negocios a través de soluciones digitales modernas. Portfolio actualizado en 2025 con las últimas tecnologías.",
   defaultKeywords: [
     "desarrollo web",
     "diseñador web",

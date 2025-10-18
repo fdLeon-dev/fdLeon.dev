@@ -1,6 +1,6 @@
-# fdLeon-dev Portfolio
+# fdLeon-dev Portfolio v2.0
 
-Portfolio personal moderno y profesional construido con Next.js 15, TailwindCSS y TypeScript.
+Portfolio personal moderno y profesional construido con Next.js 15, TailwindCSS y TypeScript. Actualizado y optimizado en enero 2025.
 
 ## 🚀 Características
 
@@ -138,6 +138,26 @@ Este proyecto es de uso personal. Todos los derechos reservados.
 - **Website**: https://fdleon.dev
 - **GitHub**: https://github.com/fdleon
 
+## 📝 Changelog
+
+### v2.0.0 (Enero 2025)
+- ✨ **Nuevo**: Sistema de blog completo con artículos técnicos
+- 🖼️ **Nuevo**: Imágenes optimizadas para proyectos y artículos
+- 🔧 **Mejorado**: Sistema de analytics con Google Analytics 4
+- 📧 **Nuevo**: Formulario de contacto funcional con EmailJS
+- 🧪 **Nuevo**: Suite de testing con Vitest y Testing Library
+- ⚡ **Optimizado**: Performance mejorada con lazy loading y caching
+- 🎨 **Nuevo**: Componentes UI reutilizables y optimizados
+- 📱 **Mejorado**: Responsive design para todos los dispositivos
+- 🔒 **Nuevo**: Configuración de seguridad y headers optimizados
+- 📊 **Nuevo**: SEO avanzado con sitemap dinámico y metadata
+
+### v1.0.0 (Diciembre 2024)
+- 🚀 **Lanzamiento inicial** del portfolio
+- 🎨 **Diseño base** con Next.js 15 y TailwindCSS
+- 📱 **Responsive design** básico
+- 🌙 **Modo oscuro** implementado
+
 ---
 
-Desarrollado con ❤️ por fdLeon-dev
+Desarrollado con ❤️ por fdLeon-dev | Actualizado en enero 2025

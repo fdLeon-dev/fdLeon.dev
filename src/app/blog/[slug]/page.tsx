@@ -1,9 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getPostBySlug } from '@/data/blog-posts'
 import Link from 'next/link'
-import { BlogPostContent } from '@/components/sections/blog-post-content'
-import { BlogPostNavigation } from '@/components/sections/blog-post-navigation'
+import { getPostBySlug } from '@/data/blog-posts'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -32,7 +30,6 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       description: post.seo.metaDescription,
       type: 'article',
       publishedTime: post.publishedAt,
-      modifiedTime: post.updatedAt,
       authors: [post.author.name],
       tags: post.tags,
     },
@@ -47,15 +44,6 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export async function generateStaticParams() {
-  // En una implementación real, esto vendría de una base de datos o CMS
-  const slugs = ['nextjs-15-features', 'tailwindcss-v4-guide', 'typescript-best-practices', 'performance-optimization-web']
-
-  return slugs.map((slug) => ({
-    slug,
-  }))
-}
-
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
   const post = getPostBySlug(slug)
@@ -65,8 +53,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="py-12 sm:py-20 lg:py-32">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mx-auto max-w-4xl">
           {/* Breadcrumb */}
           <nav className="mb-8" aria-label="Breadcrumb">
@@ -118,9 +106,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     day: 'numeric'
                   })}
                 </time>
-                <span>{post.readingTime} min de lectura</span>
+                <div className="flex items-center gap-1">
+                  <span>⏱️</span>
+                  <span>{post.readingTime} min de lectura</span>
+                </div>
               </div>
-
               {post.updatedAt && (
                 <div className="text-xs">
                   Actualizado: {new Date(post.updatedAt).toLocaleDateString('es-ES')}
@@ -129,8 +119,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </header>
 
+          {/* Featured Image */}
+          {post.featuredImage && (
+            <div className="mb-8 sm:mb-12">
+              <div className="aspect-video overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={post.featuredImage}
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/blog/placeholder.svg'
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
           {/* Article Content */}
-          <BlogPostContent post={post} />
+          <div className="prose prose-lg max-w-none">
+            <div className="whitespace-pre-wrap text-foreground leading-relaxed">
+              {post.content}
+            </div>
+          </div>
 
           {/* Tags */}
           <div className="mt-8 pt-8 border-t">
@@ -139,30 +150,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block px-3 py-1 rounded-full bg-muted text-muted-foreground text-sm hover:bg-muted/80 transition-colors"
+                  className="px-3 py-1 rounded-full bg-muted text-muted-foreground text-sm"
                 >
-                  #{tag}
+                  {tag}
                 </span>
               ))}
             </div>
           </div>
 
           {/* Navigation */}
-          <BlogPostNavigation currentSlug={post.slug} />
-
-          {/* Related Posts */}
           <div className="mt-12 pt-8 border-t">
-            <h3 className="text-xl font-bold text-foreground mb-6">Artículos Relacionados</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Aquí irían posts relacionados */}
-              <div className="rounded-lg border bg-card p-6">
-                <h4 className="font-semibold text-card-foreground mb-2">
-                  Próximamente: Más artículos
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Estamos preparando más contenido interesante para ti.
-                </p>
-              </div>
+            <div className="flex justify-between items-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              >
+                ← Volver al Blog
+              </Link>
             </div>
           </div>
         </div>
@@ -170,4 +174,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </div>
   )
 }
-

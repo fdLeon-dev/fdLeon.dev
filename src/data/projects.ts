@@ -19,7 +19,7 @@ export const projects: Project[] = [
     liveUrl: "https://fdleon.dev",
     githubUrl: "https://github.com/fdleon/fdleon-dev",
     featured: false,
-    completed: "2024-12-15",
+    completed: "2025-01-17",
     client: "Personal"
   },
   {
@@ -71,12 +71,9 @@ export const projects: Project[] = [
     id: "landing-page-devices",
     title: "Landing Page para Devices",
     description: "Landing page moderna y responsive para empresa de dispositivos tecnológicos. Incluye catálogo interactivo, comparador de productos, integración con sistemas de inventario y diseño optimizado para conversión.",
-    image: "/multimedia/proyecto3/inicio-ecommerce.png",
+    image: "/multimedia/proyecto6/pagina.png",
     images: [
-      "/multimedia/proyecto3/inicio-ecommerce.png",
-      "/multimedia/proyecto3/categorias.png",
-      "/multimedia/proyecto3/login.png",
-      "/multimedia/proyecto3/vender.png"
+      "/multimedia/proyecto6/pagina.png"
     ],
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
     category: "design",
@@ -97,10 +94,10 @@ export const projects: Project[] = [
       "/multimedia/proyecto3/login.png",
       "/multimedia/proyecto3/vender.png"
     ],
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe", "JWT", "Material-UI"],
+    technologies: ["HTML5", "CSS3", "Bootstrap", "JavaScript", "GitHub Pages"],
     category: "web",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://andresmgm0.github.io/proyecto-final/index.html",
+    githubUrl: "https://github.com/andresmgm0/proyecto-final",
     completed: "2024-04-30",
     client: "Plan Ceibal - Jóvenes a Programar"
   },

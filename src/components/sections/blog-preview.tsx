@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Calendar, Clock, ArrowRight, Tag } from "lucide-react"
 import { getRecentPosts, getAllTags, getAllCategories } from "@/data/blog-posts"
 import { trackEvent } from "@/lib/analytics"
+import { BlogImage } from "@/components/ui/blog-image"
 
 export function BlogPreview() {
   const recentPosts = getRecentPosts(3)
@@ -33,15 +34,27 @@ export function BlogPreview() {
   }
 
   const handlePostClick = (postTitle: string) => {
-    trackEvent('blog_post_click', 'engagement', postTitle)
+    try {
+      trackEvent('blog_post_click', 'engagement', postTitle)
+    } catch (error) {
+      console.warn('Error tracking post click:', error)
+    }
   }
 
   const handleTagClick = (tag: string) => {
-    trackEvent('blog_tag_click', 'engagement', tag)
+    try {
+      trackEvent('blog_tag_click', 'engagement', tag)
+    } catch (error) {
+      console.warn('Error tracking tag click:', error)
+    }
   }
 
   const handleCategoryClick = (category: string) => {
-    trackEvent('blog_category_click', 'engagement', category)
+    try {
+      trackEvent('blog_category_click', 'engagement', category)
+    } catch (error) {
+      console.warn('Error tracking category click:', error)
+    }
   }
 
   return (
@@ -60,18 +73,27 @@ export function BlogPreview() {
               variants={itemVariants}
               className="group relative overflow-hidden rounded-2xl border bg-card shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full neon-hover neon-bg"
             >
-              {/* Featured Image Placeholder */}
+              {/* Featured Image */}
               <div className="aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
-                      {post.title.charAt(0)}
-                    </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">
-                      {post.category}
+                {post.featuredImage ? (
+                  <BlogImage
+                    src={post.featuredImage}
+                    alt={post.title}
+                    className="absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    fallbackText={post.category}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
+                        {post.title.charAt(0)}
+                      </div>
+                      <div className="text-xs sm:text-sm text-muted-foreground">
+                        {post.category}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className="p-4 sm:p-6 flex flex-col flex-grow">

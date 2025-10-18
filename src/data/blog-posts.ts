@@ -48,16 +48,17 @@ Nuevas optimizaciones automáticas para imágenes con mejor soporte para WebP y 
 ## Conclusión
 
 Next.js 15 representa un paso importante hacia un desarrollo web más eficiente y moderno.`,
-    publishedAt: "2024-12-15T10:00:00Z",
+    publishedAt: "2025-01-17T10:00:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["Next.js", "React", "JavaScript", "Web Development"],
     category: "Tutorial",
+    featuredImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&auto=format",
     readingTime: 8,
     seo: {
-      metaTitle: "Nuevas Características de Next.js 15: Guía Completa 2024",
+      metaTitle: "Nuevas Características de Next.js 15: Guía Completa 2025",
       metaDescription: "Descubre las nuevas características de Next.js 15, incluyendo Turbopack mejorado, App Router estabilizado y optimizaciones de performance.",
       keywords: ["Next.js 15", "React", "JavaScript", "Web Development", "Tutorial"]
     },
@@ -93,16 +94,17 @@ Más utilidades CSS para cubrir casos de uso comunes.
 ## Conclusión
 
 TailwindCSS v4 es una herramienta poderosa para crear interfaces modernas y eficientes.`,
-    publishedAt: "2024-12-10T14:30:00Z",
+    publishedAt: "2025-01-16T14:30:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["TailwindCSS", "CSS", "Frontend", "Design System"],
     category: "Tutorial",
+    featuredImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop&auto=format",
     readingTime: 12,
     seo: {
-      metaTitle: "TailwindCSS v4: Guía Completa y Mejores Prácticas 2024",
+      metaTitle: "TailwindCSS v4: Guía Completa y Mejores Prácticas 2025",
       metaDescription: "Aprende todo sobre TailwindCSS v4, sus nuevas características, mejoras de performance y mejores prácticas para desarrollo frontend.",
       keywords: ["TailwindCSS v4", "CSS", "Frontend", "Design System", "Tutorial"]
     },
@@ -138,13 +140,14 @@ Uso de tipos estrictos para evitar errores en runtime.
 ## Conclusión
 
 TypeScript mejora significativamente la calidad y mantenibilidad del código.`,
-    publishedAt: "2024-12-05T09:15:00Z",
+    publishedAt: "2025-01-15T09:15:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["TypeScript", "JavaScript", "Web Development", "Best Practices"],
     category: "Tutorial",
+    featuredImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop&auto=format",
     readingTime: 15,
     seo: {
       metaTitle: "TypeScript Mejores Prácticas: Guía Completa para Desarrollo Web",
@@ -189,16 +192,17 @@ Mide la estabilidad visual.
 ## Conclusión
 
 La optimización de performance es un proceso continuo que requiere monitoreo constante.`,
-    publishedAt: "2024-11-28T16:45:00Z",
+    publishedAt: "2025-01-14T16:45:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["Performance", "Web Development", "Optimization", "Core Web Vitals"],
     category: "Tutorial",
+    featuredImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format",
     readingTime: 20,
     seo: {
-      metaTitle: "Optimización de Performance Web: Guía Completa 2024",
+      metaTitle: "Optimización de Performance Web: Guía Completa 2025",
       metaDescription: "Aprende a optimizar la performance web con esta guía completa. Core Web Vitals, técnicas de optimización y herramientas de medición.",
       keywords: ["Web Performance", "Core Web Vitals", "Optimization", "Web Development", "Lighthouse"]
     },

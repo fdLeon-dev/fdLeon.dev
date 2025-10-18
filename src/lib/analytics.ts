@@ -1,8 +1,8 @@
 // Google Analytics 4 utilities
 declare global {
   interface Window {
-    gtag: (...args: unknown[]) => void
-    dataLayer: unknown[]
+    gtag?: (...args: unknown[]) => void
+    dataLayer?: unknown[]
   }
 }
 
@@ -15,11 +15,25 @@ export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
  * Inicializar Google Analytics
  */
 export const initGA = () => {
-  if (!GA_TRACKING_ID || typeof window === 'undefined' || typeof document === 'undefined') return
+  if (!GA_TRACKING_ID || typeof window === 'undefined' || typeof document === 'undefined') {
+    return
+  }
 
   try {
-    // Verificar si ya está inicializado (comprobar si dataLayer tiene elementos)
-    if (window.dataLayer && window.dataLayer.length > 0) return
+    // Verificar si ya está inicializado
+    if (window.dataLayer && window.dataLayer.length > 0) {
+      return
+    }
+
+    // Inicializar dataLayer
+    window.dataLayer = window.dataLayer || []
+
+    // Definir gtag de forma segura
+    window.gtag = function gtag(...args: unknown[]) {
+      if (window.dataLayer) {
+        window.dataLayer.push(args)
+      }
+    }
 
     // Cargar el script de Google Analytics
     const script = document.createElement('script')
@@ -27,18 +41,15 @@ export const initGA = () => {
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`
     document.head.appendChild(script)
 
-    // Inicializar gtag
-    window.dataLayer = window.dataLayer || []
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer.push(args)
+    // Configurar gtag
+    if (window.gtag) {
+      window.gtag('js', new Date())
+      window.gtag('config', GA_TRACKING_ID, {
+        page_location: window.location.href,
+        page_title: document.title,
+        send_page_view: true,
+      })
     }
-
-    window.gtag('js', new Date())
-    window.gtag('config', GA_TRACKING_ID, {
-      page_location: window.location.href,
-      page_title: document.title,
-      send_page_view: true,
-    })
   } catch (error) {
     console.warn('Error inicializando Google Analytics:', error)
   }
@@ -53,12 +64,16 @@ export const trackEvent = (
   label?: string,
   value?: number
 ) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', action, {
-      event_category: category,
-      event_label: label,
-      value: value,
-    })
+  try {
+    if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
+      window.gtag('event', action, {
+        event_category: category,
+        event_label: label,
+        value: value,
+      })
+    }
+  } catch (error) {
+    console.warn('Error tracking event:', error)
   }
 }
 
@@ -66,11 +81,15 @@ export const trackEvent = (
  * Enviar evento de página vista
  */
 export const trackPageView = (url: string, title?: string) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', GA_TRACKING_ID!, {
-      page_location: url,
-      page_title: title || document.title,
-    })
+  try {
+    if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
+      window.gtag('config', GA_TRACKING_ID!, {
+        page_location: url,
+        page_title: title || document.title,
+      })
+    }
+  } catch (error) {
+    console.warn('Error tracking page view:', error)
   }
 }
 
