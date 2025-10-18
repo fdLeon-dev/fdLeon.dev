@@ -33,19 +33,19 @@ function ContactClient() {
     {
       icon: Mail,
       title: "Email",
-      content: "contact@fdleon.dev",
-      href: "mailto:contact@fdleon.dev"
+      content: "facudeleon92@gmail.com",
+      href: "mailto:facudeleon92@gmail.com"
     },
     {
       icon: Phone,
       title: "Teléfono",
-      content: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      content: "+598 92 803 418",
+      href: "tel:+59892803418"
     },
     {
       icon: MapPin,
       title: "Ubicación",
-      content: "Ciudad, País",
+      content: "Montevideo, Uruguay",
       href: "#"
     }
   ]

@@ -241,7 +241,7 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
             Intentar de nuevo
           </Button>
           <Button
-            onClick={() => window.location.href = 'mailto:contact@fdleon.dev'}
+            onClick={() => window.location.href = 'mailto:facudeleon92@gmail.com'}
             variant="outline"
             size="sm"
             className="neon-hover neon-border"

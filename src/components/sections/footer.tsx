@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { Github, Linkedin, Mail, Instagram } from "lucide-react"
 
 export function Footer() {
   const socialLinks = [
-    { name: "GitHub", href: "https://github.com", icon: Github },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: Linkedin },
-    { name: "Twitter", href: "https://twitter.com", icon: Twitter },
-    { name: "Email", href: "mailto:contact@fdleon.dev", icon: Mail },
+    { name: "GitHub", href: "https://github.com/fdLeon-dev", icon: Github },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/facundo-de-leon-/", icon: Linkedin },
+    { name: "Instagram", href: "https://www.instagram.com/facu__dl/", icon: Instagram },
+    { name: "Email", href: "mailto:facudeleon92@gmail.com", icon: Mail },
   ]
 
   return (
