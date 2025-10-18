@@ -59,7 +59,7 @@ export const projects: Project[] = [
       "/multimedia/proyecto4/login.png",
       "/multimedia/proyecto4/panel-admin.png"
     ],
-    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Vercel"],
+    technologies: ["React", "Vite", "JavaScript", "CSS3", "Vercel"],
     category: "web",
     liveUrl: "https://onix-web.vercel.app/",
     githubUrl: "https://github.com/fdLeon-dev/onix-web",
@@ -69,19 +69,19 @@ export const projects: Project[] = [
   },
   {
     id: "landing-page-devices",
-    title: "Landing Page para Devices",
-    description: "Landing page moderna y responsive para empresa de dispositivos tecnológicos. Incluye catálogo interactivo, comparador de productos, integración con sistemas de inventario y diseño optimizado para conversión.",
+    title: "Devices F2 - Servicio Técnico",
+    description: "Sitio web moderno y profesional para servicio técnico de reparación y ensamblaje de computadoras. Incluye formulario de cotización con WhatsApp, galería de trabajos, modo oscuro/claro, diseño responsive y optimizado para SEO. PWA ready con lazy loading de imágenes.",
     image: "/multimedia/proyecto6/pagina.png",
     images: [
       "/multimedia/proyecto6/pagina.png"
     ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
-    category: "design",
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false,
+    technologies: ["HTML5", "CSS3", "JavaScript", "Google Analytics"],
+    category: "web",
+    liveUrl: "https://fdleon-dev.github.io/devices/",
+    githubUrl: "https://github.com/fdLeon-dev/devices",
+    featured: true,
     completed: "2024-06-20",
-    client: "TechDevices S.A."
+    client: "Devices F2"
   },
   {
     id: "ecommerce-plan-ceibal",
@@ -103,7 +103,7 @@ export const projects: Project[] = [
   },
   {
     id: "proyecto5-landing",
-    title: "fdLeon.dev - Landing Page Profesional",
+    title: "FdLeon.dev - Landing Page Profesional",
     description: "Landing page moderna y profesional con diseño responsive, sección de servicios destacados, portafolio interactivo y formulario de contacto optimizado. Diseño enfocado en conversión y experiencia de usuario. Sitio web personal optimizado para SEO y performance.",
     image: "/multimedia/proyecto5/pagina-inicial.png",
     images: [

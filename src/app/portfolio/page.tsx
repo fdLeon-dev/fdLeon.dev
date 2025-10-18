@@ -13,8 +13,8 @@ function PortfolioClient() {
   const categories = [
     { id: "all", label: "Todos" },
     { id: "web", label: "Desarrollo Web" },
-    { id: "design", label: "Diseño" },
-    { id: "software", label: "Software" }
+    { id: "software", label: "Software" },
+    { id: "design", label: "Diseño" }
   ]
 
   const filteredProjects = selectedCategory === "all"
