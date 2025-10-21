@@ -48,14 +48,14 @@ Nuevas optimizaciones automáticas para imágenes con mejor soporte para WebP y 
 ## Conclusión
 
 Next.js 15 representa un paso importante hacia un desarrollo web más eficiente y moderno.`,
-    publishedAt: "2025-01-17T10:00:00Z",
+    publishedAt: "2025-03-15T10:00:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["Next.js", "React", "JavaScript", "Web Development"],
     category: "Tutorial",
-    featuredImage: undefined,
+    featuredImage: "/multimedia/blog/nextjs-15-features.svg",
     readingTime: 8,
     seo: {
       metaTitle: "Nuevas Características de Next.js 15: Guía Completa 2025",
@@ -94,14 +94,14 @@ Más utilidades CSS para cubrir casos de uso comunes.
 ## Conclusión
 
 TailwindCSS v4 es una herramienta poderosa para crear interfaces modernas y eficientes.`,
-    publishedAt: "2025-01-16T14:30:00Z",
+    publishedAt: "2025-03-12T14:30:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["TailwindCSS", "CSS", "Frontend", "Design System"],
     category: "Tutorial",
-    featuredImage: undefined,
+    featuredImage: "/multimedia/blog/tailwindcss-v4-guide.svg",
     readingTime: 12,
     seo: {
       metaTitle: "TailwindCSS v4: Guía Completa y Mejores Prácticas 2025",
@@ -140,14 +140,14 @@ Uso de tipos estrictos para evitar errores en runtime.
 ## Conclusión
 
 TypeScript mejora significativamente la calidad y mantenibilidad del código.`,
-    publishedAt: "2025-01-15T09:15:00Z",
+    publishedAt: "2025-03-08T09:15:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["TypeScript", "JavaScript", "Web Development", "Best Practices"],
     category: "Tutorial",
-    featuredImage: undefined,
+    featuredImage: "/multimedia/blog/typescript-best-practices.svg",
     readingTime: 15,
     seo: {
       metaTitle: "TypeScript Mejores Prácticas: Guía Completa para Desarrollo Web",
@@ -192,14 +192,14 @@ Mide la estabilidad visual.
 ## Conclusión
 
 La optimización de performance es un proceso continuo que requiere monitoreo constante.`,
-    publishedAt: "2025-01-14T16:45:00Z",
+    publishedAt: "2025-03-05T16:45:00Z",
     author: {
       name: "fdLeon-dev",
       email: "contact@fdleon.dev",
     },
     tags: ["Performance", "Web Development", "Optimization", "Core Web Vitals"],
     category: "Tutorial",
-    featuredImage: undefined,
+    featuredImage: "/multimedia/blog/performance-optimization.svg",
     readingTime: 20,
     seo: {
       metaTitle: "Optimización de Performance Web: Guía Completa 2025",
