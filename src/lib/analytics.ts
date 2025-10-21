@@ -1,3 +1,5 @@
+'use client'
+
 // Google Analytics 4 utilities
 declare global {
   interface Window {
