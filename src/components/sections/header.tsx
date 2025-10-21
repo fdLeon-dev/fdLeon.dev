@@ -10,7 +10,6 @@ const navigation = [
   { name: "Inicio", href: "/" },
   { name: "Servicios", href: "#servicios" },
   { name: "Portafolio", href: "/portfolio" },
-  { name: "Blog", href: "/blog" },
   { name: "Contacto", href: "/contact" },
 ]
 
@@ -44,7 +43,7 @@ export function Header() {
           </nav>
 
           {/* Desktop Theme Toggle */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
           </div>
 

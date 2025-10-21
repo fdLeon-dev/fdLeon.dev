@@ -63,19 +63,19 @@ export const projects: Project[] = [
     category: "web",
     liveUrl: "https://onix-web.vercel.app/",
     githubUrl: "https://github.com/fdLeon-dev/onix-web",
-    featured: true,
+    featured: false,
     completed: "2024-07-10",
     client: "Onix Barbería"
   },
   {
     id: "landing-page-devices",
     title: "Devices F2 - Servicio Técnico",
-    description: "Sitio web moderno y profesional para servicio técnico de reparación y ensamblaje de computadoras. Incluye formulario de cotización con WhatsApp, galería de trabajos, modo oscuro/claro, diseño responsive y optimizado para SEO. PWA ready con lazy loading de imágenes.",
+    description: "Sitio web moderno y profesional para servicio técnico de reparación y ensamblaje de computadoras. Incluye formulario de cotización con WhatsApp, galería de trabajos, sistema de testimonios con Firebase, modo oscuro/claro, diseño responsive y optimizado para SEO. PWA ready con lazy loading de imágenes.",
     image: "/multimedia/proyecto6/pagina.png",
     images: [
       "/multimedia/proyecto6/pagina.png"
     ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "Google Analytics"],
+    technologies: ["HTML5", "CSS3", "JavaScript", "Firebase", "Google Analytics"],
     category: "web",
     liveUrl: "https://fdleon-dev.github.io/devices/",
     githubUrl: "https://github.com/fdLeon-dev/devices",

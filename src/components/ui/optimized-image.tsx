@@ -29,92 +29,32 @@ export function OptimizedImage({
   className,
   priority = false,
   quality = 85,
-  placeholder = 'blur',
+  placeholder = 'empty',
   blurDataURL,
   sizes,
   fill = false,
   style,
   ...props
 }: OptimizedImageProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
-
-  // Generar un placeholder blur simple si no se proporciona
-  const defaultBlurDataURL = blurDataURL || `data:image/svg+xml;base64,${Buffer.from(
-    `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" fill="#f3f4f6"/>
-      <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#9ca3af" font-family="system-ui" font-size="14">
-        Cargando...
-      </text>
-    </svg>`
-  ).toString('base64')}`
-
-  const handleLoad = () => {
-    setIsLoading(false)
-  }
-
-  const handleError = () => {
-    setHasError(true)
-    setIsLoading(false)
-  }
-
-  if (hasError) {
-    return (
-      <div
-        className={cn(
-          "flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5 text-primary/60",
-          className
-        )}
-        style={fill ? undefined : { width, height }}
-      >
-        <div className="text-center">
-          <div className="text-2xl font-bold mb-1">
-            {alt.charAt(0).toUpperCase()}
-          </div>
-          <span className="text-xs">Imagen no disponible</span>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      <Image
-        src={src}
-        alt={alt}
-        width={fill ? undefined : width}
-        height={fill ? undefined : height}
-        fill={fill}
-        priority={priority}
-        quality={quality}
-        placeholder={placeholder}
-        blurDataURL={placeholder === 'blur' ? defaultBlurDataURL : undefined}
-        sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
-        className={cn(
-          "transition-opacity duration-300",
-          isLoading ? "opacity-0" : "opacity-100"
-        )}
-        onLoad={handleLoad}
-        onError={handleError}
-        style={style}
-        {...props}
-      />
-
-      {/* Loading skeleton */}
-      {isLoading && (
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center"
-          style={fill ? undefined : { width, height }}
-        >
-          <div className="text-center text-primary/60">
-            <div className="text-lg font-bold mb-1">
-              {alt.charAt(0).toUpperCase()}
-            </div>
-            <div className="text-xs animate-pulse">Cargando...</div>
-          </div>
-        </div>
+    <Image
+      src={src}
+      alt={alt}
+      width={fill ? undefined : width}
+      height={fill ? undefined : height}
+      fill={fill}
+      priority={priority}
+      quality={quality}
+      placeholder={placeholder}
+      blurDataURL={blurDataURL}
+      sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
+      className={cn(
+        "object-cover transition-opacity duration-300",
+        className
       )}
-    </div>
+      style={style}
+      {...props}
+    />
   )
 }
 
