@@ -55,7 +55,7 @@ Next.js 15 representa un paso importante hacia un desarrollo web más eficiente 
     },
     tags: ["Next.js", "React", "JavaScript", "Web Development"],
     category: "Tutorial",
-    featuredImage: "/multimedia/blog/nextjs-15-features.svg",
+    featuredImage: undefined,
     readingTime: 8,
     seo: {
       metaTitle: "Nuevas Características de Next.js 15: Guía Completa 2025",
@@ -101,7 +101,7 @@ TailwindCSS v4 es una herramienta poderosa para crear interfaces modernas y efic
     },
     tags: ["TailwindCSS", "CSS", "Frontend", "Design System"],
     category: "Tutorial",
-    featuredImage: "/multimedia/blog/performance-optimization.svg",
+    featuredImage: undefined,
     readingTime: 12,
     seo: {
       metaTitle: "TailwindCSS v4: Guía Completa y Mejores Prácticas 2025",
@@ -147,7 +147,7 @@ TypeScript mejora significativamente la calidad y mantenibilidad del código.`,
     },
     tags: ["TypeScript", "JavaScript", "Web Development", "Best Practices"],
     category: "Tutorial",
-    featuredImage: "/multimedia/blog/tailwindcss-v4-guide.svg",
+    featuredImage: undefined,
     readingTime: 15,
     seo: {
       metaTitle: "TypeScript Mejores Prácticas: Guía Completa para Desarrollo Web",
@@ -199,7 +199,7 @@ La optimización de performance es un proceso continuo que requiere monitoreo co
     },
     tags: ["Performance", "Web Development", "Optimization", "Core Web Vitals"],
     category: "Tutorial",
-    featuredImage: "/multimedia/blog/typescript-best-practices.svg",
+    featuredImage: undefined,
     readingTime: 20,
     seo: {
       metaTitle: "Optimización de Performance Web: Guía Completa 2025",
