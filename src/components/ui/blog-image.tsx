@@ -22,7 +22,7 @@ export function BlogImage({
 }: BlogImageProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const [imageSrc, setImageSrc] = useState(src)
+  const imageSrc = src
 
   const handleLoad = () => {
     setIsLoading(false)
