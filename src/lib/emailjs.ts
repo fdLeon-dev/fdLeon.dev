@@ -1,3 +1,5 @@
+'use client'
+
 import emailjs from '@emailjs/browser'
 
 // Tipo para errores de EmailJS
@@ -25,7 +27,7 @@ export const EMAILJS_CONFIG = {
 
 // Inicializar EmailJS
 export const initEmailJS = () => {
-  if (typeof window !== 'undefined' && EMAILJS_CONFIG.publicKey) {
+  if (EMAILJS_CONFIG.publicKey) {
     emailjs.init(EMAILJS_CONFIG.publicKey)
   }
 }
@@ -46,17 +48,14 @@ export const sendEmail = async (templateParams: Record<string, string>) => {
 
     return { success: true, result }
   } catch (error) {
-    if (typeof window !== 'undefined') {
-      // Solo loguear en el cliente
-      console.error('Error enviando email:', error)
-      
-      if (isEmailJSError(error)) {
-        console.error('Detalles del error:', {
-          status: error.status,
-          text: error.text,
-          message: error.message
-        })
-      }
+    console.error('Error enviando email:', error)
+    
+    if (isEmailJSError(error)) {
+      console.error('Detalles del error:', {
+        status: error.status,
+        text: error.text,
+        message: error.message
+      })
     }
 
     return { success: false, error }
