@@ -77,7 +77,7 @@ export function BlogPreview() {
               {/* Featured Image */}
               <div className="aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 relative">
                 <BlogImage
-                  src={post.featuredImage}
+                  src={post.featuredImage || '/images/blog/placeholder.svg'}
                   alt={post.title}
                   className="w-full h-full"
                 />

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { BlogPost } from '@/data/blog-posts'
 // import { BlogImageGenerator } from '@/components/ui/blog-image-generator'
+import { BlogImage } from '@/components/ui/blog-image'
 import { CodeBlock } from '@/components/ui/code-block'
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
 
@@ -139,10 +140,10 @@ export function BlogPostFull({ post, relatedPosts }: BlogPostFullProps) {
         {/* Featured Image */}
         <motion.div variants={itemVariants} className="mb-8 sm:mb-12">
           <div className="aspect-video overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl shadow-primary/10 relative group">
-            <BlogImageGenerator
-              post={post}
+            <BlogImage
+              src={post.featuredImage || '/images/blog/placeholder.svg'}
+              alt={post.title}
               className="w-full h-full"
-              showGenerator={true}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>

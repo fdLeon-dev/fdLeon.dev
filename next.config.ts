@@ -74,24 +74,14 @@ const nextConfig: NextConfig = {
   // Configuración de paquetes externos para el servidor
   serverExternalPackages: ['@emailjs/browser'],
 
-  // Configuración de Webpack para mejorar compatibilidad
-  webpack: (config, { dev, isServer }) => {
-    // Mejorar resolución de módulos
+  // Configuración básica de Webpack
+  webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
       net: false,
       tls: false,
     }
-
-    // Optimizar para desarrollo
-    if (dev) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: false,
-      }
-    }
-
     return config
   }
 };

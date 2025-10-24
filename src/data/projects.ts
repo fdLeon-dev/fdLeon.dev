@@ -116,7 +116,7 @@ export const projects: Project[] = [
     category: "web",
     liveUrl: "#",
     githubUrl: "https://github.com/fdLeon-dev/fdLeon.dev",
-    featured: true,
+    featured: false,
     completed: "2024-05-10",
     client: "Personal"
   },
