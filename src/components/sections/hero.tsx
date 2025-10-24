@@ -52,8 +52,8 @@ export function Hero() {
             className="mx-auto max-w-4xl mb-12"
           >
             <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed text-muted-foreground mb-6 font-light">
-              Creo experiencias digitales que <span className="font-semibold text-foreground">impulsan tu marca</span> y
-              <span className="font-semibold text-foreground"> multiplican tus resultados</span>
+              Desarrollo sitios web <span className="font-semibold text-foreground">modernos y funcionales</span> que
+              <span className="font-semibold text-foreground"> conectan con tus clientes</span>
             </p>
             <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
               <div className="flex items-center gap-3">

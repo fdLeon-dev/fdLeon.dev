@@ -6,6 +6,7 @@ import { Calendar, Clock, ArrowRight, Tag } from "lucide-react"
 import { getRecentPosts, getAllTags, getAllCategories } from "@/data/blog-posts"
 import { trackEvent } from "@/lib/analytics"
 import { BlogImage } from "@/components/ui/blog-image"
+// import { BlogImageGenerator } from "@/components/ui/blog-image-generator"
 
 export function BlogPreview() {
   const recentPosts = getRecentPosts(3)
@@ -75,25 +76,11 @@ export function BlogPreview() {
             >
               {/* Featured Image */}
               <div className="aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 relative">
-                {post.featuredImage ? (
-                  <BlogImage
-                    src={post.featuredImage}
-                    alt={post.title}
-                    className="absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                    fallbackText={post.category}
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
-                        {post.title.charAt(0)}
-                      </div>
-                      <div className="text-xs sm:text-sm text-muted-foreground">
-                        {post.category}
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <BlogImage
+                  src={post.featuredImage}
+                  alt={post.title}
+                  className="w-full h-full"
+                />
               </div>
 
               <div className="p-4 sm:p-6 flex flex-col flex-grow">

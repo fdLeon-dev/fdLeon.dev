@@ -2,12 +2,16 @@ import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { PortfolioPreview } from "@/components/sections/portfolio-preview"
 import { BlogPreview } from "@/components/sections/blog-preview"
+import { SorteoBanner } from "@/components/sections/sorteo-banner"
+// import { CaseStudiesPreview } from "@/components/sections/case-studies-preview" // TODO: Activar en futura actualización
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <SorteoBanner />
       <Services />
+      {/* <CaseStudiesPreview /> TODO: Activar sección de Case Studies en futura actualización */}
       <PortfolioPreview />
       <section id="blog" className="py-16 sm:py-20 lg:py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

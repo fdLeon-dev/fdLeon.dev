@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { 
-  ArrowLeft, 
-  Calendar, 
-  Clock, 
-  User, 
-  Tag, 
-  Share2, 
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  User,
+  Tag,
+  Share2,
   BookOpen,
   Twitter,
   Facebook,
@@ -16,6 +16,9 @@ import {
   Link as LinkIcon
 } from 'lucide-react'
 import { BlogPost } from '@/data/blog-posts'
+// import { BlogImageGenerator } from '@/components/ui/blog-image-generator'
+import { CodeBlock } from '@/components/ui/code-block'
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
 
 interface BlogPostFullProps {
   post: BlogPost
@@ -24,7 +27,7 @@ interface BlogPostFullProps {
 
 export function BlogPostFull({ post, relatedPosts }: BlogPostFullProps) {
   const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
-  
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -47,7 +50,7 @@ export function BlogPostFull({ post, relatedPosts }: BlogPostFullProps) {
   }
 
   return (
-    <motion.div 
+    <motion.div
       className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12"
       variants={containerVariants}
       initial="hidden"
@@ -134,36 +137,27 @@ export function BlogPostFull({ post, relatedPosts }: BlogPostFullProps) {
         </motion.header>
 
         {/* Featured Image */}
-        {post.featuredImage && (
-          <motion.div variants={itemVariants} className="mb-8 sm:mb-12">
-            <div className="aspect-video overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl shadow-primary/10 relative group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={post.featuredImage}
-                alt={post.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onError={(e) => {
-                  e.currentTarget.src = '/images/blog/placeholder.svg'
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </motion.div>
-        )}
+        <motion.div variants={itemVariants} className="mb-8 sm:mb-12">
+          <div className="aspect-video overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl shadow-primary/10 relative group">
+            <BlogImageGenerator
+              post={post}
+              className="w-full h-full"
+              showGenerator={true}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+        </motion.div>
 
         {/* Article Content */}
-        <motion.article 
+        <motion.article
           variants={itemVariants}
           className="prose prose-lg max-w-none mb-12"
         >
           <div className="rounded-2xl border bg-card p-6 sm:p-8 lg:p-10 shadow-lg">
-            <div className="whitespace-pre-wrap text-foreground leading-relaxed space-y-4">
-              {post.content.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="text-base sm:text-lg">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            <MarkdownRenderer
+              content={post.content}
+              className="text-foreground leading-relaxed"
+            />
           </div>
         </motion.article>
 
@@ -186,7 +180,7 @@ export function BlogPostFull({ post, relatedPosts }: BlogPostFullProps) {
         </motion.div>
 
         {/* Share Section */}
-        <motion.div 
+        <motion.div
           variants={itemVariants}
           className="mb-12 p-6 sm:p-8 rounded-2xl border bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5"
         >
@@ -196,28 +190,28 @@ export function BlogPostFull({ post, relatedPosts }: BlogPostFullProps) {
               <h3 className="text-lg font-semibold text-foreground">Compartir artículo</h3>
             </div>
             <div className="flex gap-3">
-              <button 
+              <button
                 onClick={() => window.open(`https://twitter.com/intent/tweet?text=${post.title}&url=${shareUrl}`, '_blank')}
                 className="p-3 rounded-full bg-[#1DA1F2] hover:bg-[#1DA1F2]/80 text-white transition-all hover:scale-110 shadow-lg"
                 aria-label="Compartir en Twitter"
               >
                 <Twitter className="h-5 w-5" />
               </button>
-              <button 
+              <button
                 onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank')}
                 className="p-3 rounded-full bg-[#1877F2] hover:bg-[#1877F2]/80 text-white transition-all hover:scale-110 shadow-lg"
                 aria-label="Compartir en Facebook"
               >
                 <Facebook className="h-5 w-5" />
               </button>
-              <button 
+              <button
                 onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`, '_blank')}
                 className="p-3 rounded-full bg-[#0A66C2] hover:bg-[#0A66C2]/80 text-white transition-all hover:scale-110 shadow-lg"
                 aria-label="Compartir en LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
               </button>
-              <button 
+              <button
                 onClick={() => navigator.clipboard.writeText(shareUrl)}
                 className="p-3 rounded-full bg-muted hover:bg-muted/80 text-foreground transition-all hover:scale-110 shadow-lg"
                 aria-label="Copiar enlace"

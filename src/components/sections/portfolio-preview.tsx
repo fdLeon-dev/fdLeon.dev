@@ -74,26 +74,63 @@ export function PortfolioPreview() {
               className="group relative overflow-hidden rounded-2xl border bg-card shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full neon-hover neon-bg"
             >
               <div className="aspect-video overflow-hidden bg-muted relative">
-                <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
-                  {/* Imagen optimizada del proyecto */}
-                  <ProjectImage
-                    src={project.image}
-                    alt={`Imagen del proyecto ${project.title}`}
-                    className="absolute inset-0 w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-300"
-                    fallbackText={project.title}
-                  />
-                  {/* Overlay con información del proyecto */}
-                  <div className="relative z-10 text-center">
-                    <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
-                      {project.title.charAt(0)}
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => handleProjectClick(project.title, 'live')}
+                    className="block h-full w-full cursor-pointer"
+                  >
+                    <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300">
+                      {/* Imagen optimizada del proyecto */}
+                      <ProjectImage
+                        src={project.image}
+                        alt={`Imagen del proyecto ${project.title}`}
+                        className="absolute inset-0 w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                        fallbackText={project.title}
+                      />
+                      {/* Overlay con información del proyecto */}
+                      <div className="relative z-10 text-center">
+                        <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
+                          {project.title.charAt(0)}
+                        </div>
+                        <div className="text-xs sm:text-sm text-muted-foreground">
+                          {project.category === "web" && "Desarrollo Web"}
+                          {project.category === "design" && "Diseño"}
+                          {project.category === "software" && "Software"}
+                          {project.category === "ecommerce" && "E-commerce"}
+                        </div>
+                        {/* Indicador de click */}
+                        <div className="mt-2 text-xs text-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Click para ver en vivo
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground">
-                      {project.category === "web" && "Desarrollo Web"}
-                      {project.category === "design" && "Diseño"}
-                      {project.category === "software" && "Software"}
+                  </a>
+                ) : (
+                  <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
+                    {/* Imagen optimizada del proyecto */}
+                    <ProjectImage
+                      src={project.image}
+                      alt={`Imagen del proyecto ${project.title}`}
+                      className="absolute inset-0 w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                      fallbackText={project.title}
+                    />
+                    {/* Overlay con información del proyecto */}
+                    <div className="relative z-10 text-center">
+                      <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
+                        {project.title.charAt(0)}
+                      </div>
+                      <div className="text-xs sm:text-sm text-muted-foreground">
+                        {project.category === "web" && "Desarrollo Web"}
+                        {project.category === "design" && "Diseño"}
+                        {project.category === "software" && "Software"}
+                        {project.category === "ecommerce" && "E-commerce"}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className="p-4 sm:p-6 flex flex-col flex-grow">

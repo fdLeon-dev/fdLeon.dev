@@ -45,27 +45,27 @@ export const projects: Project[] = [
     client: "BLESSED Studio"
   },
   {
-    id: "onix-barberia",
-    title: "Onix Barbería - Landing Page",
-    description: "Landing page profesional para Onix Barbería con diseño moderno y funcionalidades completas. Incluye galería de servicios, reservas online, información de barberos y sistema de contacto integrado.",
-    image: "/multimedia/proyecto4/pincipal.png",
+    id: "sc-sport-uy",
+    title: "SC Sport Uy - E-commerce de Remeras Futbolísticas",
+    description: "E-commerce especializado en remeras futbolísticas con catálogo completo de equipos uruguayos e internacionales. Incluye sistema de filtros avanzados, carrito de compras, checkout seguro, gestión de inventario y panel administrativo completo.",
+    image: "/multimedia/proyecto4/principal.png",
     images: [
-      "/multimedia/proyecto4/pincipal.png",
-      "/multimedia/proyecto4/servicios.png",
-      "/multimedia/proyecto4/barberos.png",
-      "/multimedia/proyecto4/galeria.png",
-      "/multimedia/proyecto4/reserva.png",
-      "/multimedia/proyecto4/contacto.png",
-      "/multimedia/proyecto4/login.png",
-      "/multimedia/proyecto4/panel-admin.png"
+      "/multimedia/proyecto4/principal.png",
+      "/multimedia/proyecto4/catalogo.png",
+      "/multimedia/proyecto4/producto.png",
+      "/multimedia/proyecto4/carrito.png",
+      "/multimedia/proyecto4/checkout.png",
+      "/multimedia/proyecto4/admin.png",
+      "/multimedia/proyecto4/inventario.png",
+      "/multimedia/proyecto4/ventas.png"
     ],
-    technologies: ["React", "Vite", "JavaScript", "CSS3", "Vercel"],
-    category: "web",
-    liveUrl: "https://onix-web.vercel.app/",
-    githubUrl: "https://github.com/fdLeon-dev/onix-web",
-    featured: false,
-    completed: "2024-07-10",
-    client: "Onix Barbería"
+    technologies: ["Next.js 14", "TypeScript", "Stripe", "PostgreSQL", "Prisma", "Tailwind CSS", "Vercel"],
+    category: "ecommerce",
+    liveUrl: "https://sc-sport-uy.netlify.app/",
+    githubUrl: "https://github.com/fdLeon-dev/sc-sport-uy",
+    featured: true,
+    completed: "2024-09-15",
+    client: "SC Sport Uy"
   },
   {
     id: "landing-page-devices",

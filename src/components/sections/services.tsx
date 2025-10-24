@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 export function Services() {
   const services = [
     {
-      id: "web-development",
+      id: "desarrollo-web",
       title: "Desarrollo Web",
       description: "Creo aplicaciones web modernas, rápidas y escalables usando las últimas tecnologías.",
       icon: Code,
@@ -21,7 +21,7 @@ export function Services() {
       ]
     },
     {
-      id: "web-design",
+      id: "diseno-web",
       title: "Diseño Web",
       description: "Diseño interfaces atractivas y funcionales que mejoran la experiencia del usuario.",
       icon: Palette,
@@ -35,7 +35,7 @@ export function Services() {
       ]
     },
     {
-      id: "software-development",
+      id: "desarrollo-software",
       title: "Desarrollo de Software",
       description: "Desarrollo soluciones de software personalizadas para automatizar y optimizar procesos.",
       icon: Laptop,
@@ -129,9 +129,11 @@ export function Services() {
                   </ul>
                 </div>
 
-                <Button variant="outline" className="w-full group mt-auto neon-hover neon-border">
-                  Conocer más
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <Button asChild variant="outline" className="w-full group mt-auto neon-hover neon-border">
+                  <a href={`/servicios/${service.id}`}>
+                    Conocer más
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
                 </Button>
               </motion.div>
             )

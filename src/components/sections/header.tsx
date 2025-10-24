@@ -8,9 +8,12 @@ import { Menu, X } from "lucide-react"
 // Mover navigation fuera del componente para evitar recreación
 const navigation = [
   { name: "Inicio", href: "/" },
-  { name: "Servicios", href: "#servicios" },
+  { name: "Servicios", href: "/#servicios" },
   { name: "Portafolio", href: "/portfolio" },
+  // { name: "Case Studies", href: "/case-studies" }, // TODO: Activar en futura actualización
   { name: "Blog", href: "/blog" },
+  { name: "Sorteo", href: "/sorteo" },
+  { name: "Ebook", href: "/ebook" },
   { name: "Contacto", href: "/contact" },
 ]
 
@@ -25,7 +28,7 @@ export function Header() {
           <div className="flex items-center">
             <Link className="flex items-center space-x-2" href="/">
               <span className="font-bold text-lg sm:text-xl cyber-gradient">
-                fdLeon-dev
+                FDLeon-dev
               </span>
             </Link>
           </div>

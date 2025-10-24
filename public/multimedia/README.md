@@ -11,7 +11,7 @@ multimedia/
 ├── proyecto1/     # Portafolio fdLeon-dev v2.0
 ├── proyecto2/     # Sistema de Gestión de Barbería
 ├── proyecto3/     # E-commerce Plan Ceibal
-├── proyecto4/     # Onix Barbería - Landing Page
+├── proyecto4/     # SC Sport Uy - E-commerce
 └── proyecto5/     # Portafolio fdLeon-dev v3.0 (actual)
 ```
 
@@ -42,15 +42,15 @@ Para cada proyecto, agrega las siguientes imágenes:
 - `login.png` - Sistema de login/registro
 - `vender.png` - Panel para vendedores
 
-### proyecto4/ (Onix Barbería - Landing Page) ✅ **IMÁGENES DISPONIBLES**
-- `pincipal.png` - Página principal de Onix Barbería
-- `servicios.png` - Sección de servicios
-- `barberos.png` - Información de barberos
-- `galeria.png` - Galería de trabajos
-- `reserva.png` - Sistema de reservas
-- `contacto.png` - Formulario de contacto
-- `login.png` - Sistema de login
-- `panel-admin.png` - Panel de administración
+### proyecto4/ (SC Sport Uy - E-commerce) ✅ **IMÁGENES DISPONIBLES**
+- `principal.png` - Página principal del e-commerce
+- `catalogo.png` - Catálogo de productos
+- `producto.png` - Vista de producto individual
+- `carrito.png` - Carrito de compras
+- `checkout.png` - Proceso de checkout
+- `admin.png` - Panel administrativo
+- `inventario.png` - Gestión de inventario
+- `ventas.png` - Reportes de ventas
 
 ### proyecto5/ (Portafolio fdLeon-dev v2.0)
 - `main.jpg` - Imagen principal del portafolio v2

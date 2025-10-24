@@ -1,0 +1,180 @@
+/* Estilos para resaltado de sintaxis */
+
+.code-block-wrapper {
+  @apply relative rounded-xl border bg-card shadow-lg overflow-hidden my-6;
+}
+
+.code-block-header {
+  @apply flex items-center justify-between px-4 py-3 border-b bg-muted/50;
+  background-color: #1e1e1e;
+}
+
+.language-badge {
+  @apply px-2 py-1 rounded text-xs font-medium;
+  background-color: #569cd6;
+  color: #1e1e1e;
+}
+
+.code-block-content {
+  @apply overflow-x-auto p-4 text-sm leading-relaxed;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Fira Code', monospace;
+}
+
+.code-block-content code {
+  @apply block;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+}
+
+/* Código inline */
+.inline-code {
+  @apply px-2 py-1 rounded bg-muted text-sm font-mono border;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+}
+
+/* Colores de sintaxis */
+.code-block-content .keyword {
+  color: #569cd6;
+}
+
+.code-block-content .string {
+  color: #ce9178;
+}
+
+.code-block-content .comment {
+  color: #6a9955;
+}
+
+.code-block-content .number {
+  color: #b5cea8;
+}
+
+.code-block-content .function {
+  color: #dcdcaa;
+}
+
+.code-block-content .variable {
+  color: #9cdcfe;
+}
+
+.code-block-content .operator {
+  color: #d4d4d4;
+}
+
+.code-block-content .type {
+  color: #4ec9b0;
+}
+
+.code-block-content .tag {
+  color: #569cd6;
+}
+
+.code-block-content .attribute {
+  color: #92c5f4;
+}
+
+.code-block-content .selector {
+  color: #d7ba7d;
+}
+
+.code-block-content .property {
+  color: #9cdcfe;
+}
+
+.code-block-content .boolean {
+  color: #569cd6;
+}
+
+/* Modo oscuro */
+.dark .inline-code {
+  background-color: #374151;
+  color: #f3f4f6;
+  border-color: #4b5563;
+}
+
+/* Animaciones */
+.code-block-wrapper {
+  transition: all 0.3s ease;
+}
+
+.code-block-wrapper:hover {
+  @apply shadow-xl;
+  transform: translateY(-2px);
+}
+
+/* Scroll personalizado */
+.code-block-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.code-block-content::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+.code-block-content::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.code-block-content::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .code-block-content {
+    @apply text-xs;
+    padding: 0.75rem;
+  }
+
+  .code-block-header {
+    @apply px-3 py-2;
+  }
+
+  .language-badge {
+    @apply text-xs px-1.5 py-0.5;
+  }
+}
+
+/* Tema claro */
+.light .code-block-header {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+.light .code-block-content {
+  background-color: #ffffff;
+  color: #212529;
+  border: 1px solid #e9ecef;
+}
+
+.light .language-badge {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+/* Mejoras de accesibilidad */
+.code-block-wrapper:focus-within {
+  @apply ring-2 ring-primary ring-offset-2;
+}
+
+/* Números de línea */
+.code-block-content.with-line-numbers {
+  counter-reset: line;
+}
+
+.code-block-content.with-line-numbers code {
+  counter-increment: line;
+}
+
+.code-block-content.with-line-numbers code::before {
+  content: counter(line);
+  @apply inline-block w-8 text-right text-muted-foreground mr-4;
+  user-select: none;
+}

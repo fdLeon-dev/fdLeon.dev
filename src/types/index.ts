@@ -7,7 +7,7 @@ export interface Project {
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
-  category: 'web' | 'design' | 'software';
+  category: 'web' | 'design' | 'software' | 'ecommerce';
   featured?: boolean; // Si es un proyecto destacado
   completed?: string; // Fecha de finalización
   client?: string; // Cliente (opcional)
