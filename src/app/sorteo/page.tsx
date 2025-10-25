@@ -16,7 +16,8 @@ import {
   User,
   Building
 } from "lucide-react"
-import { ContactForm } from "@/components/ui/contact-form-enhanced"
+import { SorteoForm } from "@/components/ui/sorteo-form"
+import { featuredProjects } from "@/data/projects"
 
 export default function SorteoPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -176,25 +177,55 @@ export default function SorteoPage() {
         </motion.div>
 
         {/* Value Proposition */}
-        <motion.div variants={itemVariants} className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl border p-8 mb-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
+        <motion.div variants={itemVariants} className="relative rounded-2xl border p-8 mb-12 overflow-hidden">
+          {/* Background with 3 sections */}
+          <div className="absolute inset-0">
+            {/* Top section - First project */}
+            <div
+              className="absolute top-0 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
+              style={{
+                backgroundImage: `url(${featuredProjects[0]?.image})`,
+              }}
+            />
+
+            {/* Middle section - Second project */}
+            <div
+              className="absolute top-1/3 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
+              style={{
+                backgroundImage: `url(${featuredProjects[1]?.image})`,
+              }}
+            />
+
+            {/* Bottom section - Third project */}
+            <div
+              className="absolute bottom-0 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
+              style={{
+                backgroundImage: `url(${featuredProjects[2]?.image})`,
+              }}
+            />
+
+            {/* Glass overlay */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          </div>
+
+          <div className="text-center relative z-10">
+            <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">
               Valor total del premio: <span className="text-primary">$1,000 USD</span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-6">
+            <p className="text-lg text-white/90 mb-6">
               Incluye diseño, desarrollo, hosting y soporte técnico
             </p>
 
             <div className="flex items-center justify-center gap-8 text-sm">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-white/90">
                 <Star className="h-4 w-4 text-yellow-500" />
                 <span>Diseño profesional</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-white/90">
                 <Star className="h-4 w-4 text-yellow-500" />
                 <span>Desarrollo moderno</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-white/90">
                 <Star className="h-4 w-4 text-yellow-500" />
                 <span>Soporte incluido</span>
               </div>
@@ -214,20 +245,8 @@ export default function SorteoPage() {
               </p>
             </div>
 
-            <ContactForm
+            <SorteoForm
               onSuccess={handleFormSuccess}
-              className="space-y-6"
-              showSubject={false}
-              showMessage={false}
-              customFields={[
-                {
-                  name: "empresa",
-                  label: "Nombre de tu empresa",
-                  type: "text",
-                  placeholder: "Ej: Mi Negocio SRL",
-                  icon: Building
-                }
-              ]}
             />
           </div>
         </motion.div>

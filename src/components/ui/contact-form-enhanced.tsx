@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Send, CheckCircle, AlertCircle, Loader2, LucideIcon } from "lucide-react"
 import { initEmailJS, sendEmail } from "@/lib/emailjs"
+import { trackContactFormSubmission, trackContactFormSuccess, trackContactFormError } from "@/lib/analytics"
 
 interface CustomField {
   name: string
@@ -155,6 +156,13 @@ export function ContactForm({
       return
     }
 
+    // Track form submission
+    trackContactFormSubmission({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || "Nuevo mensaje desde el sitio web"
+    })
+
     setIsSubmitting(true)
     setSubmitError(null)
 
@@ -175,6 +183,13 @@ export function ContactForm({
       const result = await sendEmail(emailData)
 
       if (result.success) {
+        // Track successful submission
+        trackContactFormSuccess({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || "Nuevo mensaje desde el sitio web"
+        })
+
         setIsSubmitted(true)
         onSuccess?.()
       } else {
@@ -182,6 +197,14 @@ export function ContactForm({
       }
     } catch (error) {
       const errorMessage = "Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo."
+
+      // Track form error
+      trackContactFormError(errorMessage, {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject
+      })
+
       setSubmitError(errorMessage)
       onError?.(errorMessage)
     } finally {

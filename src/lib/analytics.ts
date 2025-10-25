@@ -245,3 +245,82 @@ export const trackPerformance = () => {
     }).observe({ entryTypes: ['layout-shift'] })
   })
 }
+
+/**
+ * Track contact form submission
+ */
+export const trackContactFormSubmission = (formData: {
+  name: string
+  email: string
+  subject: string
+}) => {
+  trackEvent('contact_form_submission', {
+    form_name: formData.name,
+    form_email: formData.email,
+    form_subject: formData.subject,
+    timestamp: new Date().toISOString()
+  })
+}
+
+/**
+ * Track contact form success
+ */
+export const trackContactFormSuccess = (formData: {
+  name: string
+  email: string
+  subject: string
+}) => {
+  trackEvent('contact_form_success', {
+    form_name: formData.name,
+    form_email: formData.email,
+    form_subject: formData.subject,
+    timestamp: new Date().toISOString()
+  })
+}
+
+/**
+ * Track contact form error
+ */
+export const trackContactFormError = (error: string, formData?: {
+  name?: string
+  email?: string
+  subject?: string
+}) => {
+  trackEvent('contact_form_error', {
+    error_message: error,
+    form_name: formData?.name || 'unknown',
+    form_email: formData?.email || 'unknown',
+    form_subject: formData?.subject || 'unknown',
+    timestamp: new Date().toISOString()
+  })
+}
+
+/**
+ * Track sorteo participation
+ */
+export const trackSorteoParticipation = (participantData: {
+  name: string
+  email: string
+  business?: string
+}) => {
+  trackEvent('sorteo_participation', {
+    participant_name: participantData.name,
+    participant_email: participantData.email,
+    participant_business: participantData.business || 'unknown',
+    timestamp: new Date().toISOString()
+  })
+}
+
+/**
+ * Track blog subscription
+ */
+export const trackBlogSubscription = (subscriberData: {
+  email: string
+  source: string
+}) => {
+  trackEvent('blog_subscription', {
+    subscriber_email: subscriberData.email,
+    subscription_source: subscriberData.source,
+    timestamp: new Date().toISOString()
+  })
+}

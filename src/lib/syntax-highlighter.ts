@@ -63,8 +63,12 @@ export const LANGUAGE_KEYWORDS = {
     'undefined', 'typeof', 'instanceof', 'in', 'of', 'delete', 'void',
     'interface', 'type', 'enum', 'namespace', 'module', 'declare', 'public',
     'private', 'protected', 'static', 'readonly', 'abstract', 'override',
-    'implements', 'extends', 'keyof', 'typeof', 'infer', 'extends', 'as',
-    'satisfies', 'const', 'asserts', 'is', 'never', 'unknown', 'any', 'void'
+    'implements', 'keyof', 'infer', 'as', 'satisfies', 'asserts', 'is',
+    'never', 'unknown', 'any', 'string', 'number', 'boolean', 'object',
+    'array', 'Record', 'Partial', 'Required', 'Pick', 'Omit', 'Exclude',
+    'Extract', 'NonNullable', 'ReturnType', 'Parameters', 'ConstructorParameters',
+    'InstanceType', 'ThisParameterType', 'OmitThisParameter', 'ThisType',
+    'Uppercase', 'Lowercase', 'Capitalize', 'Uncapitalize', 'Awaited'
   ],
   html: [
     'html', 'head', 'body', 'title', 'meta', 'link', 'script', 'style',
@@ -176,28 +180,77 @@ export const highlightCode = (
 
 // Función para detectar el lenguaje automáticamente
 export const detectLanguage = (code: string): string => {
-  // Detectar por patrones específicos
-  if (code.includes('import ') || code.includes('export ') || code.includes('const ') || code.includes('let ')) {
-    if (code.includes('interface ') || code.includes('type ') || code.includes(': string') || code.includes(': number')) {
-      return 'typescript'
-    }
+  const trimmedCode = code.trim()
+
+  // Detectar TypeScript
+  if (trimmedCode.includes('interface ') ||
+    trimmedCode.includes('type ') ||
+    trimmedCode.includes(': string') ||
+    trimmedCode.includes(': number') ||
+    trimmedCode.includes(': boolean') ||
+    trimmedCode.includes(': any') ||
+    trimmedCode.includes('extends ') ||
+    trimmedCode.includes('implements ')) {
+    return 'typescript'
+  }
+
+  // Detectar JavaScript
+  if (trimmedCode.includes('import ') ||
+    trimmedCode.includes('export ') ||
+    trimmedCode.includes('const ') ||
+    trimmedCode.includes('let ') ||
+    trimmedCode.includes('function ') ||
+    trimmedCode.includes('=>') ||
+    trimmedCode.includes('async ') ||
+    trimmedCode.includes('await ')) {
     return 'javascript'
   }
 
-  if (code.includes('<html') || code.includes('<div') || code.includes('<span')) {
+  // Detectar HTML
+  if (trimmedCode.includes('<html') ||
+    trimmedCode.includes('<div') ||
+    trimmedCode.includes('<span') ||
+    trimmedCode.includes('<head') ||
+    trimmedCode.includes('<body') ||
+    trimmedCode.includes('<script') ||
+    trimmedCode.includes('<style')) {
     return 'html'
   }
 
-  if (code.includes('margin:') || code.includes('padding:') || code.includes('color:')) {
+  // Detectar CSS
+  if (trimmedCode.includes('margin:') ||
+    trimmedCode.includes('padding:') ||
+    trimmedCode.includes('color:') ||
+    trimmedCode.includes('background:') ||
+    trimmedCode.includes('font-') ||
+    trimmedCode.includes('display:') ||
+    trimmedCode.includes('position:')) {
     return 'css'
   }
 
-  if (code.includes('{') && code.includes('"') && code.includes(':')) {
+  // Detectar JSON
+  if (trimmedCode.startsWith('{') && trimmedCode.endsWith('}') &&
+    trimmedCode.includes('"') && trimmedCode.includes(':')) {
     return 'json'
   }
 
-  if (code.includes('# ') || code.includes('## ') || code.includes('### ')) {
+  // Detectar Markdown
+  if (trimmedCode.includes('# ') ||
+    trimmedCode.includes('## ') ||
+    trimmedCode.includes('### ') ||
+    trimmedCode.includes('**') ||
+    trimmedCode.includes('*') ||
+    trimmedCode.includes('```')) {
     return 'markdown'
+  }
+
+  // Detectar por extensión de archivo en comentarios
+  if (trimmedCode.includes('// next.config.js') || trimmedCode.includes('// next.config.ts')) {
+    return 'javascript'
+  }
+
+  if (trimmedCode.includes('// tsconfig.json')) {
+    return 'json'
   }
 
   return 'javascript' // Default

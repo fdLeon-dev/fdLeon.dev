@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { CodeBlock, InlineCode } from './code-block'
-import { highlightCode, detectLanguage } from '@/lib/syntax-highlighter'
+import { highlightCode, detectLanguage, getThemeFromContext } from '@/lib/syntax-highlighter'
 
 interface MarkdownRendererProps {
   content: string
@@ -20,15 +20,20 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
       /```(\w+)?\n([\s\S]*?)\n```/g,
       (match, language, code) => {
         const detectedLanguage = language || detectLanguage(code.trim())
-        const highlighted = highlightCode(code.trim(), detectedLanguage)
+        const theme = getThemeFromContext()
+        const highlighted = highlightCode(code.trim(), detectedLanguage, theme)
 
         return `
-          <div class="code-block-wrapper">
-            <div class="code-block-header">
-              <span class="language-badge">${detectedLanguage.toUpperCase()}</span>
+          <div class="code-block-wrapper rounded-xl border bg-card shadow-lg overflow-hidden my-6">
+            <div class="flex items-center justify-between px-4 py-3 border-b bg-muted/50" style="background-color: ${theme === 'dark' ? '#1e1e1e' : '#f8fafc'};">
+              <div class="flex items-center gap-3">
+                <span class="px-2 py-1 rounded text-xs font-medium" style="background-color: ${theme === 'dark' ? '#569cd620' : '#3b82f620'}; color: ${theme === 'dark' ? '#569cd6' : '#3b82f6'};">
+                  ${detectedLanguage.toUpperCase()}
+                </span>
+              </div>
             </div>
-            <pre class="code-block-content" style="background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;">
-              <code>${highlighted}</code>
+            <pre class="overflow-x-auto p-4 text-sm leading-relaxed" style="background: ${theme === 'dark' ? '#1e1e1e' : '#ffffff'}; color: ${theme === 'dark' ? '#d4d4d4' : '#000000'}; font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;">
+              <code class="block">${highlighted}</code>
             </pre>
           </div>
         `
@@ -38,7 +43,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
     // Procesar código inline
     processed = processed.replace(
       /`([^`]+)`/g,
-      '<code class="inline-code">$1</code>'
+      '<code class="px-2 py-1 rounded bg-muted text-sm font-mono border" style="background-color: #f1f5f9; color: #1e293b; font-family: \'JetBrains Mono\', \'Consolas\', \'Monaco\', monospace;">$1</code>'
     )
 
     // Procesar títulos

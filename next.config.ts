@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Configuración de rutas para resolver el warning de lockfiles
+  outputFileTracingRoot: process.cwd(),
+
   // Configuración de seguridad mejorada
   images: {
     formats: ['image/webp', 'image/avif'],

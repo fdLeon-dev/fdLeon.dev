@@ -4,8 +4,14 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Gift, ArrowRight, Calendar, Users, Trophy } from "lucide-react"
+import { featuredProjects } from "@/data/projects"
 
 export function SorteoBanner() {
+  // Verificar que featuredProjects esté disponible y tenga al menos 3 elementos
+  if (!featuredProjects || featuredProjects.length < 3) {
+    return null
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,7 +35,7 @@ export function SorteoBanner() {
 
   return (
     <motion.section
-      className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10"
+      className="relative py-12 sm:py-16 lg:py-20 overflow-hidden"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -110,34 +116,64 @@ export function SorteoBanner() {
               </div>
 
               {/* Right side - Visual */}
-              <div className="bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary/30 dark:to-primary/10 p-8 sm:p-12 lg:p-16 flex items-center justify-center">
+              <div className="relative p-8 sm:p-12 lg:p-16 flex items-center justify-center overflow-hidden">
+                {/* Background with 3 sections */}
+                <div className="absolute inset-0">
+                  {/* Top section - First project */}
+                  <div
+                    className="absolute top-0 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
+                    style={{
+                      backgroundImage: `url(${featuredProjects[0]?.image || '/images/placeholder.png'})`,
+                    }}
+                  />
+
+                  {/* Middle section - Second project */}
+                  <div
+                    className="absolute top-1/3 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
+                    style={{
+                      backgroundImage: `url(${featuredProjects[1]?.image || '/images/placeholder.png'})`,
+                    }}
+                  />
+
+                  {/* Bottom section - Third project */}
+                  <div
+                    className="absolute bottom-0 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
+                    style={{
+                      backgroundImage: `url(${featuredProjects[2]?.image || '/images/placeholder.png'})`,
+                    }}
+                  />
+
+                  {/* Glass overlay */}
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+                </div>
+
                 <motion.div
                   variants={itemVariants}
-                  className="text-center"
+                  className="text-center relative z-10"
                 >
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
-                    className="w-32 h-32 bg-primary/20 dark:bg-primary/30 rounded-full flex items-center justify-center mx-auto mb-6"
+                    className="w-32 h-32 bg-white/20 dark:bg-white/30 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-md border border-white/30"
                   >
-                    <Trophy className="h-16 w-16 text-primary" />
+                    <Trophy className="h-16 w-16 text-white" />
                   </motion.div>
 
-                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                  <h3 className="text-2xl font-bold text-white mb-4 drop-shadow-lg">
                     Valor: $1,000 USD
                   </h3>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
+                    <div className="flex items-center justify-center gap-3 text-sm text-white/90">
                       <Calendar className="h-4 w-4" />
                       <span>Cierre: 15 de abril</span>
                     </div>
-                    <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
+                    <div className="flex items-center justify-center gap-3 text-sm text-white/90">
                       <Users className="h-4 w-4" />
                       <span>Máximo 200 participantes</span>
                     </div>
-                    <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
+                    <div className="flex items-center justify-center gap-3 text-sm text-white/90">
                       <Trophy className="h-4 w-4" />
                       <span>1 ganador seleccionado</span>
                     </div>
@@ -147,6 +183,33 @@ export function SorteoBanner() {
             </div>
           </div>
         </motion.div>
+      </div>
+
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-muted-foreground/20 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]">
+          <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
+            <defs>
+              <pattern
+                id="sorteo-pattern"
+                width={200}
+                height={200}
+                x="50%"
+                y={-1}
+                patternUnits="userSpaceOnUse"
+              >
+                <path d="M.5 200V.5H200" fill="none" />
+              </pattern>
+            </defs>
+            <svg x="50%" y={-1} className="overflow-visible fill-muted-foreground/20">
+              <path
+                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+                strokeWidth={0}
+              />
+            </svg>
+            <rect width="100%" height="100%" strokeWidth={0} fill="url(#sorteo-pattern)" />
+          </svg>
+        </div>
       </div>
     </motion.section>
   )
