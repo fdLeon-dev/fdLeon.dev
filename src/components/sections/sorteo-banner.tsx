@@ -4,13 +4,8 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Gift, ArrowRight, Calendar, Users, Trophy } from "lucide-react"
-import { featuredProjects } from "@/data/projects"
 
 export function SorteoBanner() {
-  // Verificar que featuredProjects esté disponible y tenga al menos 3 elementos
-  if (!featuredProjects || featuredProjects.length < 3) {
-    return null
-  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -117,35 +112,11 @@ export function SorteoBanner() {
 
               {/* Right side - Visual */}
               <div className="relative p-8 sm:p-12 lg:p-16 flex items-center justify-center overflow-hidden">
-                {/* Background with 3 sections */}
-                <div className="absolute inset-0">
-                  {/* Top section - First project */}
-                  <div
-                    className="absolute top-0 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
-                    style={{
-                      backgroundImage: `url(${featuredProjects[0]?.image || '/images/placeholder.png'})`,
-                    }}
-                  />
+                {/* Background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5" />
 
-                  {/* Middle section - Second project */}
-                  <div
-                    className="absolute top-1/3 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
-                    style={{
-                      backgroundImage: `url(${featuredProjects[1]?.image || '/images/placeholder.png'})`,
-                    }}
-                  />
-
-                  {/* Bottom section - Third project */}
-                  <div
-                    className="absolute bottom-0 left-0 w-full h-1/3 bg-cover bg-center bg-no-repeat opacity-30"
-                    style={{
-                      backgroundImage: `url(${featuredProjects[2]?.image || '/images/placeholder.png'})`,
-                    }}
-                  />
-
-                  {/* Glass overlay */}
-                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-                </div>
+                {/* Glass overlay */}
+                <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
 
                 <motion.div
                   variants={itemVariants}

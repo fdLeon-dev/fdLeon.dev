@@ -204,23 +204,14 @@ export function CodeBlock({
       className={`relative rounded-xl border bg-card shadow-lg overflow-hidden ${className}`}
     >
       {/* Header */}
-      <div
-        className="flex items-center justify-between px-4 py-3 border-b bg-muted/50"
-        style={{ backgroundColor: colors.background }}
-      >
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-muted/50">
         <div className="flex items-center gap-3">
           {title && (
-            <h4 className="font-semibold text-sm" style={{ color: colors.text }}>
+            <h4 className="font-semibold text-sm text-foreground">
               {title}
             </h4>
           )}
-          <span
-            className="px-2 py-1 rounded text-xs font-medium"
-            style={{
-              backgroundColor: ('keyword' in colors ? colors.keyword : colors.text) + '20',
-              color: 'keyword' in colors ? colors.keyword : colors.text
-            }}
-          >
+          <span className="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary">
             {language.toUpperCase()}
           </span>
         </div>
@@ -258,14 +249,7 @@ export function CodeBlock({
 
       {/* Code Content */}
       <div className="relative">
-        <pre
-          className="overflow-x-auto p-4 text-sm leading-relaxed"
-          style={{
-            backgroundColor: colors.background,
-            color: colors.text,
-            fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace'
-          }}
-        >
+        <pre className="overflow-x-auto p-4 text-sm leading-relaxed bg-card text-foreground" style={{ fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace' }}>
           <code
             className="block"
             dangerouslySetInnerHTML={{
@@ -294,10 +278,8 @@ export function InlineCode({
 }) {
   return (
     <code
-      className={`px-2 py-1 rounded bg-muted text-sm font-mono border ${className}`}
+      className={`px-2 py-1 rounded bg-muted text-sm font-mono border text-foreground ${className}`}
       style={{
-        backgroundColor: '#f1f5f9',
-        color: '#1e293b',
         fontFamily: 'JetBrains Mono, Consolas, Monaco, monospace'
       }}
     >

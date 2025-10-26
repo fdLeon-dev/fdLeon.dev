@@ -2,48 +2,48 @@
  * Resaltador de sintaxis avanzado para código
  */
 
-// Paleta de colores VS Code Dark
+// Paleta de colores minimalista para modo oscuro
 export const VS_CODE_COLORS = {
-  background: '#1e1e1e',
-  foreground: '#d4d4d4',
-  keyword: '#569cd6',
-  string: '#ce9178',
-  comment: '#6a9955',
-  number: '#b5cea8',
-  function: '#dcdcaa',
-  variable: '#9cdcfe',
-  operator: '#d4d4d4',
-  type: '#4ec9b0',
-  tag: '#569cd6',
-  attribute: '#92c5f4',
-  selector: '#d7ba7d',
-  property: '#9cdcfe',
-  boolean: '#569cd6',
-  null: '#569cd6',
-  regex: '#d16969',
-  escape: '#d7ba7d'
+  background: '#ffffff',
+  foreground: '#1e293b',
+  keyword: '#3b82f6',      // Azul vibrante para keywords
+  string: '#dc2626',       // Rojo para strings
+  comment: '#059669',      // Verde para comentarios
+  number: '#7c3aed',       // Púrpura para números
+  function: '#ea580c',     // Naranja para funciones
+  variable: '#0891b2',     // Cian para variables
+  operator: '#64748b',     // Gris para operadores
+  type: '#0d9488',         // Verde azulado para tipos
+  tag: '#dc2626',          // Rojo para tags HTML
+  attribute: '#2563eb',    // Azul para atributos
+  selector: '#ca8a04',     // Amarillo para selectores CSS
+  property: '#0891b2',     // Cian para propiedades
+  boolean: '#3b82f6',      // Azul para booleanos
+  null: '#64748b',         // Gris para null
+  regex: '#dc2626',        // Rojo para regex
+  escape: '#ca8a04'       // Amarillo para escapes
 }
 
-// Paleta de colores VS Code Light
+// Paleta de colores minimalista para modo claro
 export const VS_CODE_LIGHT_COLORS = {
   background: '#ffffff',
-  foreground: '#000000',
-  keyword: '#0000ff',
-  string: '#a31515',
-  comment: '#008000',
-  number: '#098658',
-  function: '#795e26',
-  variable: '#001080',
-  operator: '#000000',
-  type: '#267f99',
-  tag: '#800000',
-  attribute: '#ff0000',
-  selector: '#800000',
-  property: '#0451a5',
-  boolean: '#0000ff',
-  null: '#0000ff',
-  regex: '#811f3f',
-  escape: '#0000ff'
+  foreground: '#1e293b',
+  keyword: '#3b82f6',      // Azul vibrante para keywords
+  string: '#dc2626',       // Rojo para strings
+  comment: '#059669',      // Verde para comentarios
+  number: '#7c3aed',       // Púrpura para números
+  function: '#ea580c',     // Naranja para funciones
+  variable: '#0891b2',     // Cian para variables
+  operator: '#64748b',     // Gris para operadores
+  type: '#0d9488',         // Verde azulado para tipos
+  tag: '#dc2626',          // Rojo para tags HTML
+  attribute: '#2563eb',    // Azul para atributos
+  selector: '#ca8a04',     // Amarillo para selectores CSS
+  property: '#0891b2',     // Cian para propiedades
+  boolean: '#3b82f6',      // Azul para booleanos
+  null: '#64748b',         // Gris para null
+  regex: '#dc2626',        // Rojo para regex
+  escape: '#ca8a04'        // Amarillo para escapes
 }
 
 // Keywords por lenguaje

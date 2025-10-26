@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { ThemeProvider } from "@/lib/theme-provider";
 import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
-import { ThemeProvider } from "@/lib/theme-provider";
+import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,10 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "FDLeon-dev - Desarrollador Web Profesional",
-  description: "Desarrollador web profesional especializado en React, Next.js, TypeScript y diseño moderno.",
-};
+export const metadata: Metadata = generateSEOMetadata("home");
 
 export default function RootLayout({
   children,
@@ -30,18 +28,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <div className="relative flex min-h-screen flex-col">
           <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <main className="flex-1">{children}</main>
           <Footer />
-        </ThemeProvider>
+        </div>
       </body>
     </html>
   );

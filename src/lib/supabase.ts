@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 
 // Configuración de Supabase
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key'
 
 // Crear cliente de Supabase
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
@@ -32,6 +32,12 @@ export interface BlogSubscriber {
 // Funciones para el sorteo
 export const addSorteoParticipant = async (participant: Omit<SorteoParticipant, 'id' | 'created_at'>) => {
   try {
+    // Verificar si Supabase está configurado
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando inserción de participante.')
+      return { success: true, data: { id: 'simulated-id', ...participant, created_at: new Date().toISOString() } }
+    }
+
     const { data, error } = await supabase
       .from('sorteo_participants')
       .insert([participant])
@@ -52,6 +58,12 @@ export const addSorteoParticipant = async (participant: Omit<SorteoParticipant, 
 
 export const getSorteoParticipants = async () => {
   try {
+    // Verificar si Supabase está configurado
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando obtención de participantes.')
+      return { success: true, data: [] }
+    }
+
     const { data, error } = await supabase
       .from('sorteo_participants')
       .select('*')
@@ -71,6 +83,12 @@ export const getSorteoParticipants = async () => {
 
 export const getSorteoParticipantCount = async () => {
   try {
+    // Verificar si Supabase está configurado
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando conteo de participantes.')
+      return { success: true, count: 0 }
+    }
+
     const { count, error } = await supabase
       .from('sorteo_participants')
       .select('*', { count: 'exact', head: true })
@@ -90,6 +108,12 @@ export const getSorteoParticipantCount = async () => {
 // Funciones para suscriptores del blog
 export const addBlogSubscriber = async (subscriber: Omit<BlogSubscriber, 'id' | 'subscribed_at'>) => {
   try {
+    // Verificar si Supabase está configurado
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando inserción de suscriptor.')
+      return { success: true, data: { id: 'simulated-id', ...subscriber, subscribed_at: new Date().toISOString() } }
+    }
+
     const { data, error } = await supabase
       .from('blog_subscribers')
       .insert([subscriber])
@@ -110,6 +134,12 @@ export const addBlogSubscriber = async (subscriber: Omit<BlogSubscriber, 'id' | 
 
 export const getBlogSubscribers = async () => {
   try {
+    // Verificar si Supabase está configurado
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando obtención de suscriptores.')
+      return { success: true, data: [] }
+    }
+
     const { data, error } = await supabase
       .from('blog_subscribers')
       .select('*')
@@ -130,6 +160,12 @@ export const getBlogSubscribers = async () => {
 
 export const unsubscribeBlogSubscriber = async (email: string) => {
   try {
+    // Verificar si Supabase está configurado
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando desuscripción.')
+      return { success: true }
+    }
+
     const { error } = await supabase
       .from('blog_subscribers')
       .update({ is_active: false })

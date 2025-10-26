@@ -20,12 +20,14 @@ export function BlogImageGenerator({
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const generateImage = async () => {
-      if (post.featuredImage) {
-        setGeneratedImage(post.featuredImage)
-        return
-      }
+    if (post.featuredImage) {
+      setGeneratedImage(post.featuredImage)
+      return
+    }
 
+    let isMounted = true
+
+    const generateImage = async () => {
       setIsGenerating(true)
       setError(null)
 
@@ -37,16 +39,26 @@ export function BlogImageGenerator({
           author: post.author.name,
           featuredImage: post.featuredImage
         })
-        setGeneratedImage(image)
+        if (isMounted) {
+          setGeneratedImage(image)
+        }
       } catch (err) {
-        setError('Error generando imagen')
+        if (isMounted) {
+          setError('Error generando imagen')
+        }
         console.error('Error generating blog image:', err)
       } finally {
-        setIsGenerating(false)
+        if (isMounted) {
+          setIsGenerating(false)
+        }
       }
     }
 
     generateImage()
+
+    return () => {
+      isMounted = false
+    }
   }, [post])
 
   const handleRegenerate = async () => {
@@ -154,4 +166,5 @@ export function BlogImagePreview({
     </div>
   )
 }
+
 

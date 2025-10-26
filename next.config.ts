@@ -1,18 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Configuración de rutas para resolver el warning de lockfiles
-  outputFileTracingRoot: process.cwd(),
+  // Configuración experimental para resolver problemas de Webpack
+  experimental: {
+    // esmExternals: 'loose', // Comentado porque causa problemas con Turbopack
+  },
 
-  // Configuración de seguridad mejorada
+  // Configuración de Turbopack para silenciar advertencias
+  turbopack: {},
+
+  // Configuración de imágenes
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
-    dangerouslyAllowSVG: false, // Deshabilitado por seguridad
+    dangerouslyAllowSVG: false,
     contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';",
     remotePatterns: [
       {
         protocol: 'https',
@@ -40,10 +44,6 @@ const nextConfig: NextConfig = {
             value: 'on'
           },
           {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
             key: 'X-XSS-Protection',
             value: '1; mode=block'
           },
@@ -58,33 +58,47 @@ const nextConfig: NextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
           }
         ],
       },
     ]
   },
 
-  // Compresión habilitada
+  // Configuración básica
   compress: true,
-
-  // Configuración de seguridad adicional
   poweredByHeader: false,
 
-  // Configuración de paquetes externos para el servidor
+  // Configuración de paquetes externos
   serverExternalPackages: ['@emailjs/browser'],
 
-  // Configuración básica de Webpack
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      net: false,
-      tls: false,
+  // Configuración simplificada de Webpack
+  webpack: (config, { isServer }) => {
+    // Solo aplicar fallbacks en el cliente
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+        stream: false,
+        util: false,
+        url: false,
+        assert: false,
+        http: false,
+        https: false,
+        os: false,
+        path: false,
+        zlib: false,
+        querystring: false,
+      }
     }
+
+    // Configuración adicional para resolver problemas de módulos
+    config.resolve.alias = {
+      ...config.resolve.alias,
+    }
+
     return config
   }
 };

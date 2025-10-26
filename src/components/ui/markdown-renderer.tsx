@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { CodeBlock, InlineCode } from './code-block'
+import { CodeExplanation, InlineCodeExplanation } from './code-explanation'
+import { ModernCodeBlock, ModernInlineCode } from './modern-code-block'
+import { SimpleCodeBlock, SimpleInlineCode } from './simple-code-block'
+import { BriefCodeBlock, BriefInlineCode } from './brief-code-block'
 import { highlightCode, detectLanguage, getThemeFromContext } from '@/lib/syntax-highlighter'
 
 interface MarkdownRendererProps {
@@ -15,7 +19,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
   useEffect(() => {
     let processed = content
 
-    // Procesar bloques de código
+    // Procesar bloques de código ultra breves
     processed = processed.replace(
       /```(\w+)?\n([\s\S]*?)\n```/g,
       (match, language, code) => {
@@ -24,26 +28,28 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
         const highlighted = highlightCode(code.trim(), detectedLanguage, theme)
 
         return `
-          <div class="code-block-wrapper rounded-xl border bg-card shadow-lg overflow-hidden my-6">
-            <div class="flex items-center justify-between px-4 py-3 border-b bg-muted/50" style="background-color: ${theme === 'dark' ? '#1e1e1e' : '#f8fafc'};">
-              <div class="flex items-center gap-3">
-                <span class="px-2 py-1 rounded text-xs font-medium" style="background-color: ${theme === 'dark' ? '#569cd620' : '#3b82f620'}; color: ${theme === 'dark' ? '#569cd6' : '#3b82f6'};">
-                  ${detectedLanguage.toUpperCase()}
+          <div class="my-4">
+            <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
+              <div class="flex items-center justify-between px-3 py-1 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <span class="text-xs text-gray-500 dark:text-gray-400 font-mono">
+                  ${detectedLanguage}
                 </span>
               </div>
+              <div class="p-3">
+                <pre class="text-sm leading-relaxed overflow-x-auto">
+                  <code class="text-gray-800 dark:text-gray-200" style="font-family: 'Monaco', 'Consolas', monospace;">${highlighted}</code>
+                </pre>
+              </div>
             </div>
-            <pre class="overflow-x-auto p-4 text-sm leading-relaxed" style="background: ${theme === 'dark' ? '#1e1e1e' : '#ffffff'}; color: ${theme === 'dark' ? '#d4d4d4' : '#000000'}; font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;">
-              <code class="block">${highlighted}</code>
-            </pre>
           </div>
         `
       }
     )
 
-    // Procesar código inline
+    // Procesar código inline ultra simple
     processed = processed.replace(
       /`([^`]+)`/g,
-      '<code class="px-2 py-1 rounded bg-muted text-sm font-mono border" style="background-color: #f1f5f9; color: #1e293b; font-family: \'JetBrains Mono\', \'Consolas\', \'Monaco\', monospace;">$1</code>'
+      '<code class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm font-mono rounded border border-gray-200 dark:border-gray-700" style="font-family: \'Monaco\', \'Consolas\', monospace;">$1</code>'
     )
 
     // Procesar títulos
@@ -101,6 +107,25 @@ export function CodeSection({
         className="shadow-lg"
       />
     </div>
+  )
+}
+
+// Componente ultra breve para código
+export function BriefCodeSection({
+  code,
+  language = 'javascript',
+  note
+}: {
+  code: string
+  language?: string
+  note?: string
+}) {
+  return (
+    <BriefCodeBlock
+      code={code}
+      language={language}
+      note={note}
+    />
   )
 }
 

@@ -921,7 +921,7 @@ function handleAsyncState<T>(state: AsyncState<T>) {
   } else if (isErrorState(state)) {
     // TypeScript sabe que state.error existe
     console.error('Error:', state.error);
-  } else {
+} else {
     // TypeScript sabe que es LoadingState
     console.log('Loading...');
   }
