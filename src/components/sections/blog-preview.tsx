@@ -36,26 +36,28 @@ export function BlogPreview() {
 
   const handlePostClick = (postTitle: string) => {
     try {
-      trackEvent('blog_post_click', 'engagement', postTitle)
+      trackEvent('blog_post_click', {
+        category: 'engagement',
+        post_title: postTitle
+      })
     } catch (error) {
       console.warn('Error tracking post click:', error)
     }
   }
 
+
   const handleTagClick = (tag: string) => {
-    try {
-      trackEvent('blog_tag_click', 'engagement', tag)
-    } catch (error) {
-      console.warn('Error tracking tag click:', error)
-    }
+    trackEvent('blog_tag_click', {
+      category: 'engagement',
+      tag_name: tag
+    })
   }
 
   const handleCategoryClick = (category: string) => {
-    try {
-      trackEvent('blog_category_click', 'engagement', category)
-    } catch (error) {
-      console.warn('Error tracking category click:', error)
-    }
+    trackEvent('blog_category_click', {
+      category: 'engagement',
+      category_name: category
+    })
   }
 
   return (
@@ -222,3 +224,4 @@ export function BlogPreview() {
   )
 }
 
+export default BlogPreview 

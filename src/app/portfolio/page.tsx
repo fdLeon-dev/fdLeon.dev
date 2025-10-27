@@ -10,32 +10,27 @@ import { analytics } from "@/lib/analytics"
 
 function PortfolioClient() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
-
-  // Handler para tracking
-  const handleProjectClick = (projectName: string, linkType: 'live' | 'github') => {
-    analytics.trackProjectClick(projectName, linkType)
-  }
+  const filteredProjects =
+    selectedCategory === "all"
+      ? projects
+      : projectsByCategory[selectedCategory as keyof typeof projectsByCategory] || []
 
   const categories = [
     { id: "all", label: "Todos" },
     { id: "web", label: "Desarrollo Web" },
     { id: "software", label: "Software" },
     { id: "design", label: "Diseño" },
-    { id: "ecommerce", label: "E-commerce" }
+    { id: "ecommerce", label: "E-commerce" },
   ]
-
-  const filteredProjects = selectedCategory === "all"
-    ? projects
-    : projectsByCategory[selectedCategory as keyof typeof projectsByCategory] || []
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   }
 
   const itemVariants = {
@@ -45,9 +40,9 @@ function PortfolioClient() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
-      }
-    }
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+      },
+    },
   }
 
   return (
@@ -107,18 +102,16 @@ function PortfolioClient() {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => handleProjectClick(project.title, 'live')}
+                      onClick={() => analytics.trackProjectClick(project.title)}
                       className="block h-full w-full cursor-pointer"
                     >
                       <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300">
-                        {/* Imagen del proyecto */}
                         <ProjectImage
                           src={project.image}
                           alt={project.title}
                           className="absolute inset-0 w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-300"
                           fallbackText={project.title}
                         />
-                        {/* Overlay con información del proyecto */}
                         <div className="relative z-10 text-center">
                           <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
                             {project.title.charAt(0)}
@@ -129,7 +122,6 @@ function PortfolioClient() {
                             {project.category === "software" && "Software"}
                             {project.category === "ecommerce" && "E-commerce"}
                           </div>
-                          {/* Indicador de click */}
                           <div className="mt-2 text-xs text-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             Click para ver en vivo
                           </div>
@@ -138,14 +130,12 @@ function PortfolioClient() {
                     </a>
                   ) : (
                     <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
-                      {/* Imagen del proyecto */}
                       <ProjectImage
                         src={project.image}
                         alt={project.title}
                         className="absolute inset-0 w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-300"
                         fallbackText={project.title}
                       />
-                      {/* Overlay con información del proyecto */}
                       <div className="relative z-10 text-center">
                         <div className="text-3xl sm:text-4xl font-bold text-primary/80 mb-2">
                           {project.title.charAt(0)}
@@ -188,7 +178,7 @@ function PortfolioClient() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={() => handleProjectClick(project.title, 'live')}
+                            onClick={() => analytics.trackProjectClick(project.title)}
                           >
                             <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                             Live
@@ -201,7 +191,7 @@ function PortfolioClient() {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={() => handleProjectClick(project.title, 'github')}
+                            onClick={() => analytics.trackProjectClick(project.title)}
                           >
                             <Github className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                             Code
@@ -214,23 +204,13 @@ function PortfolioClient() {
               </motion.div>
             ))}
           </motion.div>
-
-          {filteredProjects.length === 0 && (
-            <motion.div
-              variants={itemVariants}
-              className="text-center py-12"
-            >
-              <p className="text-muted-foreground">
-                No hay proyectos disponibles en esta categoría.
-              </p>
-            </motion.div>
-          )}
         </motion.div>
       </div>
     </div>
   )
 }
 
+// ✅ Exportación obligatoria para que Next.js lo reconozca como página
 export default function PortfolioPage() {
   return <PortfolioClient />
 }

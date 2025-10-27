@@ -1,6 +1,7 @@
 // Ejemplo de uso del componente SimpleCodeBlock
 
-import { SimpleCodeSection } from '@/components/ui/markdown-renderer'
+
+import { SimpleCodeBlock } from '@/components/ui/simple-code-block'
 
 // Ejemplo de código React con explicación breve
 const reactExample = `import { useState } from 'react'
@@ -28,7 +29,7 @@ export function BlogArticleExample() {
         El hook <code>useState</code> te permite agregar estado a componentes funcionales.
       </p>
 
-      <SimpleCodeSection
+      <SimpleCodeBlock
         code={reactExample}
         language="javascript"
         title="Contador con useState"

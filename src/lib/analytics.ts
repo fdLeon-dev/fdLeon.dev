@@ -60,23 +60,25 @@ export const initGA = () => {
 /**
  * Enviar evento personalizado
  */
-export const trackEvent = (
-  action: string,
-  category: string,
-  label?: string,
-  value?: number
-) => {
-  try {
-    if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
-      window.gtag('event', action, {
-        event_category: category,
-        event_label: label,
-        value: value,
-      })
-    }
-  } catch (error) {
-    console.warn('Error tracking event:', error)
+export function trackEvent(eventName: string, params?: Record<string, any>) {
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag("event", eventName, params)
+  } else {
+    console.log("Analytics event:", eventName, params)
   }
+}
+
+export const handleContactForm = (formData: {
+  name: string
+  email: string
+  subject: string
+}) => {
+  trackEvent('contact_form_submission', {
+    form_name: formData.name,
+    form_email: formData.email,
+    form_subject: formData.subject,
+    timestamp: new Date().toISOString()
+  })
 }
 
 /**
@@ -99,66 +101,122 @@ export const trackPageView = (url: string, title?: string) => {
  * Eventos específicos del portafolio
  */
 export const analytics = {
-  // Eventos de navegación
-  trackNavigation: (destination: string) => {
-    trackEvent('navigation', 'user_interaction', destination)
+  /**
+   * Trackea clics en proyectos del portafolio.
+   * @param projectName - nombre del proyecto clickeado
+   * @param linkType - tipo de enlace ('live' o 'github')
+   */
+  trackProjectClick: (projectName: string, linkType?: "live" | "github") => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "project_click", {
+        project_name: projectName,
+        link_type: linkType || "unknown",
+      })
+    } else {
+      trackEvent("project_click", {
+        category: "portfolio",
+        project_name: projectName,
+        link_type: linkType || "unknown",
+      })
+    }
+  },
+
+  /**
+   * Trackea la navegación a secciones del sitio.
+   */
+  trackNavigation: (section: string) => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "navigation", {
+        section,
+      })
+    } else {
+      trackEvent("navigation", { section })
+    }
+  },
+
+  /**
+   * Trackea cuando el usuario hace clic en el botón de “Ver todos los proyectos”.
+   */
+  trackViewAllProjects: () => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "view_all_projects")
+    } else {
+      trackEvent("view_all_projects")
+    }
   },
 
   // Eventos de formulario
   trackFormStart: (formName: string) => {
-    trackEvent('form_start', 'engagement', formName)
+    trackEvent('form_start', {
+      category: 'engagement',
+      form_name: formName
+    })
   },
 
   trackFormSubmit: (formName: string, success: boolean) => {
-    trackEvent(
-      success ? 'form_submit' : 'form_error',
-      'engagement',
-      formName,
-      success ? 1 : 0
-    )
+    trackEvent(success ? 'form_submit' : 'form_error', {
+      category: 'engagement',
+      form_name: formName,
+      success: success
+    })
   },
 
-  // Eventos de portafolio
-  trackProjectView: (projectName: string, projectCategory: string) => {
-    trackEvent('project_view', 'portfolio', `${projectCategory}_${projectName}`)
-  },
-
-  trackProjectClick: (projectName: string, linkType: 'live' | 'github') => {
-    trackEvent('project_click', 'portfolio', `${projectName}_${linkType}`)
-  },
 
   // Eventos de contacto
-  trackContactClick: (method: 'email' | 'phone' | 'form') => {
-    trackEvent('contact_click', 'engagement', method)
+  trackContactClick: (contactMethod: string) => {
+    trackEvent('contact_click', {
+      category: 'engagement',
+      contact_method: contactMethod
+    })
   },
 
   trackContactSuccess: () => {
-    trackEvent('contact_success', 'conversion', 'contact_form', 1)
+    trackEvent('contact_success', {
+      category: 'conversion',
+      contact_method: 'contact_form'
+    })
   },
 
   // Eventos de tema
-  trackThemeToggle: (theme: 'light' | 'dark') => {
-    trackEvent('theme_toggle', 'user_preference', theme)
+  trackThemeToggle: (themeName: string) => {
+    trackEvent('theme_toggle', {
+      category: 'user_preference',
+      theme_name: themeName
+    })
   },
 
   // Eventos de scroll
   trackScroll: (section: string) => {
-    trackEvent('scroll_to_section', 'engagement', section)
+    trackEvent('scroll_to_section', {
+      category: 'engagement',
+      section_name: section
+    })
   },
 
   // Eventos de tiempo en página
-  trackTimeOnPage: (timeInSeconds: number, page: string) => {
-    trackEvent('time_on_page', 'engagement', page, timeInSeconds)
+  trackTimeOnPage: (timeInSeconds: number, metricName?: string) => {
+    trackEvent('time_on_page', {
+      category: 'engagement',
+      time_in_seconds: timeInSeconds,
+      metric_name: metricName || 'general'
+    })
   },
 
+
   // Eventos de conversión
-  trackConversion: (conversionType: string, value?: number) => {
-    trackEvent('conversion', 'business', conversionType, value)
+  trackConversion: (conversionName: string) => {
+    trackEvent('conversion', {
+      category: 'business',
+      conversion_name: conversionName
+    })
   },
 
   // Eventos de error
-  trackError: (errorType: string, errorMessage?: string) => {
-    trackEvent('error', 'technical', `${errorType}_${errorMessage || 'unknown'}`)
+  trackError: (errorName: string) => {
+    trackEvent('error', {
+      category: 'technical',
+      error_name: errorName
+    })
   }
 }
 
@@ -173,7 +231,8 @@ export const usePageTracking = () => {
   // Track time on page when user leaves
   const handleBeforeUnload = () => {
     const timeSpent = Math.round((Date.now() - startTime) / 1000)
-    analytics.trackTimeOnPage(timeSpent, window.location.pathname)
+    analytics.trackTimeOnPage(timeSpent)
+
   }
 
   // Track scroll depth
@@ -324,3 +383,5 @@ export const trackBlogSubscription = (subscriberData: {
     timestamp: new Date().toISOString()
   })
 }
+
+export default analytics

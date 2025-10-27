@@ -1,6 +1,6 @@
 // Ejemplo de uso del componente CodeExplanation en artículos del blog
 
-import { CodeExplanationSection } from '@/components/ui/markdown-renderer'
+import { CodeExplanation } from '@/components/ui/code-explanation'
 
 // Ejemplo de código React con explicación
 const reactExample = `import { useState } from 'react'
@@ -42,7 +42,7 @@ export function BlogArticleExample() {
         El hook <code>useState</code> es fundamental en React para manejar el estado local de los componentes.
       </p>
 
-      <CodeExplanationSection
+      <CodeExplanation
         code={reactExample}
         language="javascript"
         title="Ejemplo básico de useState"
