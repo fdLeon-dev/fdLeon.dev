@@ -26,444 +26,114 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    id: "nextjs-15-features",
-    title: "Nuevas Características de Next.js 15: Una Guía Completa",
-    slug: "nextjs-15-features",
-    excerpt: "Explora las nuevas características de Next.js 15, incluyendo mejoras en performance, nuevas APIs y optimizaciones para desarrolladores.",
-    content: `# Nuevas Características de Next.js 15: Guía Técnica Completa
+    id: "cursor-ai-seguridad",
+    title: "Guía de Cursor AI para Crear Landing Pages Seguras",
+    slug: "cursor-ai-landing-pages-seguras",
+    excerpt: "Descubre cómo usar Cursor AI para crear landing pages modernas con código seguro. Mejores prácticas de seguridad en desarrollo web.",
+    content: `# Guía de Cursor AI para Crear Landing Pages Seguras
 
-Next.js 15 ha revolucionado el desarrollo web con mejoras significativas en performance, developer experience y nuevas APIs. En esta guía técnica, exploraremos las características más importantes y cómo implementarlas correctamente.
+La seguridad en el desarrollo web moderno no es opcional. Cada línea de código que escribes es una puerta potencial para vulnerabilidades. Con Cursor AI, puedes no solo crear landing pages increíbles, sino asegurarte de que sean seguras desde el primer día.
 
-## 🚀 Turbopack: El Futuro de la Compilación
+## El Problema Real de la Seguridad Web
 
-Turbopack ha recibido mejoras masivas en velocidad de compilación, especialmente para proyectos enterprise.
+Cuando creas una landing page, estás recopilando datos de usuarios: emails, números de teléfono, nombres. Cada dato es una responsabilidad. La seguridad no es solo para aplicaciones complejas - incluso una landing page simple necesita protección.
 
-### Configuración Optimizada
+Cursor AI puede ayudarte a implementar mejores prácticas de seguridad automáticamente. No necesitas ser un experto en seguridad para escribir código seguro.
 
-\`\`\`javascript
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
-  },
-  // Optimizaciones de bundle
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      };
-    }
-    return config;
-  },
-};
+## Validación de Datos: La Primera Línea de Defensa
 
-module.exports = nextConfig;
-\`\`\`
+Todo dato que entra a tu aplicación debe ser validado. En formularios de landing pages, esto significa verificar que los emails sean válidos, que los campos obligatorios no estén vacíos, y que no hay intentos de inyección.
 
-### Mejores Prácticas para Turbopack
+Con Cursor AI, puedes pedirle que implemente validación robusta. Es simplemente decir: "Agrega validación del lado del cliente y del servidor para este formulario". Cursor incluirá validaciones apropiadas usando bibliotecas estándar.
 
-\`\`\`javascript
-// Componente optimizado para Turbopack
-import { Suspense, lazy } from 'react';
-import dynamic from 'next/dynamic';
+La clave es no confiar nunca en la validación del cliente. El servidor siempre debe validar. Cursor puede generar ambas capas de validación automáticamente.
 
-// Lazy loading con Suspense
-const HeavyComponent = lazy(() => import('./HeavyComponent'));
+## Sanitización de Entradas: Más Allá de la Validación
 
-export default function OptimizedPage() {
-  return (
-    <div>
-      <h1>Página Optimizada</h1>
-      <Suspense fallback={<div>Cargando...</div>}>
-        <HeavyComponent />
-      </Suspense>
-    </div>
-  );
-}
+Validar que un campo no esté vacío es una cosa. Asegurarte de que no contenga código malicioso es otra. La sanitización es el proceso de limpiar las entradas del usuario.
 
-// Dynamic imports para componentes pesados
-const Chart = dynamic(() => import('./Chart'), {
-  loading: () => <p>Cargando gráfico...</p>,
-  ssr: false, // Solo en cliente si es necesario
-});
-\`\`\`
+Sanitiza todo lo que venga del usuario antes de guardarlo o mostrarlo. Esto previene ataques XSS (Cross-Site Scripting) donde atacantes inyectan código malicioso en tu sitio.
 
-## 🎯 App Router: Patrones Avanzados
+Cursor AI puede generar código que sanitice automáticamente las entradas usando bibliotecas probadas como DOMPurify. Es un nivel adicional de protección que puedes agregar con un simple prompt.
 
-El App Router ahora está completamente estabilizado con patrones avanzados para aplicaciones complejas.
+## Autenticación Segura: Nunca Almacenes Contraseñas en Texto Plano
 
-### Server Components vs Client Components
+Si tu landing page tiene un área de acceso, nunca almacenes contraseñas en texto plano. Usa hashing con bcrypt o similar. Cada contraseña debe ser única incluso si dos usuarios eligen la misma contraseña.
 
-\`\`\`javascript
-// app/dashboard/page.js - Server Component
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import DashboardClient from './DashboardClient';
+Cursor AI puede generar el código de autenticación seguro automáticamente. Simplemente pide implementar autenticación con JWT y bcrypt, y Cursor estructurará todo correctamente.
 
-export default async function DashboardPage() {
-  const session = await getServerSession();
-  
-  if (!session) {
-    redirect('/login');
-  }
+## Rate Limiting: Protección Contra Abuso
 
-  // Datos del servidor
-  const userData = await fetchUserData(session.user.id);
-  
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <DashboardClient initialData={userData} />
-    </div>
-  );
-}
+Las landing pages son populares por ataques de fuerza bruta. Implementa rate limiting para prevenir que atacantes intenten miles de login en segundos.
 
-// app/dashboard/DashboardClient.js - Client Component
-'use client';
-import { useState, useEffect } from 'react';
+Rate limiting significa limitar cuántas veces alguien puede hacer cierta acción en un período de tiempo. Por ejemplo, máximo 5 intentos de login por minuto.
 
-export default function DashboardClient({ initialData }) {
-  const [data, setData] = useState(initialData);
-  const [loading, setLoading] = useState(false);
+Cursor puede generar middleware de rate limiting. Es protección simple pero efectiva que previene la mayoría de ataques automatizados.
 
-  const handleRefresh = async () => {
-    setLoading(true);
-    const response = await fetch('/api/dashboard');
-    const newData = await response.json();
-    setData(newData);
-    setLoading(false);
-  };
+## HTTPS: No Negociable
 
-  return (
-    <div>
-      <button onClick={handleRefresh} disabled={loading}>
-        {loading ? 'Actualizando...' : 'Actualizar'}
-      </button>
-      {/* Renderizar datos */}
-    </div>
-  );
-}
-\`\`\`
+Usa HTTPS siempre. En 2024, no hay excusa. Los navegadores marcan sitios HTTP como inseguros, y tienen razón en hacerlo.
 
-### Middleware Avanzado
+Con Vercel o Netlify, HTTPS viene gratis y automático. Si estás en otro hosting, obtén un certificado SSL. Let's Encrypt los da gratis.
 
-\`\`\`javascript
-// middleware.js
-import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+Cursor puede ayudarte a configurar redirects de HTTP a HTTPS. Es configuración simple que debe estar en todos los proyectos.
 
-export async function middleware(request) {
-  const token = await getToken({ req: request });
-  const { pathname } = request.nextUrl;
+## Variables de Entorno: Secreto significa Secreto
 
-  // Protección de rutas
-  if (pathname.startsWith('/dashboard') && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
+Nunca hardcodees API keys, tokens o credenciales en tu código. Usa variables de entorno. Cursor puede generar código que lea de \`process.env\` correctamente.
 
-  // Rate limiting
-  const ip = request.ip || '127.0.0.1';
-  const rateLimitKey = \`rate_limit_\${ip}\`;
-  
-  // Implementar lógica de rate limiting
-  const rateLimit = await checkRateLimit(rateLimitKey);
-  
-  if (!rateLimit.allowed) {
-    return new NextResponse('Too Many Requests', { status: 429 });
-  }
+Las variables de entorno son la forma estándar de manejar secretos. Tu código lee de estas variables en runtime, no las incluye en el código fuente.
 
-  return NextResponse.next();
-}
+## CORS Configurado Correctamente
 
-export const config = {
-  matcher: [
-    '/dashboard/:path*',
-    '/api/:path*',
-  ],
-};
-\`\`\`
+Si tu landing page hace requests a APIs, configura CORS apropiadamente. CORS (Cross-Origin Resource Sharing) controla quién puede hacer requests a tu API.
 
-## 🖼️ Optimización de Imágenes Avanzada
+Configura CORS restrictivo. Solo permite los orígenes que necesitas. Nunca uses wildcards (\`*\`) en producción - es una invitación abierta a atacantes.
 
-Next.js 15 introduce optimizaciones automáticas más inteligentes para imágenes.
+Cursor puede generar configuraciones de CORS correctas. Simplemente especifica los orígenes permitidos.
 
-### Configuración de Imágenes
+## Content Security Policy: Capa Extra de Protección
 
-\`\`\`javascript
-// next.config.js - Configuración de imágenes
-const nextConfig = {
-  images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    domains: ['example.com', 'cdn.example.com'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.example.com',
-        port: '',
-        pathname: '/images/**',
-      },
-    ],
-  },
-};
-\`\`\`
+Content Security Policy (CSP) es un header HTTP que previene ataques XSS. Especifica de dónde el navegador puede cargar recursos.
 
-### Componente de Imagen Optimizado
+Una CSP bien configurada previene la mayoría de ataques XSS. Aunque requiere configuración inicial, vale la pena.
 
-\`\`\`javascript
-// components/OptimizedImage.js
-import Image from 'next/image';
-import { useState } from 'react';
+Cursor puede generar configuraciones CSP apropiadas para tu proyecto. Es un nivel adicional de seguridad que puedes agregar sin mucha complejidad.
 
-export default function OptimizedImage({ 
-  src, 
-  alt, 
-  width, 
-  height, 
-  priority = false,
-  className = '',
-  ...props 
-}) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+## Pruebas de Seguridad: Constantemente
 
-  const handleLoad = () => {
-    setIsLoading(false);
-  };
+La seguridad no es algo que haces una vez. Es un proceso continuo. Revisa tu código regularmente buscando vulnerabilidades comunes.
 
-  const handleError = () => {
-    setHasError(true);
-    setIsLoading(false);
-  };
+Usa herramientas como npm audit para encontrar dependencias vulnerables. Actualiza regularmente. Las vulnerabilidades se descubren constantemente.
 
-  if (hasError) {
-    return (
-      <div 
-        className={\`bg-gray-200 flex items-center justify-center \${className}\`}
-        style={{ width, height }}
-      >
-        <span className="text-gray-500">Error cargando imagen</span>
-      </div>
-    );
-  }
+Cursor puede ayudar a generar tests de seguridad. Tests automatizados que verifican que tus protecciones funcionan.
 
-  return (
-    <div className={\`relative \${className}\`}>
-      {isLoading && (
-        <div 
-          className="absolute inset-0 bg-gray-200 animate-pulse"
-          style={{ width, height }}
-        />
-      )}
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        priority={priority}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={\`transition-opacity duration-300 \${isLoading ? 'opacity-0' : 'opacity-100'\`}
-        {...props}
-      />
-    </div>
-  );
-}
-\`\`\`
+## Conclusión: Seguridad desde el Principio
 
-## 🔧 API Routes Mejoradas
+La seguridad no es algo que agregas después. Debe estar en cada línea de código que escribes. Cursor AI puede ayudarte a implementar mejores prácticas de seguridad desde el primer día.
 
-### Patrón de API con Validación
+No necesitas ser un experto en seguridad. Usa herramientas como Cursor para generar código seguro. Aprende de lo que genera. Con el tiempo, escribir código seguro se vuelve natural.
 
-\`\`\`javascript
-// app/api/users/route.js
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { rateLimit } from '@/lib/rate-limit';
+Recuerda: cada vulnerabilidad que previenes es un cliente cuyos datos están seguros. En el mundo moderno, eso no es solo buena práctica - es tu responsabilidad.
 
-// Esquema de validación
-const createUserSchema = z.object({
-  name: z.string().min(2).max(50),
-  email: z.string().email(),
-  age: z.number().min(18).max(100),
-});
+Empieza simple. Implementa validación básica. Usa HTTPS. Sanitiza entradas. Con cada proyecto, agrega más capas de seguridad. Cursor AI hace que sea más fácil de lo que piensas.
 
-export async function POST(request: NextRequest) {
-  try {
-    // Rate limiting
-    const identifier = request.ip ?? '127.0.0.1';
-    const { success } = await rateLimit.limit(identifier);
-    
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Too many requests' },
-        { status: 429 }
-      );
-    }
-
-    const body = await request.json();
-    
-    // Validación con Zod
-    const validatedData = createUserSchema.parse(body);
-    
-    // Lógica de negocio
-    const user = await createUser(validatedData);
-    
-    return NextResponse.json(
-      { user, message: 'Usuario creado exitosamente' },
-      { status: 201 }
-    );
-    
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: 'Datos inválidos', details: error.errors },
-        { status: 400 }
-      );
-    }
-    
-    return NextResponse.json(
-      { error: 'Error interno del servidor' },
-      { status: 500 }
-    );
-  }
-}
-\`\`\`
-
-## 📊 Monitoreo y Performance
-
-### Métricas de Performance
-
-\`\`\`javascript
-// lib/analytics.js
-export function trackWebVitals(metric) {
-  const { name, value, id } = metric;
-  
-  // Enviar a Google Analytics
-  if (typeof gtag !== 'undefined') {
-    gtag('event', name, {
-      event_category: 'Web Vitals',
-      value: Math.round(name === 'CLS' ? value * 1000 : value),
-      event_label: id,
-      non_interaction: true,
-    });
-  }
-  
-  // Enviar a servicio personalizado
-  fetch('/api/analytics', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      metric: name,
-      value: value,
-      timestamp: Date.now(),
-    }),
-  });
-}
-
-// app/layout.js
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
-  );
-}
-\`\`\`
-
-## 🛡️ Seguridad y Mejores Prácticas
-
-### Headers de Seguridad
-
-\`\`\`javascript
-// next.config.js - Headers de seguridad
-const securityHeaders = [
-  {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'on'
-  },
-  {
-    key: 'Strict-Transport-Security',
-    value: 'max-age=63072000; includeSubDomains; preload'
-  },
-  {
-    key: 'X-XSS-Protection',
-    value: '1; mode=block'
-  },
-  {
-    key: 'X-Frame-Options',
-    value: 'SAMEORIGIN'
-  },
-  {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff'
-  },
-  {
-    key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin'
-  }
-];
-
-const nextConfig = {
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: securityHeaders,
-      },
-    ];
-  },
-};
-\`\`\`
-
-## 🎯 Conclusión
-
-Next.js 15 representa un salto cuántico en el desarrollo web moderno. Las mejoras en Turbopack, App Router y optimizaciones de imágenes hacen que sea la elección perfecta para aplicaciones enterprise.
-
-**Próximos pasos:**
-1. Migra tu proyecto a Next.js 15
-2. Implementa Server Components donde sea posible
-3. Optimiza tus imágenes con las nuevas características
-4. Configura métricas de performance
-5. Implementa headers de seguridad
-
-¿Listo para aprovechar el poder de Next.js 15? ¡El futuro del desarrollo web está aquí!`,
-    publishedAt: "2025-03-15T10:00:00Z",
+La seguridad perfecta no existe. Pero puedes acercarte significativamente con las herramientas y prácticas correctas. Y eso hace toda la diferencia.`,
+    publishedAt: "2025-01-15",
+    updatedAt: "2025-01-17",
     author: {
-      name: "fdLeon-dev",
-      email: "contact@fdleon.dev",
+      name: "Facundo de Leon",
+      email: "facudeleon92@gmail.com",
+      avatar: "/avatar.png"
     },
-    tags: ["Next.js", "React", "JavaScript", "Web Development"],
-    category: "Tutorial",
-    featuredImage: "/multimedia/blog/nextjs-15-features.svg",
-    readingTime: 8,
+    tags: ["Cursor AI", "Seguridad Web", "Landing Pages", "Desarrollo Web", "Best Practices"],
+    category: "Desarrollo",
+    featuredImage: "/images/blog/cursor.jpg",
+    readingTime: 10,
     seo: {
-      metaTitle: "Nuevas Características de Next.js 15: Guía Completa 2025",
-      metaDescription: "Descubre las nuevas características de Next.js 15, incluyendo Turbopack mejorado, App Router estabilizado y optimizaciones de performance.",
-      keywords: ["Next.js 15", "React", "JavaScript", "Web Development", "Tutorial"]
+      metaTitle: "Cursor AI: Guía para Crear Landing Pages Seguras",
+      metaDescription: "Aprende cómo usar Cursor AI para crear landing pages modernas con código seguro. Mejores prácticas de seguridad en desarrollo web.",
+      keywords: ["Cursor AI", "Seguridad Web", "Landing Pages", "XSS", "Security Best Practices"]
     },
     featured: true,
     published: true
@@ -473,9 +143,11 @@ Next.js 15 representa un salto cuántico en el desarrollo web moderno. Las mejor
     title: "Mejores Prácticas de TypeScript para Desarrollo Web Moderno",
     slug: "typescript-best-practices",
     excerpt: "Descubre las mejores prácticas de TypeScript para escribir código más seguro, mantenible y escalable en aplicaciones web modernas.",
-    content: `# TypeScript Avanzado: Patrones y Mejores Prácticas para Desarrollo Web
+    content: `# Mejores Prácticas de TypeScript para Desarrollo Web Moderno
 
-TypeScript se ha convertido en el estándar de facto para desarrollo web moderno. En esta guía avanzada, exploraremos patrones complejos, técnicas de optimización y mejores prácticas para escribir código TypeScript de nivel enterprise.
+![TypeScript](/images/blog/typescript.webp)
+
+TypeScript se ha convertido en el estándar de facto para el desarrollo web moderno. No es solo JavaScript con tipos - es una forma completamente nueva de pensar en el código. En este artículo, compartiré las mejores prácticas que he aprendido tras años de trabajar con TypeScript en proyectos de producción.
 
 ## 🚀 Configuración Avanzada de TypeScript
 
@@ -1034,7 +706,7 @@ TypeScript avanzado te permite escribir código más seguro, mantenible y escala
     },
     tags: ["TypeScript", "JavaScript", "Web Development", "Best Practices"],
     category: "Tutorial",
-    featuredImage: "/multimedia/blog/typescript-best-practices.svg",
+    featuredImage: "/images/blog/typescript.webp",
     readingTime: 15,
     seo: {
       metaTitle: "TypeScript Mejores Prácticas: Guía Completa para Desarrollo Web",
