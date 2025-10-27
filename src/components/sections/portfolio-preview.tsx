@@ -203,29 +203,29 @@ export function PortfolioPreview() {
         </motion.div>
       </div>
 
-      {/* Cyber Background decoration */}
-      <div className="absolute inset-0 -z-10 overflow-hidden cyber-grid">
-        <div className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-primary/30 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]">
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-muted-foreground/20 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]">
           <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
             <defs>
               <pattern
-                id="cyber-portfolio-pattern"
-                width={100}
-                height={100}
+                id="portfolio-pattern"
+                width={200}
+                height={200}
                 x="50%"
                 y={-1}
                 patternUnits="userSpaceOnUse"
               >
-                <path d="M0 100L100 0M100 100L0 0" stroke="hsl(120 60% 50% / 0.05)" strokeWidth="0.5" fill="none" />
+                <path d="M.5 200V.5H200" fill="none" />
               </pattern>
             </defs>
-            <svg x="50%" y={-1} className="overflow-visible fill-primary/5">
+            <svg x="50%" y={-1} className="overflow-visible fill-muted-foreground/20">
               <path
                 d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
                 strokeWidth={0}
               />
             </svg>
-            <rect width="100%" height="100%" strokeWidth={0} fill="url(#cyber-portfolio-pattern)" />
+            <rect width="100%" height="100%" strokeWidth={0} fill="url(#portfolio-pattern)" />
           </svg>
         </div>
       </div>

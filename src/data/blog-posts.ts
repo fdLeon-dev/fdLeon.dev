@@ -1453,7 +1453,7 @@ React 18 introduce características poderosas que transforman cómo desarrollamo
     },
     tags: ["React", "JavaScript", "Hooks", "Concurrent", "Suspense"],
     category: "Tutorial",
-    featuredImage: "/multimedia/blog/performance-optimization.svg",
+    featuredImage: "/images/blog/react.jpg",
     readingTime: 18,
     seo: {
       metaTitle: "React 18: Características Avanzadas y Patrones Modernos",
