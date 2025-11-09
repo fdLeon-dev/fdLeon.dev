@@ -4,6 +4,12 @@ import { getBlogSubscribers } from './supabase'
 // Configuración de Resend
 const resend = new Resend(process.env.RESEND_API_KEY || 'dummy-key')
 
+// ID de los templates de email (reemplazar con los IDs reales después de crearlos en Resend)
+const TEMPLATES = {
+  SORTEO: 'sorteo-confirmation',
+  CONTACT: 'contact-confirmation'
+}
+
 // Tipos para emails
 export interface BlogNotificationEmail {
   to: string
@@ -18,6 +24,14 @@ export interface SorteoNotificationEmail {
   to: string
   participantName: string
   businessName: string
+}
+
+export interface ContactFormEmail {
+  to: string
+  name: string
+  email: string
+  subject: string
+  message: string
 }
 
 // Template para notificación de nuevo artículo
@@ -108,61 +122,11 @@ export const sendSorteoConfirmation = async (emailData: SorteoNotificationEmail)
       from: 'fdLeon-dev <noreply@fdleon.dev>',
       to: [emailData.to],
       subject: '🎉 ¡Participación en el Sorteo Confirmada!',
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Participación en Sorteo Confirmada</title>
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px; }
-            .prize-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 20px 0; text-align: center; }
-            .prize-value { font-size: 2em; font-weight: bold; color: #f5576c; }
-            .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>🎉 ¡Participación Confirmada!</h1>
-              <p>Tu participación en el sorteo ha sido registrada exitosamente</p>
-            </div>
-            
-            <div class="content">
-              <div class="prize-card">
-                <h2>¡Hola ${emailData.participantName}!</h2>
-                <p>Tu participación en el sorteo de <strong>${emailData.businessName}</strong> ha sido registrada exitosamente.</p>
-                
-                <div class="prize-value">$1,000 USD</div>
-                <p><strong>Valor del premio:</strong> Landing Page Profesional</p>
-                
-                <h3>¿Qué incluye el premio?</h3>
-                <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
-                  <li>✅ Diseño profesional y moderno</li>
-                  <li>✅ Desarrollo responsive completo</li>
-                  <li>✅ Optimización SEO</li>
-                  <li>✅ Formulario de contacto</li>
-                  <li>✅ Hosting por 1 año</li>
-                  <li>✅ Soporte técnico incluido</li>
-                </ul>
-                
-                <p><strong>Fecha de cierre:</strong> 15 de abril de 2025</p>
-                <p><strong>Máximo de participantes:</strong> 200</p>
-              </div>
-              
-              <div class="footer">
-                <p>¡Buena suerte! Te contactaremos si resultas ganador.</p>
-                <p>fdLeon-dev - Desarrollador Web Profesional</p>
-              </div>
-            </div>
-          </div>
-        </body>
-        </html>
-      `
+      template: 'sorteo-confirmation',
+      data: {
+        name: emailData.participantName,
+        business: emailData.businessName
+      }
     })
 
     if (error) {
@@ -225,3 +189,50 @@ export const sendBlogNotificationsToAll = async (articleData: {
   }
 }
 
+// Template para formulario de contacto
+export const sendContactFormEmail = async (emailData: ContactFormEmail) => {
+  try {
+    // Verificar si la API key está configurada
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('RESEND_API_KEY no está configurada. Simulando envío de email.')
+      return { success: true, data: { id: 'simulated-email-id' } }
+    }
+
+    // Enviar email al usuario usando el template
+    const userConfirmation = await resend.emails.send({
+      from: 'fdLeon-dev <noreply@fdleon.dev>',
+      to: [emailData.to],
+      subject: 'Gracias por contactarte con nosotros',
+      template: 'contact-confirmation',
+      data: {
+        name: emailData.name,
+        subject: emailData.subject,
+        message: emailData.message
+      }
+    })
+
+    // Enviar notificación al administrador
+    const adminNotification = await resend.emails.send({
+      from: 'fdLeon-dev <noreply@fdleon.dev>',
+      to: [process.env.ADMIN_EMAIL || 'facudeleon92@gmail.com'],
+      subject: `Nuevo mensaje de contacto: ${emailData.subject}`,
+      html: `
+        <h2>Nuevo mensaje de contacto</h2>
+        <p><strong>Nombre:</strong> ${emailData.name}</p>
+        <p><strong>Email:</strong> ${emailData.email}</p>
+        <p><strong>Asunto:</strong> ${emailData.subject}</p>
+        <p><strong>Mensaje:</strong><br>${emailData.message}</p>
+      `
+    })
+
+    if (userConfirmation.error || adminNotification.error) {
+      console.error('Error sending contact emails:', { userConfirmation, adminNotification })
+      return { success: false, error: 'Error al enviar los emails' }
+    }
+
+    return { success: true, data: { userEmail: userConfirmation.data, adminEmail: adminNotification.data } }
+  } catch (error) {
+    console.error('Error sending contact form emails:', error)
+    return { success: false, error: 'Error interno del servidor' }
+  }
+}

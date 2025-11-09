@@ -24,8 +24,8 @@ export const projects: Project[] = [
   },
   {
     id: "sistema-gestion-barberia",
-    title: "BLESSED Studio - Sistema de Gestión de Barbería",
-    description: "Sistema completo de gestión para BLESSED Studio con reservas online, control de citas, gestión de clientes, inventario y reportes de ventas. Incluye panel de administración y app móvil para clientes. Barbería premium con servicios especializados.",
+    title: "Sistema Barberia - Sistema de Gestión de Barbería",
+    description: "Sistema completo de gestión para Sistema Barberia con reservas online, control de citas, gestión de clientes, inventario y reportes de ventas. Incluye panel de administración y app móvil para clientes. Barbería premium con servicios especializados.",
     image: "/multimedia/proyecto2/pagina-principal.png",
     images: [
       "/multimedia/proyecto2/pagina-principal.png",
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/fdLeon-dev/Barberia-Sistema",
     featured: true,
     completed: "2024-08-15",
-    client: "BLESSED Studio"
+    client: "Sistema Barberia"
   },
   {
     id: "sc-sport-uy",

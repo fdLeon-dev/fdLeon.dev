@@ -115,8 +115,36 @@ export function SorteoBanner() {
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5" />
 
-                {/* Glass overlay */}
-                <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+                {/* Featured projects background */}
+                <div className="absolute inset-0 flex overflow-hidden">
+                  <div className="w-1/3 h-full relative transform hover:scale-105 transition-transform duration-700">
+                    <img
+                      src="/multimedia/proyecto2/pagina-principal.png"
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover scale-110"
+                    />
+                  </div>
+                  <div className="w-1/3 h-full relative transform hover:scale-105 transition-transform duration-700">
+                    <img
+                      src="/multimedia/proyecto4/principal.png"
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover scale-110"
+                    />
+                  </div>
+                  <div className="w-1/3 h-full relative transform hover:scale-105 transition-transform duration-700">
+                    <img
+                      src="/multimedia/proyecto6/pagina.png"
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover scale-110"
+                    />
+                  </div>
+                </div>
+
+                {/* Enhanced glass effect layers */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent opacity-70" />
+                <div className="absolute inset-0 backdrop-blur-[8px] bg-black/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
 
                 <motion.div
                   variants={itemVariants}

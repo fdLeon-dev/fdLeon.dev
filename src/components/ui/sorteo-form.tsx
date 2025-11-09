@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { User, Mail, Building, Phone, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { User, Mail, Building, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
 import { addSorteoParticipant } from "@/lib/supabase"
 import { trackSorteoParticipation } from "@/lib/analytics"
 
@@ -11,14 +11,12 @@ interface SorteoFormData {
   name: string
   email: string
   business: string
-  phone: string
 }
 
 interface SorteoFormErrors {
   name?: string
   email?: string
   business?: string
-  phone?: string
 }
 
 interface SorteoFormProps {
@@ -30,8 +28,7 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
   const [formData, setFormData] = useState<SorteoFormData>({
     name: "",
     email: "",
-    business: "",
-    phone: ""
+    business: ""
   })
 
   const [errors, setErrors] = useState<SorteoFormErrors>({})
@@ -68,11 +65,6 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
       newErrors.business = "El nombre del negocio debe tener al menos 2 caracteres"
     }
 
-    // Validar teléfono (opcional pero si se proporciona debe ser válido)
-    if (formData.phone.trim() && formData.phone.trim().length < 8) {
-      newErrors.phone = "El teléfono debe tener al menos 8 dígitos"
-    }
-
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -103,29 +95,28 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
     setSubmitError(null)
 
     try {
-      // Obtener información del usuario
-      const userAgent = navigator.userAgent
-      const ipAddress = await fetch('https://api.ipify.org?format=json')
-        .then(res => res.json())
-        .then(data => data.ip)
-        .catch(() => 'unknown')
+      // Enviar datos al endpoint
+      const response = await fetch('/api/sorteo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim().toLowerCase(),
+          business: formData.business.trim(),
+        }),
+      })
 
-      // Preparar datos para la base de datos
-      const participantData = {
-        name: formData.name.trim(),
-        email: formData.email.trim().toLowerCase(),
-        business: formData.business.trim(),
-        phone: formData.phone.trim() || undefined,
-        ip_address: ipAddress,
-        user_agent: userAgent
-      }
-
-      // Agregar participante a la base de datos
-      const result = await addSorteoParticipant(participantData)
+      const result = await response.json()
 
       if (result.success) {
-        // Track participation
-        trackSorteoParticipation(participantData)
+        // Track participation si es necesario
+        trackSorteoParticipation({
+          name: formData.name,
+          email: formData.email,
+          business: formData.business
+        })
 
         setIsSubmitted(true)
         onSuccess?.()
@@ -171,11 +162,11 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
       onSubmit={handleSubmit}
       className="space-y-6"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-6">
         {/* Nombre */}
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-medium text-foreground">
-            Nombre Completo *
+            Nombre *
           </label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -187,7 +178,7 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
               onChange={(e) => handleInputChange('name', e.target.value)}
               className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors ${errors.name ? 'border-red-500' : 'border-input'
                 }`}
-              placeholder="Tu nombre completo"
+              placeholder="Tu nombre"
             />
           </div>
           {errors.name && (
@@ -246,32 +237,6 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
             <p className="text-sm text-red-500 flex items-center gap-1">
               <AlertCircle className="h-4 w-4" />
               {errors.business}
-            </p>
-          )}
-        </div>
-
-        {/* Teléfono */}
-        <div className="space-y-2">
-          <label htmlFor="phone" className="text-sm font-medium text-foreground">
-            Teléfono (Opcional)
-          </label>
-          <div className="relative">
-            <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
-              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors ${errors.phone ? 'border-red-500' : 'border-input'
-                }`}
-              placeholder="+598 99 123 456"
-            />
-          </div>
-          {errors.phone && (
-            <p className="text-sm text-red-500 flex items-center gap-1">
-              <AlertCircle className="h-4 w-4" />
-              {errors.phone}
             </p>
           )}
         </div>

@@ -148,23 +148,21 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
     setSubmitError(null)
 
     try {
-      const templateParams = {
-        from_name: formData.name.trim(),
-        from_email: formData.email.trim(),
-        subject: formData.subject.trim(),
-        message: formData.message.trim(),
-        to_name: "fdLeon-dev",
-        timestamp: new Date().toLocaleString('es-ES', {
-          timeZone: 'America/Montevideo',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      }
+      // Enviar datos al endpoint de contacto
+      const response = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        }),
+      })
 
-      const result = await sendEmail(templateParams)
+      const result = await response.json()
 
       if (result.success) {
         setIsSubmitted(true)
