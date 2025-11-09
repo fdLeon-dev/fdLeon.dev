@@ -22,7 +22,7 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse>>
     const emailResult = await sendSorteoConfirmation({
       to: data.email,
       participantName: data.name,
-      businessName: data.business
+      businessName: data.business ?? ''
     })
 
     return NextResponse.json({

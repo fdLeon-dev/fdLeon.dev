@@ -6,7 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY || 'dummy-key')
 
 // ID de los templates de email (reemplazar con los IDs reales después de crearlos en Resend)
 const TEMPLATES = {
-  SORTEO: 'sorteo-confirmation',
+  SORTEO: 'raffle-participation-confirmation',
   CONTACT: 'contact-confirmation'
 }
 
@@ -118,11 +118,11 @@ export const sendSorteoConfirmation = async (emailData: SorteoNotificationEmail)
       return { success: true, data: { id: 'simulated-email-id' } }
     }
 
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await (resend.emails as any).send({
       from: 'fdLeon-dev <noreply@fdleon.dev>',
       to: [emailData.to],
       subject: '🎉 ¡Participación en el Sorteo Confirmada!',
-      template: 'sorteo-confirmation',
+      template: TEMPLATES.SORTEO,
       data: {
         name: emailData.participantName,
         business: emailData.businessName
@@ -199,11 +199,11 @@ export const sendContactFormEmail = async (emailData: ContactFormEmail) => {
     }
 
     // Enviar email al usuario usando el template
-    const userConfirmation = await resend.emails.send({
+    const userConfirmation = await (resend.emails as any).send({
       from: 'fdLeon-dev <noreply@fdleon.dev>',
       to: [emailData.to],
       subject: 'Gracias por contactarte con nosotros',
-      template: 'contact-confirmation',
+      template: TEMPLATES.CONTACT,
       data: {
         name: emailData.name,
         subject: emailData.subject,

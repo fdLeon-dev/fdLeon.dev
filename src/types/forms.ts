@@ -2,6 +2,7 @@
 export interface SorteoFormData {
   name: string
   email: string
+  business?: string
   phone?: string
   message?: string
 }
