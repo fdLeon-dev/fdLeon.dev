@@ -1,8 +1,11 @@
 -- Ejecuta esto en Supabase SQL Editor para crear las tablas necesarias
 
+-- Asegúrate de habilitar la extensión pgcrypto para gen_random_uuid()
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 -- 1. Tabla para participantes del sorteo
 CREATE TABLE IF NOT EXISTS sorteo_participants (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   email TEXT NOT NULL,
   business TEXT,
@@ -15,7 +18,7 @@ CREATE TABLE IF NOT EXISTS sorteo_participants (
 
 -- 2. Tabla para mensajes de contacto
 CREATE TABLE IF NOT EXISTS contact_messages (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   email TEXT NOT NULL,
   subject TEXT NOT NULL,
@@ -27,7 +30,7 @@ CREATE TABLE IF NOT EXISTS contact_messages (
 
 -- 3. Tabla para suscriptores del blog
 CREATE TABLE IF NOT EXISTS blog_subscribers (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT NOT NULL,
   source TEXT,
   subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
