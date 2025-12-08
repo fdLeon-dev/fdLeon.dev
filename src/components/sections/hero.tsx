@@ -21,135 +21,168 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden py-12 sm:py-20 lg:py-32">
+    <section className="relative min-h-screen flex items-center overflow-hidden py-16 sm:py-24 lg:py-10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="mx-auto max-w-6xl text-center"
+          className="mx-auto max-w-4xl text-center"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
         >
+          {/* Badge Section */}
           <motion.div
             variants={fadeInUp}
-            className="mb-8 sm:mb-12"
+            className="mb-8 sm:mb-10"
           >
-            <div className="mb-4">
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
-                Transformando negocios digitalmente
-              </span>
+            <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border backdrop-blur-sm" style={{ backgroundColor: 'hsl(120 60% 50% / 0.1)', borderColor: 'hsl(120 60% 50% / 0.3)' }}>
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'hsl(120 60% 50%)' }}></span>
+              <span className="text-sm font-semibold" style={{ color: 'hsl(120 60% 35%)' }}>Transformando negocios digitalmente</span>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight mb-6">
-              Tu negocio merece{" "}
-              <span className="cyber-gradient neon-pulse">
-                destacar
-              </span>
-            </h1>
-            <div className="w-24 h-1 bg-primary mx-auto rounded-full neon-glow"></div>
           </motion.div>
 
+          {/* Main Title */}
+          <motion.h1
+            variants={fadeInUp}
+            className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.15] mb-8 text-foreground"
+          >
+            Tu negocio merece{" "}
+            <span className="bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(to right, hsl(120 60% 50%), hsl(120 50% 40%))' }}>
+              destacar
+            </span>
+          </motion.h1>
+
+          {/* Decorative line */}
           <motion.div
             variants={fadeInUp}
-            className="mx-auto max-w-4xl mb-12"
+            className="flex justify-center mb-8"
           >
-            <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed text-muted-foreground mb-6 font-light">
-              Desarrollo sitios web <span className="font-semibold text-foreground">modernos y funcionales</span> que
-              <span className="font-semibold text-foreground"> conectan con tus clientes</span>
+            <div className="w-16 h-1 rounded-full" style={{ backgroundImage: 'linear-gradient(to right, hsl(120 60% 50%), hsl(120 50% 40%))' }}></div>
+          </motion.div>
+
+          {/* Subheading */}
+          <motion.div
+            variants={fadeInUp}
+            className="mx-auto max-w-3xl mb-10 sm:mb-14"
+          >
+            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-foreground/75 font-light mb-8">
+              Desarrollo sitios web{" "}
+              <span className="font-semibold text-foreground">modernos y funcionales</span> que{" "}
+              <span className="font-semibold text-foreground">conectan con tus clientes</span>
             </p>
-            <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-primary rounded-full"></div>
-                <span className="font-medium">+300% Visibilidad</span>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="flex flex-col items-center p-4 rounded-lg border" style={{ backgroundColor: 'hsl(120 60% 50% / 0.08)', borderColor: 'hsl(120 60% 50% / 0.25)' }}>
+                <span className="text-2xl sm:text-3xl font-bold text-foreground mb-2">+300%</span>
+                <span className="text-sm font-semibold" style={{ color: 'hsl(0 0% 45%)' }}>Más Visibilidad</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-primary rounded-full"></div>
-                <span className="font-medium">+150% Conversiones</span>
+              <div className="flex flex-col items-center p-4 rounded-lg border" style={{ backgroundColor: 'hsl(120 60% 50% / 0.08)', borderColor: 'hsl(120 60% 50% / 0.25)' }}>
+                <span className="text-2xl sm:text-3xl font-bold text-foreground mb-2">+150%</span>
+                <span className="text-sm font-semibold" style={{ color: 'hsl(0 0% 45%)' }}>Más Conversiones</span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-primary rounded-full"></div>
-                <span className="font-medium">100% Responsive</span>
+              <div className="flex flex-col items-center p-4 rounded-lg border" style={{ backgroundColor: 'hsl(120 60% 50% / 0.08)', borderColor: 'hsl(120 60% 50% / 0.25)' }}>
+                <span className="text-2xl sm:text-3xl font-bold text-foreground mb-2">100%</span>
+                <span className="text-sm font-semibold" style={{ color: 'hsl(0 0% 45%)' }}>Responsive</span>
               </div>
             </div>
           </motion.div>
 
+          {/* CTA Buttons */}
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-16 sm:mb-20"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 sm:mb-10"
           >
-            <Button asChild size="lg" className="group w-full sm:w-auto cyber-button">
-              <Link href="#servicios">
+            <Button asChild size="lg" className="group w-full sm:w-auto text-white rounded-lg px-8 py-6 text-base font-semibold border-0 hover:opacity-90 transition-opacity" style={{ backgroundColor: 'hsl(120 60% 50%)' }}>
+              <Link href="#servicios" className="flex items-center justify-center">
                 Empezar mi transformación
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto neon-hover neon-border">
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto rounded-lg px-8 py-6 text-base font-semibold text-foreground" style={{ borderColor: 'hsl(120 60% 50% / 0.4)' }}>
               <Link href="/portfolio">
                 Ver casos de éxito
               </Link>
             </Button>
           </motion.div>
 
+          {/* Services Grid */}
           <motion.div
             variants={fadeInUp}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
-            <div className="flex flex-col items-center text-center p-4 sm:p-6 neon-hover neon-border rounded-xl neon-bg">
-              <div className="mb-4 sm:mb-6 rounded-full bg-primary/10 p-3 sm:p-4">
-                <Code className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <motion.div
+              variants={fadeInUp}
+              className="group flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl border neon-hover neon-border neon-bg"
+            >
+              <div className="mb-6 rounded-lg p-4" style={{ backgroundColor: 'hsl(120 60% 50% / 0.15)' }}>
+                <Code className="h-7 w-7" style={{ color: 'hsl(120 70% 40%)' }} />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Desarrollo Web</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+                Desarrollo Web
+              </h3>
+              <p className="text-base text-foreground/70 leading-relaxed font-medium">
                 Sitios web que convierten visitantes en clientes
               </p>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col items-center text-center p-4 sm:p-6 neon-hover neon-border rounded-xl neon-bg">
-              <div className="mb-4 sm:mb-6 rounded-full bg-primary/10 p-3 sm:p-4">
-                <Palette className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <motion.div
+              variants={fadeInUp}
+              className="group flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl border neon-hover neon-border neon-bg"
+            >
+              <div className="mb-6 rounded-lg p-4" style={{ backgroundColor: 'hsl(120 60% 50% / 0.15)' }}>
+                <Palette className="h-7 w-7" style={{ color: 'hsl(120 70% 40%)' }} />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Diseño Web</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+                Diseño Web
+              </h3>
+              <p className="text-base text-foreground/70 leading-relaxed font-medium">
                 Diseños que captan atención y generan confianza
               </p>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col items-center text-center p-4 sm:p-6 sm:col-span-2 lg:col-span-1 neon-hover neon-border rounded-xl neon-bg">
-              <div className="mb-4 sm:mb-6 rounded-full bg-primary/10 p-3 sm:p-4">
-                <Laptop className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <motion.div
+              variants={fadeInUp}
+              className="group flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl border neon-hover neon-border neon-bg sm:col-span-2 lg:col-span-1"
+            >
+              <div className="mb-6 rounded-lg p-4" style={{ backgroundColor: 'hsl(120 60% 50% / 0.15)' }}>
+                <Laptop className="h-7 w-7" style={{ color: 'hsl(120 70% 40%)' }} />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Software</h3>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+                Software
+              </h3>
+              <p className="text-base text-foreground/70 leading-relaxed font-medium">
                 Sistemas que automatizan y optimizan tu negocio
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Background decoration */}
+      {/* Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-muted-foreground/20 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]">
+        {/* Green gradient blobs - using the project's neon green */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse" style={{ backgroundColor: 'hsl(120 60% 50% / 0.15)' }}></div>
+        <div className="absolute -bottom-20 left-1/3 w-80 h-80 rounded-full blur-3xl animate-pulse delay-500" style={{ backgroundColor: 'hsl(120 60% 50% / 0.1)' }}></div>
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-20">
           <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
             <defs>
               <pattern
                 id="hero-pattern"
-                width={200}
-                height={200}
-                x="50%"
-                y={-1}
+                width={40}
+                height={40}
                 patternUnits="userSpaceOnUse"
               >
-                <path d="M.5 200V.5H200" fill="none" />
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
               </pattern>
             </defs>
-            <svg x="50%" y={-1} className="overflow-visible fill-muted-foreground/20">
-              <path
-                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-                strokeWidth={0}
-              />
-            </svg>
-            <rect width="100%" height="100%" strokeWidth={0} fill="url(#hero-pattern)" />
+            <rect width="100%" height="100%" fill="url(#hero-pattern)" className="text-foreground/10" />
           </svg>
         </div>
+
+        {/* Radial gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
       </div>
     </section>
   )

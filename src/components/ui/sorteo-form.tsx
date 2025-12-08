@@ -109,6 +109,13 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
       })
 
       const result = await response.json()
+      if (response.status === 409) {
+        // Email duplicado
+        const dupMessage = result.error || 'Este email ya está registrado en el sorteo.'
+        setSubmitError(dupMessage)
+        onError?.(dupMessage)
+        return
+      }
 
       if (result.success) {
         // Track participation si es necesario

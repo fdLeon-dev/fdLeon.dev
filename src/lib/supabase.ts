@@ -4,8 +4,15 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key'
 
-// Crear cliente de Supabase
+// Crear cliente de Supabase (público)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Crear cliente con Service Role (uso en server-side para operaciones de escritura segura)
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+export const getServiceRoleClient = () => {
+  if (!supabaseServiceRoleKey) return null
+  return createClient(supabaseUrl, supabaseServiceRoleKey)
+}
 
 // Tipos para el sorteo
 export interface SorteoParticipant {
@@ -32,13 +39,33 @@ export interface BlogSubscriber {
 // Funciones para el sorteo
 export const addSorteoParticipant = async (participant: Omit<SorteoParticipant, 'id' | 'created_at'>) => {
   try {
-    // Verificar si Supabase está configurado
+    // Si no está configurado, simular
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
       console.warn('Supabase no está configurado. Simulando inserción de participante.')
       return { success: true, data: { id: 'simulated-id', ...participant, created_at: new Date().toISOString() } }
     }
 
-    const { data, error } = await supabase
+    // Preferir client con service role para operaciones de escritura si está disponible
+    const serviceClient = getServiceRoleClient()
+    const clientToUse = serviceClient ?? supabase
+
+    // verificar si el email ya existe
+    const { data: existing, error: fetchError } = await clientToUse
+      .from('sorteo_participants')
+      .select('id')
+      .eq('email', participant.email)
+      .limit(1)
+
+    if (fetchError) {
+      console.error('Error checking existing participant:', fetchError)
+      return { success: false, error: fetchError.message }
+    }
+
+    if (existing && (existing as any).length > 0) {
+      return { success: false, error: 'El email ya está registrado', code: 'DUPLICATE' }
+    }
+
+    const { data, error } = await clientToUse
       .from('sorteo_participants')
       .insert([participant])
       .select()
@@ -114,7 +141,11 @@ export const addBlogSubscriber = async (subscriber: Omit<BlogSubscriber, 'id' | 
       return { success: true, data: { id: 'simulated-id', ...subscriber, subscribed_at: new Date().toISOString() } }
     }
 
-    const { data, error } = await supabase
+    // Preferir service role client para escritura
+    const serviceClient = getServiceRoleClient()
+    const clientToUse = serviceClient ?? supabase
+
+    const { data, error } = await clientToUse
       .from('blog_subscribers')
       .insert([subscriber])
       .select()
@@ -166,7 +197,11 @@ export const unsubscribeBlogSubscriber = async (email: string) => {
       return { success: true }
     }
 
-    const { error } = await supabase
+    // Preferir service role client para escritura
+    const serviceClient = getServiceRoleClient()
+    const clientToUse = serviceClient ?? supabase
+
+    const { error } = await clientToUse
       .from('blog_subscribers')
       .update({ is_active: false })
       .eq('email', email)
@@ -179,6 +214,42 @@ export const unsubscribeBlogSubscriber = async (email: string) => {
     return { success: true }
   } catch (error) {
     console.error('Error unsubscribing blog subscriber:', error)
+    return { success: false, error: 'Error interno del servidor' }
+  }
+}
+
+// Guardar mensajes de contacto
+export const addContactMessage = async (message: {
+  name: string
+  email: string
+  subject: string
+  message: string
+  ip_address?: string
+  user_agent?: string
+}) => {
+  try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.warn('Supabase no está configurado. Simulando inserción de mensaje de contacto.')
+      return { success: true, data: { id: 'simulated-id', ...message, created_at: new Date().toISOString() } }
+    }
+
+    const serviceClient = getServiceRoleClient()
+    const clientToUse = serviceClient ?? supabase
+
+    const { data, error } = await clientToUse
+      .from('contact_messages')
+      .insert([message])
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error adding contact message:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true, data }
+  } catch (error) {
+    console.error('Error adding contact message:', error)
     return { success: false, error: 'Error interno del servidor' }
   }
 }

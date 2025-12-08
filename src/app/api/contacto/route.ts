@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { sendContactFormEmail } from '@/lib/email-service'
+import { addContactMessage } from '@/lib/supabase'
 import { ContactFormData, ApiResponse } from '@/types/forms'
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponse>> {
@@ -14,9 +15,23 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse>>
       )
     }
 
-    // TODO: Guardar datos en base de datos
-    // Por ahora simularemos el guardado
-    console.log('Guardando datos del contacto:', data)
+    // Guardar datos en base de datos
+    const userAgent = request.headers.get('user-agent') ?? ''
+    const forwardedFor = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? ''
+
+    const saveResult = await addContactMessage({
+      name: data.name,
+      email: data.email,
+      subject: data.subject,
+      message: data.message,
+      ip_address: forwardedFor,
+      user_agent: userAgent
+    })
+
+    if (!saveResult || !saveResult.success) {
+      console.error('Error guardando mensaje de contacto:', saveResult)
+      return NextResponse.json({ success: false, error: 'No se pudo guardar el mensaje' }, { status: 500 })
+    }
 
     // Enviar email de confirmación
     const emailResult = await sendContactFormEmail({

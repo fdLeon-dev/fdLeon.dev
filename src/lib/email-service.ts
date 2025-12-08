@@ -4,10 +4,10 @@ import { getBlogSubscribers } from './supabase'
 // Configuración de Resend
 const resend = new Resend(process.env.RESEND_API_KEY || 'dummy-key')
 
-// ID de los templates de email (reemplazar con los IDs reales después de crearlos en Resend)
+// Leer IDs de templates desde variables de entorno si están disponibles
 const TEMPLATES = {
-  SORTEO: 'raffle-participation-confirmation',
-  CONTACT: 'contact-confirmation'
+  SORTEO: process.env.RESEND_RAFFLE_TEMPLATE_ID || process.env.RESEND_RAFFLE_TEMPLATE || 'raffle-participation-confirmation',
+  CONTACT: process.env.RESEND_CONTACT_TEMPLATE_ID || process.env.RESEND_CONTACT_TEMPLATE || 'contact-confirmation'
 }
 
 // Tipos para emails
@@ -119,7 +119,7 @@ export const sendSorteoConfirmation = async (emailData: SorteoNotificationEmail)
     }
 
     const { data, error } = await (resend.emails as any).send({
-      from: 'fdLeon-dev <noreply@fdleon.dev>',
+      from: `fdLeon-dev <noreply@${process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, '') ?? 'fdleon.dev'}>`,
       to: [emailData.to],
       subject: '🎉 ¡Participación en el Sorteo Confirmada!',
       template: TEMPLATES.SORTEO,
@@ -137,6 +137,64 @@ export const sendSorteoConfirmation = async (emailData: SorteoNotificationEmail)
     return { success: true, data }
   } catch (error) {
     console.error('Error sending sorteo confirmation:', error)
+    return { success: false, error: 'Error interno del servidor' }
+  }
+}
+
+// Enviar enlace/archivo del ebook al usuario
+export const sendEbookDeliveryEmail = async (to: string, name?: string) => {
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('RESEND_API_KEY no está configurada. Simulando envío de email del ebook.')
+      return { success: true, data: { id: 'simulated-email-id' } }
+    }
+
+    const downloadUrl = `${process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ?? 'https://fdleon.dev'}/ebook/guia-landing-pages.pdf`
+
+    // Usar template si está configurado
+    const templateId = process.env.RESEND_EBOOK_TEMPLATE_ID || process.env.RESEND_EBOOK_TEMPLATE
+
+    if (templateId) {
+      const result = await (resend.emails as any).send({
+        from: `fdLeon-dev <noreply@${process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, '') ?? 'fdleon.dev'}>`,
+        to: [to],
+        subject: 'Tu guía: Landing Pages — descarga aquí',
+        template: templateId,
+        data: {
+          name: name ?? '',
+          downloadUrl
+        }
+      })
+
+      if ((result as any).error) {
+        console.error('Error sending ebook via template:', result)
+        return { success: false, error: (result as any).error }
+      }
+
+      return { success: true, data: (result as any).data }
+    }
+
+    // Fallback: enviar HTML simple con enlace al PDF
+    const { data, error } = await resend.emails.send({
+      from: `fdLeon-dev <noreply@${process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, '') ?? 'fdleon.dev'}>`,
+      to: [to],
+      subject: 'Tu guía: Landing Pages — descarga aquí',
+      html: `
+        <p>Hola ${name ?? ''},</p>
+        <p>Gracias por interesarte en la guía. Puedes descargarla desde el siguiente enlace:</p>
+        <p><a href="${downloadUrl}">Descargar Guía: Landing Pages</a></p>
+        <p>Si no solicitaste este archivo, ignora este mensaje.</p>
+      `
+    })
+
+    if (error) {
+      console.error('Error sending ebook email:', error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true, data }
+  } catch (error) {
+    console.error('Error sending ebook email:', error)
     return { success: false, error: 'Error interno del servidor' }
   }
 }
@@ -200,7 +258,7 @@ export const sendContactFormEmail = async (emailData: ContactFormEmail) => {
 
     // Enviar email al usuario usando el template
     const userConfirmation = await (resend.emails as any).send({
-      from: 'fdLeon-dev <noreply@fdleon.dev>',
+      from: `fdLeon-dev <noreply@${process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, '') ?? 'fdleon.dev'}>`,
       to: [emailData.to],
       subject: 'Gracias por contactarte con nosotros',
       template: TEMPLATES.CONTACT,
@@ -213,7 +271,7 @@ export const sendContactFormEmail = async (emailData: ContactFormEmail) => {
 
     // Enviar notificación al administrador
     const adminNotification = await resend.emails.send({
-      from: 'fdLeon-dev <noreply@fdleon.dev>',
+      from: `fdLeon-dev <noreply@${process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, '') ?? 'fdleon.dev'}>`,
       to: [process.env.ADMIN_EMAIL || 'facudeleon92@gmail.com'],
       subject: `Nuevo mensaje de contacto: ${emailData.subject}`,
       html: `

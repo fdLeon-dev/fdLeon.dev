@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
-import { initEmailJS, sendEmail } from "@/lib/emailjs"
 
 interface ContactFormData {
   name: string
@@ -46,10 +45,8 @@ export function ContactForm({ onSuccess, onError, className }: ContactFormProps)
   const formRef = useRef<HTMLFormElement>(null)
   const nameInputRef = useRef<HTMLInputElement>(null)
 
-  // Inicializar EmailJS al cargar el componente
+  // Focus en el primer campo para mejor UX
   useEffect(() => {
-    initEmailJS()
-    // Focus en el primer campo para mejor UX
     nameInputRef.current?.focus()
   }, [])
 

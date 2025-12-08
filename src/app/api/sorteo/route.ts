@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { sendSorteoConfirmation } from '@/lib/email-service'
+import { addSorteoParticipant } from '@/lib/supabase'
 import { SorteoFormData, ApiResponse } from '@/types/forms'
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponse>> {
@@ -14,9 +15,34 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse>>
       )
     }
 
-    // TODO: Guardar datos en base de datos
-    // Por ahora simularemos el guardado
-    console.log('Guardando datos del sorteo:', data)
+    // Guardar datos en base de datos
+    const userAgent = request.headers.get('user-agent') ?? ''
+    const forwardedFor = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? ''
+
+    const saveResult = await addSorteoParticipant({
+      name: data.name,
+      email: data.email,
+      business: data.business ?? '',
+      phone: data.phone ?? '',
+      ip_address: forwardedFor,
+      user_agent: userAgent,
+    })
+
+    if (!saveResult || !saveResult.success) {
+      console.error('Error guardando participante del sorteo:', saveResult)
+      // Manejar caso de email duplicado
+      if (saveResult && (saveResult as any).code === 'DUPLICATE') {
+        return NextResponse.json(
+          { success: false, error: 'El email ya está registrado' },
+          { status: 409 }
+        )
+      }
+
+      return NextResponse.json(
+        { success: false, error: 'No se pudo guardar la participación' },
+        { status: 500 }
+      )
+    }
 
     // Enviar email de confirmación
     const emailResult = await sendSorteoConfirmation({

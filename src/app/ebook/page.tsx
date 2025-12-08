@@ -22,13 +22,13 @@ import { ContactForm } from "@/components/ui/contact-form-enhanced"
 export default function EbookPage() {
   const [isDownloaded, setIsDownloaded] = useState(false)
 
-  const handleDownload = () => {
+  const handleDownload = (data?: any) => {
     setIsDownloaded(true)
-    // Aquí podrías implementar la descarga real del PDF
-    // Por ahora simulamos la descarga
+    // Si la API devuelve una URL de descarga, usarla
+    const url = data?.downloadUrl ?? '/ebook/guia-landing-pages.pdf'
     setTimeout(() => {
-      window.open('/ebook/guia-landing-pages.pdf', '_blank')
-    }, 1000)
+      window.open(url, '_blank')
+    }, 800)
   }
 
   const containerVariants = {
@@ -225,6 +225,7 @@ export default function EbookPage() {
 
             <ContactForm
               onSuccess={handleDownload}
+              apiEndpoint="/api/ebook"
               className="space-y-6"
               showSubject={false}
               showMessage={false}

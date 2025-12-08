@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Send, CheckCircle, AlertCircle, Loader2, LucideIcon } from "lucide-react"
-import { initEmailJS, sendEmail } from "@/lib/emailjs"
 import { trackContactFormSubmission, trackContactFormSuccess, trackContactFormError } from "@/lib/analytics"
 
 interface CustomField {
@@ -29,7 +28,7 @@ interface FormErrors {
 }
 
 interface ContactFormEnhancedProps {
-  onSuccess?: () => void
+  onSuccess?: (data?: any) => void
   onError?: (error: string) => void
   className?: string
   showSubject?: boolean
@@ -37,6 +36,7 @@ interface ContactFormEnhancedProps {
   customFields?: CustomField[]
   submitText?: string
   successMessage?: string
+  apiEndpoint?: string // si se provee, el formulario hará POST a esta ruta en vez de usar EmailJS
 }
 
 export function ContactForm({
@@ -47,7 +47,8 @@ export function ContactForm({
   showMessage = true,
   customFields = [],
   submitText = "Enviar mensaje",
-  successMessage = "¡Mensaje enviado correctamente!"
+  successMessage = "¡Mensaje enviado correctamente!",
+  apiEndpoint = '/api/contacto'
 }: ContactFormEnhancedProps) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -64,10 +65,7 @@ export function ContactForm({
   const formRef = useRef<HTMLFormElement>(null)
   const nameInputRef = useRef<HTMLInputElement>(null)
 
-  // Inicializar EmailJS al cargar el componente
-  useEffect(() => {
-    initEmailJS()
-  }, [])
+  // No client-side EmailJS: siempre usamos endpoint server-side (apiEndpoint)
 
   // Inicializar campos personalizados
   useEffect(() => {
@@ -167,23 +165,27 @@ export function ContactForm({
     setSubmitError(null)
 
     try {
-      // Preparar datos para EmailJS
-      const emailData: Record<string, string> = {
-        from_name: formData.name,
-        from_email: formData.email,
+      const payload: Record<string, string> = {
+        name: formData.name,
+        email: formData.email,
         subject: formData.subject || "Nuevo mensaje desde el sitio web",
         message: formData.message || "Formulario de contacto completado"
       }
 
       // Agregar campos personalizados
       customFields.forEach(field => {
-        emailData[field.name] = formData[field.name] || ""
+        payload[field.name] = formData[field.name] || ""
       })
 
-      const result = await sendEmail(emailData)
+      const resp = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
 
-      if (result.success) {
-        // Track successful submission
+      const json = await resp.json()
+
+      if (resp.ok && json && json.success) {
         trackContactFormSuccess({
           name: formData.name,
           email: formData.email,
@@ -191,9 +193,9 @@ export function ContactForm({
         })
 
         setIsSubmitted(true)
-        onSuccess?.()
+        onSuccess?.(json)
       } else {
-        throw new Error("Error al enviar el mensaje")
+        throw new Error(json?.error || 'Error en el servidor')
       }
     } catch (error) {
       const errorMessage = "Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo."
