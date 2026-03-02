@@ -72,6 +72,18 @@ CREATE POLICY "Allow authenticated read" ON sorteo_participants
   FOR SELECT USING (auth.role() = 'authenticated');
 ```
 
+> 💾 **Exportación de participantes**
+>
+> Para bajar todos los registros puedes utilizar el endpoint que ya se agregó al proyecto:
+>
+> ```text
+> GET /api/sorteo/export
+> ```
+>
+> La respuesta es un CSV descargable con las columnas `name,email,business,phone,created_at,ip_address,user_agent`.
+> Este archivo puede abrirse en Excel/Google Sheets y guardarse como PDF, o bien puedes extender el handler para construir directamente un PDF usando una librería como `pdfkit` o `jsPDF`.
+> La idea es mantener los datos en la base y generar el documento solo cuando lo necesites.
+
 ### Para blog_subscribers:
 ```sql
 -- Habilitar RLS

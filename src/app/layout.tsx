@@ -18,6 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "FDLeon-dev - Desarrollador Web Profesional",
   description: "Desarrollador web profesional especializado en React, Next.js, TypeScript y diseño moderno.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

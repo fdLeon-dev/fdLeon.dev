@@ -11,12 +11,14 @@ interface SorteoFormData {
   name: string
   email: string
   business: string
+  phone?: string
 }
 
 interface SorteoFormErrors {
   name?: string
   email?: string
   business?: string
+  phone?: string
 }
 
 interface SorteoFormProps {
@@ -28,7 +30,8 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
   const [formData, setFormData] = useState<SorteoFormData>({
     name: "",
     email: "",
-    business: ""
+    business: "",
+    phone: ""
   })
 
   const [errors, setErrors] = useState<SorteoFormErrors>({})
@@ -63,6 +66,14 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
       newErrors.business = "El nombre del negocio es requerido"
     } else if (formData.business.trim().length < 2) {
       newErrors.business = "El nombre del negocio debe tener al menos 2 caracteres"
+    }
+
+    // Validar teléfono (opcional, formato simple)
+    if (formData.phone && formData.phone.trim()) {
+      const phoneRegex = /^[0-9\s\-()+]+$/
+      if (!phoneRegex.test(formData.phone.trim())) {
+        newErrors.phone = "El teléfono contiene caracteres inválidos"
+      }
     }
 
     setErrors(newErrors)
@@ -105,6 +116,7 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
           name: formData.name.trim(),
           email: formData.email.trim().toLowerCase(),
           business: formData.business.trim(),
+          phone: formData.phone?.trim() || '',
         }),
       })
 
@@ -122,7 +134,8 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
         trackSorteoParticipation({
           name: formData.name,
           email: formData.email,
-          business: formData.business
+          business: formData.business,
+          phone: formData.phone
         })
 
         setIsSubmitted(true)
@@ -244,6 +257,32 @@ export function SorteoForm({ onSuccess, onError }: SorteoFormProps) {
             <p className="text-sm text-red-500 flex items-center gap-1">
               <AlertCircle className="h-4 w-4" />
               {errors.business}
+            </p>
+          )}
+        </div>
+
+        {/* Teléfono opcional */}
+        <div className="space-y-2">
+          <label htmlFor="phone" className="text-sm font-medium text-foreground">
+            Teléfono (opcional)
+          </label>
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              value={formData.phone}
+              onChange={(e) => handleInputChange('phone', e.target.value)}
+              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors ${errors.phone ? 'border-red-500' : 'border-input'
+                }`}
+              placeholder="Número de contacto"
+            />
+          </div>
+          {errors.phone && (
+            <p className="text-sm text-red-500 flex items-center gap-1">
+              <AlertCircle className="h-4 w-4" />
+              {errors.phone}
             </p>
           )}
         </div>

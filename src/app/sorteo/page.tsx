@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -21,6 +21,23 @@ import { featuredProjects } from "@/data/projects"
 
 export default function SorteoPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [participantCount, setParticipantCount] = useState<number | null>(null)
+
+  // fetch current participant count on mount
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await fetch('/api/sorteo/count')
+        const data = await res.json()
+        if (data.success && typeof data.count === 'number') {
+          setParticipantCount(data.count)
+        }
+      } catch (e) {
+        console.warn('could not load participant count', e)
+      }
+    }
+    fetchCount()
+  }, [])
 
   const handleFormSuccess = () => {
     setIsSubmitted(true)
@@ -240,6 +257,11 @@ export default function SorteoPage() {
               <h2 className="text-2xl font-bold text-foreground mb-4">
                 Participa en el sorteo
               </h2>
+              {participantCount !== null && (
+                <p className="text-sm text-primary mb-2">
+                  Ya participan <strong>{participantCount}</strong> personas
+                </p>
+              )}
               <p className="text-muted-foreground">
                 Completa el formulario y automáticamente estarás participando
               </p>

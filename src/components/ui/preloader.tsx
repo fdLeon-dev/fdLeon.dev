@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { OptimizedImage } from './optimized-image'
 
 interface PreloaderProps {
   children: React.ReactNode
@@ -40,8 +41,16 @@ export function Preloader({ children }: PreloaderProps) {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                <span className="text-2xl font-bold text-primary-foreground">f</span>
+              <div className="w-16 h-16 relative">
+                {/* logo for preloader; make sure file exists in public/images */}
+                <OptimizedImage
+                  src="/images/logo.png"
+                  alt="fdLeon-dev"
+                  width={64}
+                  height={64}
+                  className="rounded-full"
+                  priority
+                />
               </div>
 
               {/* Anillo de carga */}

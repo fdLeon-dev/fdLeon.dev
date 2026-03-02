@@ -361,11 +361,13 @@ export const trackSorteoParticipation = (participantData: {
   name: string
   email: string
   business?: string
+  phone?: string
 }) => {
   trackEvent('sorteo_participation', {
     participant_name: participantData.name,
     participant_email: participantData.email,
     participant_business: participantData.business || 'unknown',
+    participant_phone: participantData.phone || 'unknown',
     timestamp: new Date().toISOString()
   })
 }

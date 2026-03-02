@@ -68,6 +68,17 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  /* watermark logo visible on all pages */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('/images/logo.png') center/contain no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: -1;
+  }
 }
 
 @layer utilities {

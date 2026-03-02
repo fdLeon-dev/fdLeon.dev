@@ -27,6 +27,14 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link className="flex items-center space-x-2" href="/">
+              {/* replace "/images/logo.png" with the actual path once you place the file in public */}
+              <img
+                src="/images/logo.png"
+                alt="FDLeon‑dev logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
               <span className="font-bold text-lg sm:text-xl cyber-gradient">
                 FDLeon-dev
               </span>
